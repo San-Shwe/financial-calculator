@@ -3,37 +3,50 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-class SimpleContainer extends React.Component {
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+import MajorSection from './sections/major_section';
+import CenteredTabs from './sections/roll_or_bag'
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+  
+class MainContainer extends React.Component {
     render(){
         return (
             <React.Fragment>
                 <CssBaseline />
                 <Container maxWidth="lg">
-                    <Banner />
-                    <Box sx={{ bgcolor: '#cfe8fc', height: '50vh' }}>
+                    {/* <Box sx={{ bgcolor: '#cfe8fc', height: '50vh' }}>
                         <Toolbar>
                             <h2>Hello React</h2>
                         </Toolbar>
-                    </Box>
+                    </Box> */}
+                    {this.props.children}
                 </Container>
             </React.Fragment>
         )
     }
 }
-class Banner extends React.Component {
+class TopBanner extends React.Component {
     render(){
         return (
-            <React.Fragment>
-                <CssBaseline />
-                <Container maxWidth="sm" align="center">
-                <Box sx={{ bgcolor: '#cfe8fc', height: '10vh' }}>
+            <div>
+                <Box sx={{ bgcolor: '#cfe8fc', height: '10vh', lineHeight: '100%' }}>
                     <h4 color='primary'>Myit Shwe Wah</h4>
                 </Box>
-                </Container>
-            </React.Fragment>
+            </div>
         );
     }
 }
+
 class Toolbar extends React.Component {
     render() {
         return (
@@ -47,9 +60,27 @@ class Toolbar extends React.Component {
 const App = props => {
     return (
         <div>
-            <SimpleContainer>
-                <h2>SimpleContainer</h2>
-            </SimpleContainer>
+            <MainContainer>
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} md={12}>
+                            <Item><TopBanner /></Item>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                            <Item><MajorSection /></Item>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={8}>
+                            <Item><CenteredTabs /></Item>
+                        </Grid>
+                        <Grid item xs={6} md={8}>
+                            <Item>xs=6 md=8</Item>
+                        </Grid>
+                        <Grid item xs={6} md={4}>
+                            <Item>xs=6 md=4</Item>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </MainContainer>
         </div>
     )
 }
