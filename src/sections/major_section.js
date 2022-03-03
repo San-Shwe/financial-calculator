@@ -2,18 +2,10 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
 
 export default function MajorSection() {
     return (
-        <Stack spacing={2} sx={{ width: 300, maxWidth: '100%',}}>
-            {/* <Box
-            sx={{
-                width: 500,
-                maxWidth: '100%',
-            }}
-             */}
-            
+        <Stack spacing={2} sx={{ maxWidth: '100%', width: '100%'}}>            
             <TextField id="outlined-basic" fullWidth size="small"  label="Product Name" variant="outlined" />
             <Autocomplete
                 disablePortal
@@ -22,8 +14,7 @@ export default function MajorSection() {
                 options={Structures}
                 renderInput={(params) => <TextField {...params} label="Structure" />}
             />
-            <TextField id="standard-basic" size="small"  label="Product Size" variant="outlined" />
-            {/* </Box> */}
+            <TextField id="standard-basic" size="small" label="Product Size" variant="outlined" />
         </Stack>
     )
 }

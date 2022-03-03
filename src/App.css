@@ -36,3 +36,93 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* ===========================Start CSS for Final Result============================= */
+.cost {
+  list-style: none;
+  margin: 10px 0;
+  padding: 10px;
+  background: #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.costf_list {
+  margin-top: 20px;
+}
+
+.grand_total {
+  font-weight: 700;
+  color: brown;
+}
+
+.per_unit {
+  font-weight: 300;
+  color: rgb(30, 146, 26);
+}
+
+/* ===========================End CSS for Final Result============================= */
+
+/* ===========================Start Default Style============================= */
+:root {
+  --bg: #242526;
+  --bg-accent: #484a4d;
+  --text-color: #dadce1;
+  --border: 1px solid #474a4d;
+  --nav-size: 60px;
+  --speed: 500ms;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* ===========================End Default============================= */
+
+/* ===========================Start Nav============================= */
+.navbar{
+  position:fixed;
+  height: var(--nav-size);
+  background-color: var(--bg);
+  padding: 0 1rem;
+  border-bottom: var(--border);
+  left:0px;
+  bottom:0px;
+  width: 100%;
+}
+
+
+.navbar-nav{
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item{
+  width: calc(var(--nav-size) * 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button{
+  --button-size: calc(val(var(--nav-size) * 0.5));
+  width : var(--button-size);
+  height : var(--button-size);
+  border-radius: 15%;
+  background-color: #355e9b;
+  padding: 10px;
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+}
+/* ===========================Start Nav============================= */

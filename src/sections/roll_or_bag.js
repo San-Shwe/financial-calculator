@@ -5,8 +5,9 @@ import TabsListUnstyled from '@mui/base/TabsListUnstyled';
 import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
 import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
-import Box from '@mui/material/Box';
-
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
 const blue = {
@@ -85,31 +86,37 @@ export default function UnstyledTabsCustomized() {
         <Tab>Kg Form</Tab>
       </TabsList>
       <TabPanel value={0}>
-          <TextField id="rollup" size="small" color="secondary" label="Up" variant="filled" />
-          <TextField id="rollmeter" size="small" color="secondary" label="Meter" variant="filled" />
-          <TextField id="rollmr" size="small" color="secondary" label="M/R" variant="filled" />
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          spacing={0.5}
+          sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
+        >
+          <TextField id="rollup" size="small" color="secondary" label="Up" variant="outlined" />
+          <TextField id="rollmeter" size="small" color="secondary" label="Meter" variant="outlined" />
+          <TextField id="rollmr" size="small" color="secondary" label="M/R" variant="outlined" />
+          <Divider orientation="vertical" flexItem />
+          <Typography style={{ padding: 10, borderRadius: 10, fontWeight: 5000 }}>$0.00</Typography>
+        </Stack>
       </TabPanel>
-      <TabPanel value={1}>2</TabPanel>
-      <TabPanel value={2}>1</TabPanel>
+      <TabPanel value={1}>
+        <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={0.5}
+            sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
+          >
+            <TextField id="meterOrpcs" size="small" color="secondary" label="Meter Or Pcs" variant="outlined" />
+            <TextField id="cuttinglength" size="small" color="secondary" label="Cutting Length" variant="outlined" />
+            <TextField id="bagup" size="small" color="secondary" label="Up" variant="outlined" />
+            <Divider color="primary" orientation="vertical" flexItem />
+            <Typography style={{ padding: 10, fontWeight: 5000 }}>$0.00</Typography>
+          </Stack>
+      </TabPanel>
+      <TabPanel value={2}>currently unavailable</TabPanel>
     </TabsUnstyled>
   );
 }
 
-const rollForm = () => {
-    return (
-        <p>roll form</p>
-    );
-}
-
-const bagFrom = () => {
-    return (
-        <p>bag form</p>
-    );
-}
-
-
-const kgFrom = () => {
-    return (
-        <p>kg form</p>
-    );
-}
