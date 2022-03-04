@@ -1,98 +1,145 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+import React from 'react';
+import { styled } from '@mui/system';
+import TabsUnstyled from '@mui/base/TabsUnstyled';
+import TabsListUnstyled from '@mui/base/TabsListUnstyled';
+import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
+import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
+import Divider from '@mui/material/Divider';
+// import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Icon from '@mui/material/Icon';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+const blue = {
+  50: '#F0F7FF',
+  100: '#C2E0FF',
+  200: '#80BFFF',
+  300: '#66B2FF',
+  400: '#3399FF',
+  500: '#007FFF',
+  600: '#0072E5',
+  700: '#0059B2',
+  800: '#004C99',
+  900: '#003A75',
+};
+
+const Tab = styled(TabUnstyled)`
+  font-family: IBM Plex Sans, sans-serif;
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: bold;
+  background-color: transparent;
+  width: 100%;
+  padding: 12px 16px;
+  margin: 6px 6px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    background-color: ${blue[400]};
+  }
+
+  &:focus {
+    color: #fff;
+    border-radius: 3px;
+    outline: 2px solid ${blue[200]};
+    outline-offset: 2px;
+  }
+
+  &.${tabUnstyledClasses.selected} {
+    background-color: ${blue[50]};
+    color: ${blue[600]};
+  }
+
+  &.${buttonUnstyledClasses.disabled} {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+const TabPanel = styled(TabPanelUnstyled)`
+  width: 100%;
+  font-family: IBM Plex Sans, sans-serif;
+  font-size: 0.875rem;
+`;
+
+const TabsList = styled(TabsListUnstyled)`
+  min-width: 320px;
+  background-color: ${blue[500]};
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: space-between;
+`;
+
+const RawInputs = ({newRow}) => {
+  console.log({newRow});
+
+  const [inputValue, setInputValue] = React.useState('');
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+    <div>
+      {newRow.map(i => 
+          <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="flex-start"
+          spacing={0.5}
+          key={i.id }
+          sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+          >
+            <Autocomplete
+              size="small"
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+              }}
+              options={Structures}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="Structure" />}
+            />
+            <TextField size="small" value={i.name} label="fullWidth" id="fullWidth" />
+            <TextField id="meterOrpcs" value={i.price} size="small" color="secondary" label="Meter Or Pcs" variant="outlined" />
+            <span style={{ padding: 10, fontWeight: 5000 }}>${i.price}</span>
+          </Stack>
+        )}
     </div>
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-// function Ink() {
-//   return (
-    
-//   );
-// }
-
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+export default function UnstyledTabsCustomized({newRow, setNewRow}) {
+  let id = newRow.length + 1
+  const newRowHandler = (e) => {
+    setNewRow([
+      ...newRow, 
+      { id:id, name:"", price:0 }
+    ]);
+  }
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="INK" {...a11yProps(0)} />
-          <Tab label="FILM" {...a11yProps(1)} />
-          <Tab label="GLUE" {...a11yProps(2)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-          <Stack 
-          direction="row"
-          alignItems="left"
-          spacing={0.5}
-          sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
-          >
-            <Autocomplete
-                size="small" 
-                options={Structures}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Structure" />}
-            />
-            <TextField size="small" label="fullWidth" id="fullWidth" />
-            <TextField id="meterOrpcs" size="small" color="secondary" label="Meter Or Pcs" variant="outlined" />
-            <Typography style={{ padding: 10, fontWeight: 5000 }}>$0.00</Typography>
-        </Stack>
-        <Button variant="contained" endIcon={<ThreeDRotation />}>
-          Send
-      </Button>
+    <TabsUnstyled defaultValue={0}>
+      <TabsList>
+        <Tab>Roll Form</Tab>
+        <Tab>Bag Form</Tab>
+        <Tab>Kg Form</Tab>
+      </TabsList>
+      <TabPanel value={0}>
+        <RawInputs newRow={newRow} />
+        <Icon onClick={newRowHandler} sx={{ fontSize: 30 }}>add_circle</Icon>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        {/* <Ink /> */}
+      <TabPanel value={1}>
+      currently unavailable
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        {/* <Ink /> */}
-      </TabPanel>
-    </Box>
+      <TabPanel value={2}>currently unavailable</TabPanel>
+    </TabsUnstyled>
   );
 }
 

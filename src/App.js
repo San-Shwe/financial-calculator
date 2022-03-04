@@ -1,15 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
-// import TextField from '@mui/material/TextField';
-// import Autocomplete from '@mui/material/Autocomplete';
-
+// IMPORT COMPONENT FROM SECTIONS
 import {NavBar, NavItem} from './Layout/navigation'
 import TopBanner from './sections/topBanner'
 import MajorSection from './sections/major_section';
@@ -27,8 +24,18 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
-  
-const App = props => {
+
+const App = () => {
+    // for major section 
+    const [porductName, setProductName] = React.useState("");
+    const [structure, setStructure] = React.useState([]);
+    const [productSize, setProductSize] = React.useState("");
+
+    // for raw section 
+    const [newRow, setNewRow] = useState(([
+        { id: 1, name: 'The Dark Knight', price: 0.99 },
+        ]));
+
     return (
         <React.Fragment>
             <CssBaseline />
@@ -38,15 +45,18 @@ const App = props => {
                         <Grid item xs={12} md={12}>
                             <Item><TopBanner /></Item>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Item><MajorSection /></Item>
+                        <Grid item xs={12} sm={6} md={4}> 
+                            <Item><MajorSection porductName={porductName} setProductName={setProductName} 
+                            structure={structure} setStructure={setStructure} 
+                            productSize={productSize} setProductSize={setProductSize} 
+                            /></Item>
                         </Grid>
                         <Grid item xs={12} sm={6} md={8}>
                             <Item><CenteredTabs /></Item>
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <Item>
-                                <Raws /> 
+                                <Raws newRow={newRow} setNewRow={setNewRow}/>
                             </Item>
                         </Grid>
                         <Grid item xs={12} md={12}>
@@ -62,7 +72,6 @@ const App = props => {
                 </Box>
             </Container>
             <NavBar>
-                {/* <NavItem icon="Calculate" /> */}
                 <NavItem icon="😊" />
                 <NavItem icon="😊" />
                 <NavItem icon="😊" />

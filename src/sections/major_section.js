@@ -3,18 +3,31 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function MajorSection() {
+const MajorSection = ({porductName, setProductName, structure, setStructure, productSize, setProductSize}) => {
+    const porductNameHandler = (e) => {
+        setProductName(e.target.value);
+    }
+
+    const structureHandler = (event, value) => {
+        setStructure(value);
+    }
+
+    const productSizeHandler = (e) => {
+        setProductSize(e.target.value);
+    }
+
     return (
         <Stack spacing={2} sx={{ maxWidth: '100%', width: '100%'}}>            
-            <TextField id="outlined-basic" fullWidth size="small"  label="Product Name" variant="outlined" />
+            <TextField placeholder={porductName} onChange={porductNameHandler} id="outlined-basic" fullWidth size="small"  label="Product Name" variant="outlined" />
             <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                size="small" 
+                size="small"
+                onChange={structureHandler}
                 options={Structures}
                 renderInput={(params) => <TextField {...params} label="Structure" />}
             />
-            <TextField id="standard-basic" size="small" label="Product Size" variant="outlined" />
+            <TextField onChange={productSizeHandler} id="standard-basic" size="small" label="Product Size" variant="outlined" />
         </Stack>
     )
 }
@@ -28,3 +41,5 @@ const Structures = [
     { label: "Schindler's List", year: 1993 },
     { label: 'Pulp Fiction', year: 1994 },
   ];
+
+  export default MajorSection;
