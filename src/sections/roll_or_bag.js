@@ -11,21 +11,21 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
 const blue = {
-  50: '#F0F7FF',
-  100: '#C2E0FF',
-  200: '#80BFFF',
-  300: '#66B2FF',
-  400: '#3399FF',
-  500: '#007FFF',
-  600: '#0072E5',
-  700: '#0059B2',
-  800: '#004C99',
-  900: '#003A75',
+  50: '#E8E8E8', // tab background when focus
+  100: '#D82148',
+  200: '#495464', //tab border
+  300: '#495464',
+  400: '#CCD1E4', //tab background when hover
+  500: '#BBBFCA', //panel background
+  600: '#495464', //text color when focus
+  700: '#9B0000',
+  800: '#9B0000',
+  900: '#9B0000',
 };
 
 const Tab = styled(TabUnstyled)`
   font-family: IBM Plex Sans, sans-serif;
-  color: white;
+  color: '#B2B1B9';
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: bold;
@@ -78,6 +78,17 @@ const TabsList = styled(TabsListUnstyled)`
 `;
 
 export default function UnstyledTabsCustomized() {
+
+  const [meterPerRoll, setMeterPerRoll] = React.useState('');
+  const [rollUp, setRollUp] = React.useState('');
+  const [rollMeter, setRollMeter] = React.useState('');
+  const [rollQty, setRollQty] = React.useState(0);
+
+  const JRollHandler = (e) => {
+    setMeterPerRoll(e.target.value);
+    setRollQty(parseFloat((Number(document.getElementById('rollmeter').value) / Number(document.getElementById('rollmr').value) * Number(document.getElementById('rollup').value))).toFixed(2));
+  }
+
   return (
     <TabsUnstyled defaultValue={0}>
       <TabsList>
@@ -93,11 +104,11 @@ export default function UnstyledTabsCustomized() {
           spacing={0.5}
           sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
         >
-          <TextField id="rollup" size="small" color="secondary" label="Up" variant="outlined" />
-          <TextField id="rollmeter" size="small" color="secondary" label="Meter" variant="outlined" />
-          <TextField id="rollmr" size="small" color="secondary" label="M/R" variant="outlined" />
+          <TextField id="rollup" value={rollUp} onChange={(e)=>setRollUp(e.target.value)} size="small" color="secondary" label="Up" variant="outlined" />
+          <TextField id="rollmeter" value={rollMeter} onChange={(e)=>setRollMeter(e.target.value)} size="small" color="secondary" label="Meter" variant="outlined" />
+          <TextField id="rollmr" value={meterPerRoll} onChange={JRollHandler} size="small" color="secondary" label="M/R" variant="outlined" />
           <Divider orientation="vertical" flexItem />
-          <Typography style={{ padding: 10, borderRadius: 10, fontWeight: 5000 }}>$0.00</Typography>
+          <span style={{ padding: 10, borderRadius: 10 }}>{rollQty}<small>JRolls</small></span>
         </Stack>
       </TabPanel>
       <TabPanel value={1}>

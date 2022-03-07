@@ -16,7 +16,6 @@ import OtherMaterials from './sections/other_material'
 import DirectIndirectCost from './sections/directIndirect_cost'
 import FinalResult from './sections/final_Result'
 
-
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -30,9 +29,18 @@ const App = () => {
     const [porductName, setProductName] = React.useState("");
     const [structure, setStructure] = React.useState([]);
     const [productSize, setProductSize] = React.useState("");
+    
+    // const [inkName, setInkName] = React.useState("");
+    // const [inkPrice, setInkPrice] = React.useState("");
+    // const [inkQty, setInkQty] = React.useState("");
 
     // for raw section 
-    const [newRow, setNewRow] = useState(([
+    const [newInkRow, setInkNewRow] = useState([]);
+    const [newGlueRow, setGlueNewRow] = useState([]);
+    const [newThinnerRow, setThinnerNewRow] = useState([]);
+    const [newFilmRow, setFilmNewRow] = useState([]);
+
+    const [newFilm, setNewFilm] = useState(([
         { id: 1, name: 'The Dark Knight', price: 0.99 },
         ]));
 
@@ -56,7 +64,12 @@ const App = () => {
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <Item>
-                                <Raws newRow={newRow} setNewRow={setNewRow}/>
+                                <Raws newInkRow={newInkRow} setInkNewRow={setInkNewRow}
+                                newFilm={newFilm} setNewFilm={setNewFilm}
+                                newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
+                                newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
+                                newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
+                                />
                             </Item>
                         </Grid>
                         <Grid item xs={12} md={12}>
