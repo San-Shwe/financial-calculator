@@ -101,8 +101,8 @@ const InkInputs = ({newInkRow, setInkNewRow}) => {
               sx={{ width: 250 }}
               renderInput={(params) => <TextField {...params} label="Structure" />}
             />
-            <TextField size="small" color="secondary" value={i.price} />
             <TextField value={i.qty} size="small" color="secondary" variant="outlined" />
+            <TextField size="small" color="secondary" value={i.price} />
             <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
             <a href='#' onClick={(e) => {setInkNewRow(newInkRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
@@ -135,8 +135,8 @@ const GlueInputs = ({newGlueRow, setGlueNewRow}) => {
               sx={{ width: 250 }}
               renderInput={(params) => <TextField {...params} label="Structure" />}
             />
-            <TextField size="small" color="secondary" value={i.price} />
             <TextField value={i.qty} size="small" color="secondary" variant="outlined" />
+            <TextField size="small" color="secondary" value={i.price} />
             <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
             <a href='#' onClick={(e) => {setGlueNewRow(newGlueRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
@@ -147,31 +147,107 @@ const GlueInputs = ({newGlueRow, setGlueNewRow}) => {
   );
 }
 
-export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlueRow, setGlueNewRow, newFilmRow, setFilmNewRow, inkPrice, setInkPrice, inkName, setInkName, inkQty, setInkQty}) {
+const ThinnerInputs = ({newThinnerRow, setThinnerNewRow}) => {
+  return (
+    <div>
+      {newThinnerRow.map(i => 
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            spacing={0.5}
+            key={i.id}
+            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+          >
+            <span style={{ padding: 5, fontWeight: 5000 }}>{i.id}</span> 
+            <Autocomplete
+              size="small"
+              color="secondary"
+              options={Structures}
+              value={Structures[i.name - 1]}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="Structure" />}
+            />
+            <TextField value={i.qty} size="small" color="secondary" variant="outlined" />
+            <TextField size="small" color="secondary" value={i.price} />
+            <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
+            <a href='#' onClick={(e) => {setThinnerNewRow(newThinnerRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+              <ClearIcon />
+            </a>
+          </Stack>
+      )}
+    </div>
+  );
+}
+
+const FilmInputs = ({newFilmRow, setFilmNewRow}) => {
+  return (
+    <div>
+      {newFilmRow.map(i => 
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            spacing={0.5}
+            key={i.id}
+            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+          >
+            <span style={{ padding: 5, fontWeight: 5000 }}>{i.id}</span> 
+            <Autocomplete
+              size="small"
+              color="secondary"
+              options={Structures}
+              value={Structures[i.name - 1]}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="Structure" />}
+            />
+            <TextField size="small" color="secondary" value={i.width} />
+            <TextField size="small" color="secondary" value={i.thickness} />
+            <TextField size="small" color="secondary" value={i.length} />
+            <TextField size="small" color="secondary" value={i.density} />
+            <TextField size="small" color="secondary" value={i.qty} />
+            <TextField size="small" color="secondary" value={i.price} />
+            <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
+            <a href='#' onClick={(e) => {setFilmNewRow(newFilmRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+              <ClearIcon />
+            </a>
+          </Stack>
+      )}
+    </div>
+  );
+}
+
+export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlueRow, setGlueNewRow, newThinnerRow, setThinnerNewRow, newFilmRow, setFilmNewRow, inkPrice, setInkPrice, inkName, setInkName, inkQty, setInkQty}) {
   
   // States for Ink ------------------------------------------------------------------------------------------------------------------------
-  let [inkNameInput, setInkNameInput] = React.useState(Structures[0]);
-  let [inkQtyInput, setInkQtyInput] = React.useState('');
-  let [inkPriceInput, setInkPriceInput] = React.useState('');
-  let [inkPreviewAmount, setInkPreviewAmount] = React.useState('');
+    let [inkNameInput, setInkNameInput] = React.useState(Structures[0]);
+    let [inkQtyInput, setInkQtyInput] = React.useState('');
+    let [inkPriceInput, setInkPriceInput] = React.useState('');
+    let [inkPreviewAmount, setInkPreviewAmount] = React.useState('');
 
-  // Hook for Ink
-  const newInkHandler = (e) => {
-    setInkNewRow([
-      ...newInkRow, 
-      { id:newInkRow.length + 1, name:inkNameInput.id, price:inkPriceInput, qty:inkQtyInput, amount:inkPriceInput*inkQtyInput },
-    ]);
-    setInkNameInput(null);
-    setInkPriceInput("");
-    setInkQtyInput("");
-    setInkPreviewAmount(0)
-  }
+    // Hook for Ink
+    const newInkHandler = (e) => {
+      if (inkNameInput !== null ) {
+        setInkNewRow([
+          ...newInkRow, 
+          { id:newInkRow.length + 1, name:inkNameInput.id, price:inkPriceInput, qty:inkQtyInput, amount:inkPriceInput*inkQtyInput },
+        ]);
+        setInkNameInput(null);
+        setInkPriceInput("");
+        setInkQtyInput("");
+        setInkPreviewAmount(0)
+      }else{
+        alert("Please Choose A Raw Type!😔");
+      }
+    }
 
-  // Ink's Amount preview
-  const InkRollQtyHandler = (e) => {
-    setInkQtyInput(e.target.value);
-    setInkPreviewAmount(parseFloat(document.getElementById('soloInkPrice').value * document.getElementById('soloInkQty').value).toFixed(2));
-  }
+    // Ink's Amount preview
+    const InkRollPriceHandler = (e) => {
+      setInkPriceInput(e.target.value);
+      setInkPreviewAmount(parseFloat(document.getElementById('soloInkPrice').value * document.getElementById('soloInkQty').value).toFixed(2));
+    }
 
   // ------------------------------------------------------------------------------------------------------------------------
 
@@ -182,29 +258,106 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
   let [gluePriceInput, setGluePriceInput] = React.useState('');
   let [gluePreviewAmount, setGluePreviewAmount] = React.useState('');
 
-  // Hook for Ink
+  // Hook for Glue
   const newGlueHandler = (e) => {
-    setGlueNewRow([
-      ...newGlueRow, 
-      { id:newGlueRow.length + 1, name:glueNameInput.id, price:gluePriceInput, qty:glueQtyInput, amount:gluePriceInput*glueQtyInput },
-    ]);
-    setGlueNameInput(null);
-    setGluePriceInput("");
-    setGlueQtyInput("");
-    setGluePreviewAmount(0)
+    if (glueNameInput !== null ) {
+      setGlueNewRow([
+        ...newGlueRow, 
+        { id:newGlueRow.length + 1, name:glueNameInput.id, price:gluePriceInput, qty:glueQtyInput, amount:gluePriceInput*glueQtyInput },
+      ]);
+      setGlueNameInput(null);
+      setGluePriceInput("");
+      setGlueQtyInput("");
+      setGluePreviewAmount(0)
+    }else{
+            alert("Please Choose A Raw Type!😔");
+    }
   }
 
   // Glue's Amount preview
-  const GlueRollQtyHandler = (e) => {
-    setGlueQtyInput(e.target.value);
+  const GlueHandler = (e) => {
+    setGluePriceInput(document.getElementById('soloGluePrice').value);
+    setGlueQtyInput(document.getElementById('soloGlueQty').value);    
     setGluePreviewAmount(parseFloat(document.getElementById('soloGluePrice').value * document.getElementById('soloGlueQty').value).toFixed(2));
   }
 
   // States for Thinner ------------------------------------------------------------------------------------------------------------
+    let [thinnerNameInput, setThinnerNameInput] = React.useState(Structures[0]);
+    let [thinnerQtyInput, setThinnerQtyInput] = React.useState('');
+    let [thinnerPriceInput, setThinnerPriceInput] = React.useState('');
+    let [thinnerPreviewAmount, setThinnerPreviewAmount] = React.useState('');
 
+    // Hook for Ink
+    const newThinnerHandler = (e) => {
+      if (thinnerNameInput !== null ) {
+        setThinnerNewRow([
+          ...newThinnerRow, 
+          { id:newThinnerRow.length + 1, name:thinnerNameInput.id, price:thinnerPriceInput, qty:thinnerQtyInput, amount:thinnerPriceInput*thinnerQtyInput },
+        ]);
+        setThinnerNameInput(null);
+        setThinnerPriceInput("");
+        setThinnerQtyInput("");
+        setThinnerPreviewAmount(0)
+      }else{
+                  alert("Please Choose A Raw Type!😔");
+      }
+    }
+
+    // Thinner's Amount preview
+    const ThinnerHandler = (e) => {
+      setThinnerQtyInput(document.getElementById('soloThinnerQty').value);
+      setThinnerPriceInput(document.getElementById('soloThinnerPrice').value);
+      setThinnerPreviewAmount(parseFloat(document.getElementById('soloThinnerPrice').value * document.getElementById('soloThinnerQty').value).toFixed(2));
+    }
   // ------------------------------------------------------------------------------------------------------------
   
+  // States for Film ------------------------------------------------------------------------------------------------------------
+    let [filmNameInput, setFilmNameInput] = React.useState(Structures[0]);
+    let [filmWidthInput, setFilmWidthInput] = React.useState(''); // width
+    let [filmThicknessInput, setFilmThicknessInput] = React.useState(''); // thickness
+    let [filmLengthInput, setFilmLengthInput] = React.useState(''); // length
+    let [filmDensityInput, setFilmDensityInput] = React.useState(''); // density
+    let [filmQtyInput, setFilmQtyInput] = React.useState(''); // Qty
+    let [filmPriceInput, setFilmPriceInput] = React.useState(''); // Price
+    let [filmPreviewAmount, setFilmPreviewAmount] = React.useState(''); // Amount
 
+    // Hook for film
+    const newFilmHandler = (e) => {
+      if (filmNameInput !== null ) {
+        setFilmNewRow([
+          ...newFilmRow, 
+          { id:newFilmRow.length + 1, name:filmNameInput.id, width:filmWidthInput, thickness:filmThicknessInput, length:filmLengthInput, density:filmDensityInput ,price:filmPriceInput, qty:filmQtyInput, amount:filmPriceInput*filmQtyInput },
+        ]);
+        setFilmNameInput(null);
+        setFilmWidthInput("");
+        setFilmThicknessInput("");
+        setFilmLengthInput("");
+        setFilmDensityInput("");
+        setFilmPriceInput("");
+        setFilmQtyInput("");
+        setFilmPreviewAmount(0)
+      }else{
+        alert("Please Choose A Raw Type!😔");
+      }
+    }
+
+    // Film's Amount preview
+    const FilmDensityHandler = (e) => {
+      setFilmDensityInput(e.target.value);
+      setFilmQtyInput(parseFloat(Number(document.getElementById('soloFilmWidth').value) + Number(document.getElementById('soloFilmThickness').value) + Number(document.getElementById('soloFilmLength').value) + Number(document.getElementById('soloFilmDensity').value)).toFixed(2));
+    }
+
+    const FilmHandler = (e) => {
+        setFilmWidthInput(document.getElementById('soloFilmWidth').value);
+        setFilmThicknessInput(document.getElementById('soloFilmThickness').value);
+        setFilmLengthInput(document.getElementById('soloFilmLength').value);
+        setFilmDensityInput(document.getElementById('soloFilmDensity').value);
+        setFilmPriceInput(document.getElementById('soloFilmPrice').value);
+        setFilmQtyInput(document.getElementById('soloFilmQty').value);
+        setFilmPreviewAmount(document.getElementById('soloFilmPrice').value)
+        setFilmPreviewAmount(parseFloat(document.getElementById('soloFilmPrice').value * document.getElementById('soloFilmQty').value).toFixed(2));
+    }
+  // ------------------------------------------------------------------------------------------------------------
   
   return (
     <TabsUnstyled defaultValue={0}>
@@ -239,50 +392,114 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
 
               renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
             />
-            <TextField id="soloInkPrice" value={inkPriceInput} onChange={(e) => setInkPriceInput(e.target.value)} size="small" color="primary" label="Unit Price"/>
-            <TextField id="soloInkQty" value={inkQtyInput} onChange={InkRollQtyHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloInkQty" value={inkQtyInput} onChange={(e) => setInkQtyInput(e.target.value)} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloInkPrice" value={inkPriceInput} onChange={InkRollPriceHandler} size="small" color="primary" label="Unit Price"/>            
             <span id="soloInkAmount" style={{ padding: 10, fontWeight: 5000 }}>${inkPreviewAmount}</span>
             <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
             <Icon onClick={newInkHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
           </a>
-          </Stack>
+        </Stack>
       </TabPanel>
       <TabPanel value={1}>
         <GlueInputs newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow} />
-          <Divider color="primary" /><br />
-          <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="flex-start"
-              spacing={0.5}
-              sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
-            >
-              <span style={{ padding: 5, fontWeight: 5000 }}>&nbsp;</span>
-              <Autocomplete
-                size="small"
-                options={Structures}
-                getOptionLabel={(option) => option.label}
-                sx={{ width: 250 }}
+        <Divider color="primary" /><br />
+        <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            spacing={0.5}
+            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+        >
+            <span style={{ padding: 5, fontWeight: 5000 }}>&nbsp;</span>
+            <Autocomplete
+              size="small"
+              options={Structures}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
 
-                value={inkNameInput}
-                onChange={(event, newValue) => {
-                  setGlueNameInput(newValue);
-                }}
+              value={glueNameInput}
+              onChange={(event, newValue) => {
+                setGlueNameInput(newValue);
+              }}
 
-                renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
-              />
-              <TextField id="soloGluePrice" value={gluePriceInput} onChange={(e) => setGluePriceInput(e.target.value)} size="small" color="primary" label="Unit Price"/>
-              <TextField id="soloGlueQty" value={glueQtyInput} onChange={GlueRollQtyHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
-              <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${gluePreviewAmount}</span>
-              <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
-              <Icon onClick={newGlueHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
-            </a>
-          </Stack>
+              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+            />
+            <TextField id="soloGlueQty" value={glueQtyInput} onChange={GlueHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloGluePrice" value={gluePriceInput} onChange={GlueHandler} size="small" color="primary" label="Unit Price"/>
+            <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${gluePreviewAmount}</span>
+            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <Icon onClick={newGlueHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+          </a>
+        </Stack>
       </TabPanel>
       <TabPanel value={2}>
-        c
+        <ThinnerInputs newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow} />
+        <Divider color="primary" /><br />
+        <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            spacing={0.5}
+            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+        >
+            <span style={{ padding: 5, fontWeight: 5000 }}>&nbsp;</span>
+            <Autocomplete
+              size="small"
+              options={Structures}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
+
+              value={thinnerNameInput}
+              onChange={(event, newValue) => {
+                setThinnerNameInput(newValue);
+              }}
+
+              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+            />
+            <TextField id="soloThinnerQty" value={thinnerQtyInput} onChange={ThinnerHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloThinnerPrice" value={thinnerPriceInput} onChange={ThinnerHandler} size="small" color="primary" label="Unit Price"/>
+            <span id="soloThinnerAmount" style={{ padding: 10, fontWeight: 5000 }}>${thinnerPreviewAmount}</span>
+            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <Icon onClick={newThinnerHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+          </a>
+        </Stack>
       </TabPanel>
-      <TabPanel value={3}>b</TabPanel>
+      <TabPanel value={3}>
+        <FilmInputs newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow} />
+        <Divider color="primary" /><br />
+        <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            spacing={0.5}
+            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+        >
+            <span style={{ padding: 5, fontWeight: 5000 }}>&nbsp;</span>
+            <Autocomplete
+              size="small"
+              options={Structures}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
+
+              value={filmNameInput}
+              onChange={(event, newValue) => {
+                setFilmNameInput(newValue);
+              }}
+
+              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+            />
+            <TextField id="soloFilmWidth" value={filmWidthInput} onChange={FilmHandler} size="small" color="primary" label="Width"/>
+            <TextField id="soloFilmThickness" value={filmThicknessInput} onChange={FilmHandler} size="small" color="primary" label="Thickness"/>
+            <TextField id="soloFilmLength" value={filmLengthInput} onChange={FilmHandler} size="small" color="primary" label="Length"/>
+            <TextField id="soloFilmDensity" value={filmDensityInput} onChange={FilmDensityHandler} onInput={(e)=> document.getElementById('soloFilmDensity').value=e.target.value} size="small" color="primary" label="Density"/>
+            <TextField id="soloFilmQty" value={filmQtyInput} onChange={FilmHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloFilmPrice" value={filmPriceInput} onChange={FilmHandler} size="small" color="primary" label="Unit Price"/>
+            <span id="soloFilmAmount" style={{ padding: 10, fontWeight: 5000 }}>${filmPreviewAmount}</span>
+            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <Icon onClick={newFilmHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+          </a>
+        </Stack>
+      </TabPanel>
       <TabPanel value={4}>a</TabPanel>
     </TabsUnstyled>
   );
