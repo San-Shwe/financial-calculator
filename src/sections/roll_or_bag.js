@@ -77,12 +77,11 @@ const TabsList = styled(TabsListUnstyled)`
   align-content: space-between;
 `;
 
-export default function UnstyledTabsCustomized() {
+export default function UnstyledTabsCustomized({rollQty, setRollQty}) {
 
   const [meterPerRoll, setMeterPerRoll] = React.useState('');
   const [rollUp, setRollUp] = React.useState('');
   const [rollMeter, setRollMeter] = React.useState('');
-  const [rollQty, setRollQty] = React.useState(0);
 
   const JRollHandler = (e) => {
     setMeterPerRoll(e.target.value);

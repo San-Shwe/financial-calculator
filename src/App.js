@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import {NavBar, NavItem} from './Layout/navigation'
 import TopBanner from './sections/topBanner'
 import MajorSection from './sections/major_section';
-import CenteredTabs from './sections/roll_or_bag'
+import RollOrBagSection from './sections/roll_or_bag'
 import Raws from './sections/raw'
 import OtherMaterials from './sections/other_material'
 import DirectIndirectCost from './sections/directIndirect_cost'
@@ -30,6 +30,8 @@ const App = () => {
     const [structure, setStructure] = React.useState([]);
     const [productSize, setProductSize] = React.useState("");
     
+    
+    const [rollQty, setRollQty] = React.useState(0);
     // const [inkName, setInkName] = React.useState("");
     // const [inkPrice, setInkPrice] = React.useState("");
     // const [inkQty, setInkQty] = React.useState("");
@@ -40,14 +42,12 @@ const App = () => {
     const [newThinnerRow, setThinnerNewRow] = useState([]);
     const [newFilmRow, setFilmNewRow] = useState([]);
 
-    const [newFilm, setNewFilm] = useState(([
-        { id: 1, name: 'The Dark Knight', price: 0.99 },
-        ]));
 
+    
     return (
         <React.Fragment>
             <CssBaseline />
-                <Container maxWidth="lg">
+            <Container maxWidth="lg">
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={12}>
@@ -60,12 +60,11 @@ const App = () => {
                             /></Item>
                         </Grid>
                         <Grid item xs={12} sm={6} md={8}>
-                            <Item><CenteredTabs /></Item>
+                            <Item><RollOrBagSection rollQty={rollQty} setRollQty={setRollQty} /></Item>
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <Item>
                                 <Raws newInkRow={newInkRow} setInkNewRow={setInkNewRow}
-                                newFilm={newFilm} setNewFilm={setNewFilm}
                                 newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
                                 newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
                                 newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
@@ -73,7 +72,7 @@ const App = () => {
                             </Item>
                         </Grid>
                         <Grid item xs={12} md={12}>
-                            <Item><OtherMaterials /></Item>
+                            <Item><OtherMaterials rollQty={rollQty} setRollQty={setRollQty} newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow} /></Item>
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <Item><DirectIndirectCost /></Item>
