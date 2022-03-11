@@ -2,9 +2,13 @@ import React, {useState, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { styled } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import CalculateIcon from '@mui/icons-material/CalculateRounded';
+import ClearAllIcon from '@mui/icons-material/ClearAllRounded';
+import SaveIcon from '@mui/icons-material/SaveRounded';
+import Button from '@mui/material/Button';
 
 // IMPORT COMPONENTS
 import {NavBar, NavItem} from './Layout/navigation'
@@ -17,27 +21,29 @@ import DirectIndirectCost from './sections/directIndirect_cost'
 import FinalResult from './sections/final_Result'
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === 'dark' ? '#282c34' : '#fff',
+    // backgroundColor= '#282c34'  
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
 
+// const darkTheme = createTheme({
+//     palette: {
+//         mode: 'light',
+//     }, 
+// });
 const App = () => {
-    // navigation 
-    const [calculate, setCalculate] =useState(false);
 
     // for major section 
     const [porductName, setProductName] = React.useState("");
     const [structure, setStructure] = React.useState([]);
     const [productSize, setProductSize] = React.useState("");
     
-    
+    // for roll or bag section 
     const [rollQty, setRollQty] = React.useState(0);
-    // const [inkName, setInkName] = React.useState("");
-    // const [inkPrice, setInkPrice] = React.useState("");
-    // const [inkQty, setInkQty] = React.useState("");
+    const [bagQty, setBagQty] = useState(0);
 
     // variables for raw section 
     const [newInkRow, setInkNewRow] = useState([]);
@@ -70,10 +76,7 @@ const App = () => {
     const [subTotal , setSubTotal] = useState(0);
     const [grandTotal , setGrandTotal] = useState(0);
 
-    // const CalculateTotalRaw = () => {
-        
-    //     }
-
+    // Use Effects
     useEffect(() => {
         let total = 0;
         newInkRow.forEach(element => {
@@ -97,102 +100,124 @@ const App = () => {
         });
 
         setRawTotal(total);
-        console.log("total");
-        
+
+        saveLocal(); // save to local
+
     }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, newResinRow ]);
 
     useEffect(() => {
         let total = (Number(core3Amount) + Number(core6Amount) + Number(TSAmount) + Number(PVCGlueAmount) + Number(PETGGlueAmount) + Number(SSDSTAmount) + Number(LHAmount) + Number(CBAmount) + Number(SSRibbonAmount) + Number(ZipperAmount)).toFixed(2);
         setOtherMaterialsTotal(total);
         setTotal(Number(rawTotal) + Number(OtherMaterialsTotal) + Number(directCost) + Number(inDirectCost))
-        console.log("effect");
-      }, [core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount]);
+    }, [core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount ]);
     
+    useEffect(() => {
+        getLocal();
+    }, []);
     
+    // Save to Local
+    const saveLocal = () => {
+        localStorage.setItem('rollQty', JSON.stringify(rollQty))
+    }
+    const getLocal = () => {
+        if(localStorage.getItem("rollQty") === null){
+            localStorage.setItem('rollQty', JSON.stringify([]))
+        }else{
+            const local_rollQty = JSON.parse(localStorage.getItem('rollQty'));
+            setRollQty(local_rollQty);
+        }
+    }
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <Container maxWidth="lg">
-                <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={12}>
-                            <Item><TopBanner /></Item>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}> 
-                            <Item><MajorSection porductName={porductName} setProductName={setProductName} 
-                            structure={structure} setStructure={setStructure} 
-                            productSize={productSize} setProductSize={setProductSize} 
-                            /></Item>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={8}>
-                            <Item><RollOrBagSection rollQty={rollQty} setRollQty={setRollQty} /></Item>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Item>
-                                <Raws newInkRow={newInkRow} setInkNewRow={setInkNewRow}
-                                newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
-                                newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
-                                newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
-                                newResinRow={newResinRow} setResinNewRow={setResinNewRow}
-                                />
-                            </Item>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Item>
-                                <OtherMaterials rollQty={rollQty}
-                                core3Amount={core3Amount} setCore3Amount={setCore3Amount}
-                                core6Amount={core6Amount} setCore6Amount={setCore6Amount}
-                                TSAmount={TSAmount} setTSAmount={setTSAmount}
-                                PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
-                                PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
-                                SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
-                                LHAmount={LHAmount} setLHAmount={setLHAmount}
-                                CBAmount={CBAmount} setCBAmount={setCBAmount}
-                                SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
-                                ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
-                                 />
-                            </Item>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Item>
-                                <DirectIndirectCost 
-                                    directCost={directCost} setDirectCost={setDirectCost}
-                                    inDirectCost={inDirectCost} setIndirectCost={setIndirectCost}
-                                />
-                            </Item>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Item>
-                                <FinalResult 
-                                    directCost={directCost}
-                                    inDirectCost={inDirectCost} 
+        // <ThemeProvider theme={darkTheme}>
+            <React.Fragment>
+                <CssBaseline />
+                <Container maxWidth="lg">
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <Item><TopBanner /></Item>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}> 
+                                <Item><MajorSection porductName={porductName} setProductName={setProductName} 
+                                structure={structure} setStructure={setStructure} 
+                                productSize={productSize} setProductSize={setProductSize} 
+                                /></Item>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={8}>
+                                <Item><RollOrBagSection
+                                    rollQty={rollQty} setRollQty={setRollQty}
+                                    bagQty={bagQty} setBagQty={setBagQty}
+                                /></Item>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Item>
+                                    <Raws 
+                                        newInkRow={newInkRow} setInkNewRow={setInkNewRow}
+                                        newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
+                                        newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
+                                        newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
+                                        newResinRow={newResinRow} setResinNewRow={setResinNewRow}
+                                    />
+                                </Item>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Item>
+                                    <OtherMaterials 
+                                        rollQty={rollQty}
+                                        core3Amount={core3Amount} setCore3Amount={setCore3Amount}
+                                        core6Amount={core6Amount} setCore6Amount={setCore6Amount}
+                                        TSAmount={TSAmount} setTSAmount={setTSAmount}
+                                        PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
+                                        PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
+                                        SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
+                                        LHAmount={LHAmount} setLHAmount={setLHAmount}
+                                        CBAmount={CBAmount} setCBAmount={setCBAmount}
+                                        SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
+                                        ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
+                                    />
+                                </Item>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Item>
+                                    <DirectIndirectCost 
+                                        directCost={directCost} setDirectCost={setDirectCost}
+                                        inDirectCost={inDirectCost} setIndirectCost={setIndirectCost}
+                                    />
+                                </Item>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Item>
+                                    <FinalResult 
+                                        directCost={directCost}
+                                        inDirectCost={inDirectCost} 
 
-                                    rawTotal={rawTotal} setRawTotal={setRawTotal}
-                                    OtherMaterialsTotal={OtherMaterialsTotal} setOtherMaterialsTotal={setOtherMaterialsTotal}
+                                        rawTotal={rawTotal} setRawTotal={setRawTotal}
+                                        OtherMaterialsTotal={OtherMaterialsTotal} setOtherMaterialsTotal={setOtherMaterialsTotal}
 
-                                    total={total} setTotal={setTotal}
-                                    subTotal={subTotal} setSubTotal={setSubTotal}
-                                    grandTotal={grandTotal} setGrandTotal={setGrandTotal}
-                                />
-                            </Item>
+                                        total={total} setTotal={setTotal}
+                                        subTotal={subTotal} setSubTotal={setSubTotal}
+                                        grandTotal={grandTotal} setGrandTotal={setGrandTotal}
+                                    />
+                                </Item>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
-            </Container>
-            <NavBar>
-                <NavItem icon="😊">
-                    Save
-                </NavItem>
-                <NavItem icon="😊">
-                    <a href='#' id="use" className='icon-button'>
-                        Calculate
-                    </a>
-                </NavItem>
-                <NavItem icon="😊">
-                    Clear
-                </NavItem>
-            </NavBar>
-        </React.Fragment>
+                    </Box>
+                </Container>
+                <NavBar>
+                    <NavItem icon="😊">
+                        <Button className='icon-button' color="secondary" endIcon={<SaveIcon />} variant="contained">Save</Button>
+                    </NavItem>
+                    <NavItem icon="😊">
+                        {/* <a href='#' id="use" > */}
+                        <Button className='icon-button'  color="success" endIcon={<CalculateIcon />} variant="contained">Calculate</Button>
+                        {/* </a> */}
+                    </NavItem>
+                    <NavItem icon="😊">
+                        <Button className='icon-button'  color="warning" endIcon={<ClearAllIcon />} variant="contained">Clear</Button>
+                    </NavItem>
+                </NavBar>
+            </React.Fragment>
+        // </ThemeProvider>
     )
 }
   

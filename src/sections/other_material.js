@@ -24,7 +24,6 @@ const blue = {
 };
 
 const Tab = styled(TabUnstyled)`
-  font-family: IBM Plex Sans, sans-serif;
   color: "#B2B1B9";
   cursor: pointer;
   font-size: 0.875rem;
@@ -60,9 +59,9 @@ const Tab = styled(TabUnstyled)`
   }
 `;
 
+// font-family: IBM Plex Sans, sans-serif;
 const TabPanel = styled(TabPanelUnstyled)`
   width: 100%;
-  font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
 `;
 

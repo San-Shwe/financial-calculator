@@ -11,7 +11,7 @@ export function NavBar(props){
 
 export function NavItem(props){
     return(
-        <li className='nav-item'>
+        <li className='nav-item' >
             {/* <a href='#' className='icon-button'> */}
                 {props.children}
             {/* </a> */}

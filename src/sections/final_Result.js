@@ -34,12 +34,12 @@ export default function FinalResult({ rawTotal, OtherMaterialsTotal, total, subT
           </li>
           <li className='cost'>
             <span className="cost_lable">SubTotal : </span>
-            <span className="cost_amount">${((subTotal + total).toFixed(2)).toFixed(2)}</span>
+            <span className="cost_amount">${(subTotal + total).toFixed(2)}</span>
           </li>
           <li className='cost'>
             <span className="cost_lable">Promotion % : </span>
           <TextField onChange={e=> setGrandTotal((e.target.value * (subTotal + total))/100)} id="rollmr" size="small" color="secondary" label="%" variant="outlined" placeholder='0.0'/>
-            <span onChange={console.log("grand total change")} className="cost_amount">${grandTotal}</span>
+            <span className="cost_amount">${grandTotal}</span>
           </li>
           <li className='cost'>
             <span className="cost_lable grand_total">GRAND TOTAL : </span>

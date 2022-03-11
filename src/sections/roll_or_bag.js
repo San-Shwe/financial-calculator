@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
@@ -7,8 +7,12 @@ import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import {pink} from '@mui/material/colors';
+
 
 const blue = {
   50: '#E8E8E8', // tab background when focus
@@ -24,7 +28,6 @@ const blue = {
 };
 
 const Tab = styled(TabUnstyled)`
-  font-family: IBM Plex Sans, sans-serif;
   color: '#B2B1B9';
   cursor: pointer;
   font-size: 0.875rem;
@@ -62,7 +65,6 @@ const Tab = styled(TabUnstyled)`
 
 const TabPanel = styled(TabPanelUnstyled)`
   width: 100%;
-  font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
 `;
 
@@ -77,16 +79,39 @@ const TabsList = styled(TabsListUnstyled)`
   align-content: space-between;
 `;
 
-export default function UnstyledTabsCustomized({rollQty, setRollQty}) {
+export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, setBagQty}) {
 
+  // For Roll Form 
   const [meterPerRoll, setMeterPerRoll] = React.useState('');
   const [rollUp, setRollUp] = React.useState('');
   const [rollMeter, setRollMeter] = React.useState('');
 
   const JRollHandler = (e) => {
-    setMeterPerRoll(e.target.value);
+    setRollUp(document.getElementById('rollup').value)
+    setRollMeter(document.getElementById('rollmeter').value)
+    setMeterPerRoll(document.getElementById('rollmr').value)
     setRollQty(parseFloat((Number(document.getElementById('rollmeter').value) / Number(document.getElementById('rollmr').value) * Number(document.getElementById('rollup').value))).toFixed(2));
   }
+
+  // For Bag Form
+  const [meterOrPcs, setMeterOrPcs] = React.useState('');
+  const [cuttinglength, setCuttingLength] = React.useState('');
+  const [bagUp, setBagUp] = React.useState('');
+
+  const ChooseHandler = (e) => {
+    if (e.target.value === 'pcs') {
+      setBagQty(parseFloat((Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('cuttinglength').value) * Number(document.getElementById('bagup').value))).toFixed(2));  //ok
+    }else{
+      setBagQty(parseFloat((Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('bagup').value) * Number(document.getElementById('cuttinglength').value))).toFixed(2));
+    }
+  }
+
+  const BagFormHandler = (e) => {
+      setBagUp(document.getElementById('bagup').value)
+      setMeterOrPcs(document.getElementById('meterOrpcs').value)
+      setCuttingLength(document.getElementById('cuttinglength').value)
+      setBagQty(parseFloat(( 30 / 10 ) * 1).toFixed(2));
+    }
 
   return (
     <TabsUnstyled defaultValue={0}>
@@ -103,11 +128,11 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty}) {
           spacing={0.5}
           sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
         >
-          <TextField id="rollup" value={rollUp} onChange={(e)=>setRollUp(e.target.value)} size="small" color="secondary" label="Up" variant="outlined" />
-          <TextField id="rollmeter" value={rollMeter} onChange={(e)=>setRollMeter(e.target.value)} size="small" color="secondary" label="Meter" variant="outlined" />
+          <TextField id="rollup" value={rollUp} onChange={JRollHandler} size="small" color="secondary" label="Up" variant="outlined" />
+          <TextField id="rollmeter" value={rollMeter} onChange={JRollHandler} size="small" color="secondary" label="Meter" variant="outlined" />
           <TextField id="rollmr" value={meterPerRoll} onChange={JRollHandler} size="small" color="secondary" label="M/R" variant="outlined" />
           <Divider orientation="vertical" flexItem />
-          <span style={{ padding: 10, borderRadius: 10 }}>{rollQty}<small>JRolls</small></span>
+          <span style={{ padding: 10, fontWeight:"Bold" }}>{rollQty}<small>JRolls</small></span>
         </Stack>
       </TabPanel>
       <TabPanel value={1}>
@@ -118,11 +143,23 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty}) {
             spacing={0.5}
             sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
           >
-            <TextField id="meterOrpcs" size="small" color="secondary" label="Meter Or Pcs" variant="outlined" />
-            <TextField id="cuttinglength" size="small" color="secondary" label="Cutting Length" variant="outlined" />
-            <TextField id="bagup" size="small" color="secondary" label="Up" variant="outlined" />
+            <TextField id="bagup" value={bagUp} onChange={BagFormHandler} size="small" color="secondary" label="Up" variant="outlined" />
+            <TextField id="meterOrpcs" value={meterOrPcs} onChange={BagFormHandler} size="small" color="secondary" label="Meter Or Pcs" variant="outlined" />
+            <TextField id="cuttinglength" value={cuttinglength} onChange={BagFormHandler} size="small" color="secondary" label="Cutting Length" variant="outlined" />
             <Divider color="primary" orientation="vertical" flexItem />
-            <Typography style={{ padding: 10, fontWeight: 5000 }}>$0.00</Typography>
+            <span style={{ padding: 10, fontWeight:"Bold" }}>{bagQty}</span>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                row
+                defaultValue="pcs"
+                name="radio-buttons-group"
+                size='lg'
+                direction='horizontal'
+                onChange={ChooseHandler}
+              >
+                <FormControlLabel value="meter" control={<Radio size='small' sx={{ color: pink[800], '&.Mui=checked':{ color: pink[600], }, }} />} label="Meter" />
+                <FormControlLabel value="pcs" control={<Radio size='small' sx={{ color: pink[800], '&.Mui=checked':{ color: pink[600], }, }}/>} label="Pcs" />
+              </RadioGroup>
           </Stack>
       </TabPanel>
       <TabPanel value={2}>currently unavailable</TabPanel>

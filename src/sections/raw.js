@@ -11,6 +11,9 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Icon from '@mui/material/Icon';
 import ClearIcon from '@mui/icons-material/Clear';
+import Grid from '@mui/material/Grid';
+
+import Typography from '@mui/material/Typography';
 
 const blue = {
   50: '#E8E8E8', // tab background when focus
@@ -25,8 +28,9 @@ const blue = {
   900: '#9B0000',
 };
 
+
+  
 const Tab = styled(TabUnstyled)`
-  font-family: IBM Plex Sans, sans-serif;
   color: "#B2B1B9";
   cursor: pointer;
   font-size: 0.875rem;
@@ -64,7 +68,6 @@ const Tab = styled(TabUnstyled)`
 
 const TabPanel = styled(TabPanelUnstyled)`
   width: 100%;
-  font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
 `;
 
@@ -247,7 +250,8 @@ const ResinInputs = ({newResinRow, setResinNewRow}) => {
             <TextField size="small" color="secondary" value={i.density} />
             <TextField size="small" color="secondary" value={i.qty} />
             <TextField size="small" color="secondary" value={i.price} />
-            <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
+            {/* <span style={{ padding: 10 }}>${i.amount}</span> */}
+            <Typography style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</Typography>
             <a href='#' onClick={(e) => {setResinNewRow(newResinRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
             </a>
@@ -448,7 +452,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
         <Stack
             direction="row"
             alignItems="center"
-            justifyContent="flex-start"
+            justifyContent="space-between"
             spacing={0.5}
             sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
           >
@@ -480,7 +484,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
         <Stack
             direction="row"
             alignItems="center"
-            justifyContent="flex-start"
+            justifyContent="space-between"
             spacing={0.5}
             sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
         >
@@ -512,7 +516,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
         <Stack
             direction="row"
             alignItems="center"
-            justifyContent="flex-start"
+            justifyContent="space-between"
             spacing={0.5}
             sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
         >
@@ -544,7 +548,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
         <Stack
             direction="row"
             alignItems="center"
-            justifyContent="flex-start"
+            justifyContent="space-between"
             spacing={0.5}
             sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
         >
@@ -580,34 +584,53 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
         <Stack
             direction="row"
             alignItems="center"
-            justifyContent="flex-start"
+            justifyContent="space-between"
             spacing={0.5}
             sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
         >
-            <span style={{ padding: 5, fontWeight: 5000 }}>&nbsp;</span>
-            <Autocomplete
-              size="small"
-              options={Structures}
-              getOptionLabel={(option) => option.label}
-              sx={{ width: 250 }}
-
-              value={resinNameInput}
-              onChange={(event, newValue) => {
-                setResinNameInput(newValue);
-              }}
-
-              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
-            />
-            <TextField id="soloResinWidth" value={resinWidthInput} onChange={ResinHandler} size="small" color="primary" label="Width"/>
-            <TextField id="soloResinThickness" value={resinThicknessInput} onChange={ResinHandler} size="small" color="primary" label="Thickness"/>
-            <TextField id="soloResinLength" value={resinLengthInput} onChange={ResinHandler} size="small" color="primary" label="Length"/>
-            <TextField id="soloResinDensity" value={resinDensityInput} onChange={ResinHandler} onInput={(e)=> document.getElementById('soloResinDensity').value=e.target.value} size="small" color="primary" label="Density"/>
-            <TextField id="soloResinQty" value={resinQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
-            <TextField id="soloResinPrice" value={resinPriceInput} onChange={ResinHandler} size="small" color="primary" label="Unit Price"/>
-            <span id="soloResinAmount" style={{ padding: 10, fontWeight: 5000 }}>${resinPreviewAmount}</span>
-            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
-            <Icon onClick={newResinHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
-          </a>
+          <Grid container spacing={0.5}>
+            <Grid item xs={6} sm={6} md={4}>
+              <Autocomplete
+                size="small"
+                // maxWidth="lg"
+                options={Structures}
+                getOptionLabel={(option) => option.label}
+                // sx={{ width: 250 }}
+                fullWidth
+                value={resinNameInput}
+                onChange={(event, newValue) => {
+                  setResinNameInput(newValue);
+                }}
+                renderInput={(params) => <TextField color="primary" sx={{ width: 250 }} {...params} label="Structure" />}
+              />
+            </Grid>
+            <Grid item xs={6} sm={6} md={1}>
+              <TextField id="soloResinWidth" value={resinWidthInput} onChange={ResinHandler} size="small" color="primary" label="Width"/>
+            </Grid>
+            <Grid item xs={6} sm={6} md={1}>
+              <TextField id="soloResinThickness" value={resinThicknessInput} onChange={ResinHandler} size="small" color="primary" label="Thickness"/>
+            </Grid>
+            <Grid item xs={6} sm={6} md={1}>
+              <TextField id="soloResinLength" value={resinLengthInput} onChange={ResinHandler} size="small" color="primary" label="Length"/>
+            </Grid>
+            <Grid item xs={6} sm={6} md={1}>
+              <TextField id="soloResinDensity" value={resinDensityInput} onChange={ResinHandler} onInput={(e)=> document.getElementById('soloResinDensity').value=e.target.value} size="small" color="primary" label="Density"/>
+            </Grid>
+            <Grid item xs={12} sm={6} md={1}>
+              <TextField id="soloResinQty" value={resinQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            </Grid>
+            <Grid item xs={12} sm={6} md={1}>
+              <TextField id="soloResinPrice" value={resinPriceInput} onChange={ResinHandler} size="small" color="primary" label="Unit Price"/>
+            </Grid>
+            <Grid item xs={12} sm={6} md={1} style={{ margin: 'auto' }} >
+              <span id="soloResinAmount">${resinPreviewAmount}</span>
+            </Grid>
+            <Grid item xs={12} sm={6} md={1}>
+              <a href='#' style={{backgroundColor:"transparent", padding:0, color: '#139487'}} className='icon-button'>
+                <Icon onClick={newResinHandler} sx={{ fontSize: 40 }}>add_circle</Icon> 
+              </a>
+            </Grid>
+          </Grid>
         </Stack>
       </TabPanel>
     </TabsUnstyled>

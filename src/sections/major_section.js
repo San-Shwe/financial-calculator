@@ -17,10 +17,9 @@ const MajorSection = ({porductName, setProductName, structure, setStructure, pro
     }
 
     return (
-        <Stack spacing={2} sx={{ maxWidth: '100%', width: '100%'}}>            
-            <TextField placeholder={porductName} onChange={porductNameHandler} id="outlined-basic" fullWidth size="small"  label="Product Name" variant="outlined" />
+        <Stack spacing={1}>        
+            <TextField placeholder={porductName} onChange={porductNameHandler} id="outlined-basic" size="small"  label="Product Name" variant="outlined" />
             <Autocomplete
-                disablePortal
                 id="combo-box-demo"
                 size="small"
                 onChange={structureHandler}

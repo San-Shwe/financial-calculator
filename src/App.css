@@ -1,42 +1,7 @@
 .App {
   text-align: center;
+  background-color: #388fe6;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 
 /* ===========================Start CSS for Final Result============================= */
 .cost {
@@ -44,6 +9,7 @@
   margin: 10px 0;
   padding: 10px;
   background: #eee;
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
 }
@@ -68,10 +34,15 @@
 :root {
   --bg: #242526;
   --bg-accent: #484a4d;
+  /* --background-color: rgb(211, 40, 40); */
   --text-color: #dadce1;
   --border: 1px solid #474a4d;
   --nav-size: 60px;
   --speed: 500ms;
+}
+
+body {
+  background-color: var(--background-color);
 }
 
 ul {
@@ -108,7 +79,7 @@ a{
 }
 
 .nav-item{
-  width: calc(var(--nav-size) * 0.8);
+  /* width: calc(var(--nav-size) * 0.8); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,10 +90,11 @@ a{
   /* width : var(--button-size); */
   height : var(--button-size);
   border-radius: 10px;
-  background-color: #355e9b;
+  background-color: #e4f12d;
   padding: 10px;
   margin: 2px;
   display: flex;
   justify-content: center;
+  
 }
 /* ===========================Start Nav============================= */
