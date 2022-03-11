@@ -104,7 +104,7 @@ a{
   max-width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .nav-item{
@@ -116,9 +116,9 @@ a{
 
 .icon-button{
   --button-size: calc(val(var(--nav-size) * 0.5));
-  width : var(--button-size);
+  /* width : var(--button-size); */
   height : var(--button-size);
-  border-radius: 15%;
+  border-radius: 10px;
   background-color: #355e9b;
   padding: 10px;
   margin: 2px;

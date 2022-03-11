@@ -219,7 +219,45 @@ const FilmInputs = ({newFilmRow, setFilmNewRow}) => {
   );
 }
 
-export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlueRow, setGlueNewRow, newThinnerRow, setThinnerNewRow, newFilmRow, setFilmNewRow, inkPrice, setInkPrice, inkName, setInkName, inkQty, setInkQty}) {
+const ResinInputs = ({newResinRow, setResinNewRow}) => {
+  return (
+    <div>
+      {newResinRow.map(i => 
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            spacing={0.5}
+            key={i.id}
+            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+          >
+            <span style={{ padding: 5, fontWeight: 5000 }}>{i.id}</span> 
+            <Autocomplete
+              size="small"
+              color="secondary"
+              options={Structures}
+              value={Structures[i.name - 1]}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="Structure" />}
+            />
+            <TextField size="small" color="secondary" value={i.width} />
+            <TextField size="small" color="secondary" value={i.thickness} />
+            <TextField size="small" color="secondary" value={i.length} />
+            <TextField size="small" color="secondary" value={i.density} />
+            <TextField size="small" color="secondary" value={i.qty} />
+            <TextField size="small" color="secondary" value={i.price} />
+            <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
+            <a href='#' onClick={(e) => {setResinNewRow(newResinRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+              <ClearIcon />
+            </a>
+          </Stack>
+      )}
+    </div>
+  );
+}
+
+export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlueRow, setGlueNewRow, newThinnerRow, setThinnerNewRow, newFilmRow, setFilmNewRow, newResinRow, setResinNewRow}) {
   
   // States for Ink ------------------------------------------------------------------------------------------------------------------------
     let [inkNameInput, setInkNameInput] = React.useState(Structures[0]);
@@ -227,7 +265,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
     let [inkPriceInput, setInkPriceInput] = React.useState('');
     let [inkPreviewAmount, setInkPreviewAmount] = React.useState('');
 
-    // Hook for Ink
+    // Handler for Ink
     const newInkHandler = (e) => {
       if (inkNameInput !== null ) {
         setInkNewRow([
@@ -258,7 +296,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
   let [gluePriceInput, setGluePriceInput] = React.useState('');
   let [gluePreviewAmount, setGluePreviewAmount] = React.useState('');
 
-  // Hook for Glue
+  // Handler for Glue
   const newGlueHandler = (e) => {
     if (glueNameInput !== null ) {
       setGlueNewRow([
@@ -287,7 +325,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
     let [thinnerPriceInput, setThinnerPriceInput] = React.useState('');
     let [thinnerPreviewAmount, setThinnerPreviewAmount] = React.useState('');
 
-    // Hook for Ink
+    // Handler for Ink
     const newThinnerHandler = (e) => {
       if (thinnerNameInput !== null ) {
         setThinnerNewRow([
@@ -321,7 +359,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
     let [filmPriceInput, setFilmPriceInput] = React.useState(''); // Price
     let [filmPreviewAmount, setFilmPreviewAmount] = React.useState(''); // Amount
 
-    // Hook for film
+    // Handler for film
     const newFilmHandler = (e) => {
       if (filmNameInput !== null ) {
         setFilmNewRow([
@@ -341,24 +379,60 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
       }
     }
 
-    // Film's Amount preview
-    const FilmDensityHandler = (e) => {
-      setFilmDensityInput(e.target.value);
-      setFilmQtyInput(parseFloat(Number(document.getElementById('soloFilmWidth').value) + Number(document.getElementById('soloFilmThickness').value) + Number(document.getElementById('soloFilmLength').value) + Number(document.getElementById('soloFilmDensity').value)).toFixed(2));
-    }
-
     const FilmHandler = (e) => {
         setFilmWidthInput(document.getElementById('soloFilmWidth').value);
         setFilmThicknessInput(document.getElementById('soloFilmThickness').value);
         setFilmLengthInput(document.getElementById('soloFilmLength').value);
         setFilmDensityInput(document.getElementById('soloFilmDensity').value);
+        setFilmQtyInput((Number(document.getElementById('soloFilmWidth').value) * Number(document.getElementById('soloFilmThickness').value) * Number(document.getElementById('soloFilmLength').value) * Number(document.getElementById('soloFilmDensity').value) ).toFixed(2));
         setFilmPriceInput(document.getElementById('soloFilmPrice').value);
-        setFilmQtyInput(document.getElementById('soloFilmQty').value);
         setFilmPreviewAmount(document.getElementById('soloFilmPrice').value)
         setFilmPreviewAmount(parseFloat(document.getElementById('soloFilmPrice').value * document.getElementById('soloFilmQty').value).toFixed(2));
     }
   // ------------------------------------------------------------------------------------------------------------
   
+  
+  // States for Resin ------------------------------------------------------------------------------------------------------------
+  let [resinNameInput, setResinNameInput] = React.useState(Structures[0]);
+  let [resinWidthInput, setResinWidthInput] = React.useState(''); // width
+  let [resinThicknessInput, setResinThicknessInput] = React.useState(''); // thickness
+  let [resinLengthInput, setResinLengthInput] = React.useState(''); // length
+  let [resinDensityInput, setResinDensityInput] = React.useState(''); // density
+  let [resinQtyInput, setResinQtyInput] = React.useState(''); // Qty
+  let [resinPriceInput, setResinPriceInput] = React.useState(''); // Price
+  let [resinPreviewAmount, setResinPreviewAmount] = React.useState(''); // Amount
+
+  // Handler for resin
+  const newResinHandler = (e) => {
+    if (resinNameInput !== null ) {
+      setResinNewRow([
+        ...newResinRow, 
+        { id:newResinRow.length + 1, name:resinNameInput.id, width:resinWidthInput, thickness:resinThicknessInput, length:resinLengthInput, density:resinDensityInput ,price:resinPriceInput, qty:resinQtyInput, amount:resinPriceInput*resinQtyInput },
+      ]);
+      setResinNameInput(null);
+      setResinWidthInput("");
+      setResinThicknessInput("");
+      setResinLengthInput("");
+      setResinDensityInput("");
+      setResinPriceInput("");
+      setResinQtyInput("");
+      setResinPreviewAmount(0)
+    }else{
+      alert("Please Choose A Raw Type!😔");
+    }
+  }
+
+  const ResinHandler = (e) => {
+      setResinWidthInput(document.getElementById('soloResinWidth').value);
+      setResinThicknessInput(document.getElementById('soloResinThickness').value);
+      setResinLengthInput(document.getElementById('soloResinLength').value);
+      setResinDensityInput(document.getElementById('soloResinDensity').value);
+      setResinQtyInput((Number(document.getElementById('soloResinWidth').value) * Number(document.getElementById('soloResinThickness').value) * Number(document.getElementById('soloResinLength').value) * Number(document.getElementById('soloResinDensity').value)).toFixed(2));
+      setResinPriceInput(document.getElementById('soloResinPrice').value);
+      setResinPreviewAmount(parseFloat(document.getElementById('soloResinPrice').value * document.getElementById('soloResinQty').value).toFixed(2));
+  }
+// ------------------------------------------------------------------------------------------------------------
+
   return (
     <TabsUnstyled defaultValue={0}>
       <TabsList>
@@ -491,8 +565,8 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
             <TextField id="soloFilmWidth" value={filmWidthInput} onChange={FilmHandler} size="small" color="primary" label="Width"/>
             <TextField id="soloFilmThickness" value={filmThicknessInput} onChange={FilmHandler} size="small" color="primary" label="Thickness"/>
             <TextField id="soloFilmLength" value={filmLengthInput} onChange={FilmHandler} size="small" color="primary" label="Length"/>
-            <TextField id="soloFilmDensity" value={filmDensityInput} onChange={FilmDensityHandler} onInput={(e)=> document.getElementById('soloFilmDensity').value=e.target.value} size="small" color="primary" label="Density"/>
-            <TextField id="soloFilmQty" value={filmQtyInput} onChange={FilmHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloFilmDensity" value={filmDensityInput} onChange={FilmHandler} size="small" color="primary" label="Density"/>
+            <TextField id="soloFilmQty" value={filmQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
             <TextField id="soloFilmPrice" value={filmPriceInput} onChange={FilmHandler} size="small" color="primary" label="Unit Price"/>
             <span id="soloFilmAmount" style={{ padding: 10, fontWeight: 5000 }}>${filmPreviewAmount}</span>
             <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
@@ -500,7 +574,42 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
           </a>
         </Stack>
       </TabPanel>
-      <TabPanel value={4}>a</TabPanel>
+      <TabPanel value={4}>
+        <ResinInputs newResinRow={newResinRow} setResinNewRow={setResinNewRow} />
+        <Divider color="primary" /><br />
+        <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            spacing={0.5}
+            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
+        >
+            <span style={{ padding: 5, fontWeight: 5000 }}>&nbsp;</span>
+            <Autocomplete
+              size="small"
+              options={Structures}
+              getOptionLabel={(option) => option.label}
+              sx={{ width: 250 }}
+
+              value={resinNameInput}
+              onChange={(event, newValue) => {
+                setResinNameInput(newValue);
+              }}
+
+              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+            />
+            <TextField id="soloResinWidth" value={resinWidthInput} onChange={ResinHandler} size="small" color="primary" label="Width"/>
+            <TextField id="soloResinThickness" value={resinThicknessInput} onChange={ResinHandler} size="small" color="primary" label="Thickness"/>
+            <TextField id="soloResinLength" value={resinLengthInput} onChange={ResinHandler} size="small" color="primary" label="Length"/>
+            <TextField id="soloResinDensity" value={resinDensityInput} onChange={ResinHandler} onInput={(e)=> document.getElementById('soloResinDensity').value=e.target.value} size="small" color="primary" label="Density"/>
+            <TextField id="soloResinQty" value={resinQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloResinPrice" value={resinPriceInput} onChange={ResinHandler} size="small" color="primary" label="Unit Price"/>
+            <span id="soloResinAmount" style={{ padding: 10, fontWeight: 5000 }}>${resinPreviewAmount}</span>
+            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <Icon onClick={newResinHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+          </a>
+        </Stack>
+      </TabPanel>
     </TabsUnstyled>
   );
 }

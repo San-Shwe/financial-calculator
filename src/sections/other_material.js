@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Icon from '@mui/material/Icon';
 import ClearIcon from '@mui/icons-material/Clear';
-
 import { styled } from '@mui/system';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
@@ -120,18 +111,17 @@ const GlueInputs = ({newGlueRow, setGlueNewRow}) => {
   );
 }
 
-export default function OtherMaterials({rollQty, setRollQty, newGlueRow, setGlueNewRow}) {
-  
+export default function OtherMaterials
+({rollQty, core3Amount, setCore3Amount, core6Amount, setCore6Amount, TSAmount, setTSAmount, PVCGlueAmount, setPVCGlueAmount, PETGGlueAmount, setPETGGlueAmount, SSDSTAmount, setSSDSTAmount, LHAmount, setLHAmount, CBAmount, setCBAmount, SSRibbonAmount, setSSRibbonAmount,  ZipperAmount, setZipperAmount}) {
+
   // States for OTHER MATERIALS ------------------------------------------------------------------------------------------------------------------------
   // states for Roll From Tab
   let [core3Length, setCore3Length] = useState(0); // papercore3"
   let [core3Size, setCore3Size] = useState(0);
   let [core3Price, setCore3Price] = useState(0);
-  let [core3Amount, setCore3Amount] = useState(0);
   let [core6Length, setCore6Length] = useState(0); // papercore6"
   let [core6Size, setCore6Size] = useState(0);
   let [core6Price, setCore6Price] = useState(0);
-  let [core6Amount, setCore6Amount] = useState(0);
 
   // states for T.S(Double Side Tape) Tab
   let [TSMeter, setTSMeter] = useState(0);
@@ -139,19 +129,16 @@ export default function OtherMaterials({rollQty, setRollQty, newGlueRow, setGlue
   let [TSDST, setTSDST] = useState(0);
   let [TSRoll, setTSRoll] = useState(0);
   let [TSPrice, setTSPrice] = useState(0);
-  let [TSAmount, setTSAmount] = useState(0);
 
   // ---------- states for T.S(Double Side Tape) Tab
   let [PVCGlueMeter, setPVCGlueMeter] = useState(0); // PVC Glue
   let [PVCGlueUp, setPVCGlueUp] = useState(0);
   let [PVCGlueQty, setPVCGlueQty] = useState(0);
   let [PVCGluePrice, setPVCGluePrice] = useState(0);
-  let [PVCGlueAmount, setPVCGlueAmount] = useState(0);
   let [PETGGlueMeter, setPETGGlueMeter] = useState(0); // PETG Glue
   let [PETGGlueUp, setPETGGlueUp] = useState(0);
   let [PETGGlueQty, setPETGGlueQty] = useState(0);
   let [PETGGluePrice, setPETGGluePrice] = useState(0);
-  let [PETGGlueAmount, setPETGGlueAmount] = useState(0);
 
   // ---------- states for Side Seal Tab
   let [SSDSTMeter, setSSDSTMeter] = useState(0); 
@@ -159,22 +146,18 @@ export default function OtherMaterials({rollQty, setRollQty, newGlueRow, setGlue
   let [SSDSTDST, setSSDSTDST] = useState(0);
   let [SSDSTRoll, setSSDSTRoll] = useState(0);
   let [SSDSTPrice, setSSDSTPrice] = useState(0);
-  let [SSDSTAmount, setSSDSTAmount] = useState(0);
 
   let [LHPcs, setLHPcs]  = useState(0);
   let [LHPrice, setLHPrice]  = useState(0);
-  let [LHAmount, setLHAmount]  = useState(0);
 
   let [CBPcs, setCBPcs]  = useState(0);
   let [CBPrice, setCBPrice]  = useState(0);
-  let [CBAmount, setCBAmount]  = useState(0);
 
   let [SSRibbonMeter, setSSRibbonMeter] = useState(0); 
   let [SSRibbonUp, setSSRibbonUp] = useState(0);
   let [SSRibbonDST, setSSRibbonDST] = useState(0);
   let [SSRibbonRoll, setSSRibbonRoll] = useState(0);
   let [SSRibbonPrice, setSSRibbonPrice] = useState(0);
-  let [SSRibbonAmount, setSSRibbonAmount] = useState(0);
 
   // ---------- states for 4.S.S(Zipper) Tab
   let [ZipperMeter, setZipperMeter] = useState(0);
@@ -182,9 +165,6 @@ export default function OtherMaterials({rollQty, setRollQty, newGlueRow, setGlue
   let [ZipperDST, setZipperDST] = useState(0);
   let [ZipperRoll, setZipperRoll] = useState(0);
   let [ZipperPrice, setZipperPrice] = useState(0);
-  let [ZipperAmount, setZipperAmount] = useState(0);
-
-
   
   // Handlers For Roll From Tab
   const Core3Handler = (e) => {
@@ -287,7 +267,7 @@ export default function OtherMaterials({rollQty, setRollQty, newGlueRow, setGlue
             <TextField value={core3Size} id="core3size" onChange={Core3Handler} size="small" color="primary" label="Size"/>
             <TextField value={core3Length} id="core3length" onChange={Core3Handler} size="small" color="primary" label="Length"/>
             <TextField value={core3Price} id="core3price" onChange={Core3Handler} size="small" color="primary" label="Price"/>
-            <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${core3Amount}</span>
+            <span style={{ padding: 10, fontWeight: 5000 }}>${core3Amount}</span>
           </Stack>
           <Stack
             direction="row"
@@ -301,7 +281,7 @@ export default function OtherMaterials({rollQty, setRollQty, newGlueRow, setGlue
             <TextField value={core6Size} id="core6size" onChange={Core6Handler} size="small" color="primary" label="Size"/>
             <TextField value={core6Length} id="core6length" onChange={Core6Handler} size="small" color="primary" label="Length"/>
             <TextField value={core6Price} id="core6price" onChange={Core6Handler} size="small" color="primary" label="Price"/>
-            <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${core6Amount}</span>
+            <span style={{ padding: 10, fontWeight: 5000 }}>${core6Amount}</span>
           </Stack>
       </TabPanel>
       <TabPanel value={1}>
