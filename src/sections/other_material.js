@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import ClearIcon from '@mui/icons-material/Clear';
 import { styled } from '@mui/system';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
@@ -76,40 +74,6 @@ const TabsList = styled(TabsListUnstyled)`
   align-content: space-between;
 `;
 
-const GlueInputs = ({newGlueRow, setGlueNewRow}) => {
-  return (
-    <div>
-      {newGlueRow.map(i => 
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-start"
-            spacing={0.5}
-            key={i.id}
-            sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}
-          >
-            <span style={{ padding: 5, fontWeight: 5000 }}>{i.id}</span> 
-            <Autocomplete
-              size="small"
-              color="secondary"
-              options={Structures}
-              value={Structures[i.name - 1]}
-              getOptionLabel={(option) => option.label}
-              sx={{ width: 250 }}
-              renderInput={(params) => <TextField {...params} label="Structure" />}
-            />
-            <TextField value={i.qty} size="small" color="secondary" variant="outlined" />
-            <TextField size="small" color="secondary" value={i.price} />
-            <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
-            <a href='#' onClick={(e) => {setGlueNewRow(newGlueRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
-              <ClearIcon />
-            </a>
-          </Stack>
-      )}
-    </div>
-  );
-}
-
 export default function OtherMaterials
 ({rollQty, core3Amount, setCore3Amount, core6Amount, setCore6Amount, TSAmount, setTSAmount, PVCGlueAmount, setPVCGlueAmount, PETGGlueAmount, setPETGGlueAmount, SSDSTAmount, setSSDSTAmount, LHAmount, setLHAmount, CBAmount, setCBAmount, SSRibbonAmount, setSSRibbonAmount,  ZipperAmount, setZipperAmount}) {
 
@@ -170,13 +134,13 @@ export default function OtherMaterials
     setCore3Size(document.getElementById('core3size').value)
     setCore3Length(rollQty * document.getElementById('core3size').value)
     setCore3Price(document.getElementById('core3price').value)
-    setCore3Amount(parseFloat(document.getElementById('core3length').value * document.getElementById('core3price').value).toFixed(2))
+    setCore3Amount(parseFloat(document.getElementById('core3length').value * document.getElementById('core3price').value).toFixed(2).replace(/\.00$/, ''))
   }
   const Core6Handler = (e) => {
     setCore6Size(document.getElementById('core6size').value)
     setCore6Length(rollQty * document.getElementById('core6size').value)
     setCore6Price(document.getElementById('core6price').value)
-    setCore6Amount(parseFloat(document.getElementById('core6length').value * document.getElementById('core6price').value).toFixed(2))
+    setCore6Amount(parseFloat(document.getElementById('core6length').value * document.getElementById('core6price').value).toFixed(2).replace(/\.00$/, ''))
   }
 
   // Handlers for TS(Double Side Tape) Tab
@@ -184,25 +148,25 @@ export default function OtherMaterials
     setTSMeter(document.getElementById('ts_meter').value);
     setTSUp(document.getElementById('ts_up').value);
     setTSDST(document.getElementById('ts_dst').value);
-    setTSRoll(parseFloat((document.getElementById('ts_meter').value * document.getElementById('ts_up').value)/document.getElementById('ts_dst').value).toFixed(2));
+    setTSRoll(parseFloat((document.getElementById('ts_meter').value * document.getElementById('ts_up').value)/document.getElementById('ts_dst').value).toFixed(2).replace(/\.00$/, ''));
     setTSPrice(document.getElementById('ts_price').value);
-    setTSAmount(parseFloat(document.getElementById('ts_roll').value * document.getElementById('ts_price').value).toFixed(2));
+    setTSAmount(parseFloat(document.getElementById('ts_roll').value * document.getElementById('ts_price').value).toFixed(2).replace(/\.00$/, ''));
   }
 
   // Handlers for T.C.S(Glue) Tab
   const TCSGluePVCHandler = (e) => {
     setPVCGlueMeter(document.getElementById('pvcGlue_meter').value);
     setPVCGlueUp(document.getElementById('pvcGlue_up').value);
-    setPVCGlueQty(parseFloat((document.getElementById('pvcGlue_meter').value * document.getElementById('pvcGlue_up').value)/ 3000).toFixed(2));
+    setPVCGlueQty(parseFloat((document.getElementById('pvcGlue_meter').value * document.getElementById('pvcGlue_up').value)/ 3000).toFixed(2).replace(/\.00$/, ''));
     setPVCGluePrice(document.getElementById('pvcGlue_price').value);
-    setPVCGlueAmount(parseFloat(PVCGlueQty * document.getElementById('pvcGlue_price').value).toFixed(2));
+    setPVCGlueAmount(parseFloat(PVCGlueQty * document.getElementById('pvcGlue_price').value).toFixed(2).replace(/\.00$/, ''));
   }
   const TCSGluePETGHandler = (e) => {
     setPETGGlueMeter(document.getElementById('petgGlue_meter').value);
     setPETGGlueUp(document.getElementById('petgGlue_up').value);
-    setPETGGlueQty(parseFloat((document.getElementById('petgGlue_meter').value * document.getElementById('petgGlue_up').value)/ 3000).toFixed(2));
+    setPETGGlueQty(parseFloat((document.getElementById('petgGlue_meter').value * document.getElementById('petgGlue_up').value)/ 3000).toFixed(2).replace(/\.00$/, ''));
     setPETGGluePrice(document.getElementById('petgGlue_price').value);
-    setPETGGlueAmount(parseFloat(PETGGlueQty * document.getElementById('petgGlue_price').value).toFixed(2));
+    setPETGGlueAmount(parseFloat(PETGGlueQty * document.getElementById('petgGlue_price').value).toFixed(2).replace(/\.00$/, ''));
   }
 
   // Handlers for Side Seal Tab
@@ -210,38 +174,39 @@ export default function OtherMaterials
       setSSDSTMeter(document.getElementById('ssdst_meter').value);
       setSSDSTUp(document.getElementById('ssdst_up').value);
       setSSDSTDST(document.getElementById('ssdst_dst').value);
-      setSSDSTRoll(parseFloat((document.getElementById('ssdst_meter').value * document.getElementById('ssdst_up').value)/document.getElementById('ssdst_dst').value).toFixed(2));
+      setSSDSTRoll(parseFloat((document.getElementById('ssdst_meter').value * document.getElementById('ssdst_up').value)/document.getElementById('ssdst_dst').value).toFixed(2).replace(/\.00$/, ''));
       setSSDSTPrice(document.getElementById('ssdst_price').value);
-      setSSDSTAmount((document.getElementById('ssdst_roll').value * document.getElementById('ssdst_price').value).toFixed(2));
+      setSSDSTAmount((document.getElementById('ssdst_roll').value * document.getElementById('ssdst_price').value).toFixed(2).replace(/\.00$/, ''));
     }
     const SSLHHandler = (e) => {  // Side Seal >> Loop Handle Handler
       setLHPcs(document.getElementById('sslh_pcs').value);
       setLHPrice(document.getElementById('sslh_price').value);
-      setLHAmount(document.getElementById('sslh_pcs').value * document.getElementById('sslh_price').value);
+      setLHAmount((document.getElementById('sslh_pcs').value * document.getElementById('sslh_price').value) .replace(/\.00$/, ''));
     }
     const SSCBHandler = (e) => { // Side Seal >> Card Board Handler
       setCBPcs(document.getElementById('sscb_pcs').value);
       setCBPrice(document.getElementById('sscb_price').value);
-      setCBAmount(document.getElementById('sscb_pcs').value * document.getElementById('sscb_price').value);
+      setCBAmount((document.getElementById('sscb_pcs').value * document.getElementById('sscb_price').value).replace(/\.00$/, ''));
     }
+    
     const SSRibbonHandler = (e) => { // Side Seal >> Double Side Tape Handler
       setSSRibbonMeter(document.getElementById('ssdRibbon_meter').value);
       setSSRibbonUp(document.getElementById('ssdRibbon_up').value);
       setSSRibbonDST(document.getElementById('ssdRibbon_dst').value);
-      setSSRibbonRoll(parseFloat((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value).toFixed(2));
+      setSSRibbonRoll(parseFloat((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value).toFixed(2).replace(/\.00$/, ''));
       setSSRibbonPrice(document.getElementById('ssdRibbon_price').value);
-      setSSRibbonAmount((document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value).toFixed(2));
+      setSSRibbonAmount((document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value).toFixed(2).replace(/\.00$/, ''));
     }
 
     // Handlers for Zipper Tab
     const ZipperHandler = (e) => { 
-    setZipperMeter(document.getElementById('ssdRibbon_meter').value);
-    setZipperUp(document.getElementById('ssdRibbon_up').value);
-    setZipperDST(document.getElementById('ssdRibbon_dst').value);
-    setZipperRoll(parseFloat((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value).toFixed(2));
-    setZipperPrice(document.getElementById('ssdRibbon_price').value);
-    setZipperAmount((document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value).toFixed(2));
-  }
+      setZipperMeter(document.getElementById('ssdRibbon_meter').value);
+      setZipperUp(document.getElementById('ssdRibbon_up').value);
+      setZipperDST(document.getElementById('ssdRibbon_dst').value);
+      setZipperRoll(parseFloat((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value).toFixed(2).replace(/\.00$/, ''));
+      setZipperPrice(document.getElementById('ssdRibbon_price').value);
+      setZipperAmount((document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value).toFixed(2).replace(/\.00$/, ''));
+    }
 
   return (
     <TabsUnstyled defaultValue={0}>
@@ -284,7 +249,7 @@ export default function OtherMaterials
           </Stack>
       </TabPanel>
       <TabPanel value={1}>
-      <Stack
+          <Stack
             direction="row"
             alignItems="center"
             justifyContent="flex-start"

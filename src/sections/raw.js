@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { styled } from '@mui/system';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
@@ -107,7 +107,7 @@ const InkInputs = ({newInkRow, setInkNewRow}) => {
             <TextField value={i.qty} size="small" color="secondary" variant="outlined" />
             <TextField size="small" color="secondary" value={i.price} />
             <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
-            <a href='#' onClick={(e) => {setInkNewRow(newInkRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+            <a  href="#/" onClick={(e) => {setInkNewRow(newInkRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
             </a>
           </Stack>
@@ -141,7 +141,7 @@ const GlueInputs = ({newGlueRow, setGlueNewRow}) => {
             <TextField value={i.qty} size="small" color="secondary" variant="outlined" />
             <TextField size="small" color="secondary" value={i.price} />
             <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
-            <a href='#' onClick={(e) => {setGlueNewRow(newGlueRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+            <a  href="#/" onClick={(e) => {setGlueNewRow(newGlueRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
             </a>
           </Stack>
@@ -175,7 +175,7 @@ const ThinnerInputs = ({newThinnerRow, setThinnerNewRow}) => {
             <TextField value={i.qty} size="small" color="secondary" variant="outlined" />
             <TextField size="small" color="secondary" value={i.price} />
             <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
-            <a href='#' onClick={(e) => {setThinnerNewRow(newThinnerRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+            <a  href="#/" onClick={(e) => {setThinnerNewRow(newThinnerRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
             </a>
           </Stack>
@@ -213,7 +213,7 @@ const FilmInputs = ({newFilmRow, setFilmNewRow}) => {
             <TextField size="small" color="secondary" value={i.qty} />
             <TextField size="small" color="secondary" value={i.price} />
             <span style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</span>
-            <a href='#' onClick={(e) => {setFilmNewRow(newFilmRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+            <a  href="#/" onClick={(e) => {setFilmNewRow(newFilmRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
             </a>
           </Stack>
@@ -252,7 +252,7 @@ const ResinInputs = ({newResinRow, setResinNewRow}) => {
             <TextField size="small" color="secondary" value={i.price} />
             {/* <span style={{ padding: 10 }}>${i.amount}</span> */}
             <Typography style={{ padding: 10, fontWeight: 5000 }}>${i.amount}</Typography>
-            <a href='#' onClick={(e) => {setResinNewRow(newResinRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
+            <a  href="#/" onClick={(e) => {setResinNewRow(newResinRow.filter(row => row.id !== i.id))}} style={{backgroundColor:"transparent", color:"red"}} className='icon-button'>
               <ClearIcon />
             </a>
           </Stack>
@@ -274,7 +274,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
       if (inkNameInput !== null ) {
         setInkNewRow([
           ...newInkRow, 
-          { id:newInkRow.length + 1, name:inkNameInput.id, price:inkPriceInput, qty:inkQtyInput, amount:inkPriceInput*inkQtyInput },
+          { id:newInkRow.length + 1, name:inkNameInput.id, price:inkPriceInput, qty:inkQtyInput, amount:(inkPriceInput*inkQtyInput).toFixed(2).replace(/\.00$/, '') },
         ]);
         setInkNameInput(null);
         setInkPriceInput("");
@@ -288,7 +288,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
     // Ink's Amount preview
     const InkRollPriceHandler = (e) => {
       setInkPriceInput(e.target.value);
-      setInkPreviewAmount(parseFloat(document.getElementById('soloInkPrice').value * document.getElementById('soloInkQty').value).toFixed(2));
+      setInkPreviewAmount(parseFloat(document.getElementById('soloInkPrice').value * document.getElementById('soloInkQty').value).toFixed(2).replace(/\.00$/, ''));
     }
 
   // ------------------------------------------------------------------------------------------------------------------------
@@ -305,7 +305,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
     if (glueNameInput !== null ) {
       setGlueNewRow([
         ...newGlueRow, 
-        { id:newGlueRow.length + 1, name:glueNameInput.id, price:gluePriceInput, qty:glueQtyInput, amount:gluePriceInput*glueQtyInput },
+        { id:newGlueRow.length + 1, name:glueNameInput.id, price:gluePriceInput, qty:glueQtyInput, amount:(gluePriceInput*glueQtyInput).toFixed(2).replace(/\.00$/, '') }
       ]);
       setGlueNameInput(null);
       setGluePriceInput("");
@@ -320,7 +320,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
   const GlueHandler = (e) => {
     setGluePriceInput(document.getElementById('soloGluePrice').value);
     setGlueQtyInput(document.getElementById('soloGlueQty').value);    
-    setGluePreviewAmount(parseFloat(document.getElementById('soloGluePrice').value * document.getElementById('soloGlueQty').value).toFixed(2));
+    setGluePreviewAmount(parseFloat(document.getElementById('soloGluePrice').value * document.getElementById('soloGlueQty').value).toFixed(2).replace(/\.00$/, ''));
   }
 
   // States for Thinner ------------------------------------------------------------------------------------------------------------
@@ -334,7 +334,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
       if (thinnerNameInput !== null ) {
         setThinnerNewRow([
           ...newThinnerRow, 
-          { id:newThinnerRow.length + 1, name:thinnerNameInput.id, price:thinnerPriceInput, qty:thinnerQtyInput, amount:thinnerPriceInput*thinnerQtyInput },
+          { id:newThinnerRow.length + 1, name:thinnerNameInput.id, price:thinnerPriceInput, qty:thinnerQtyInput, amount:(thinnerPriceInput*thinnerQtyInput).toFixed(2).replace(/\.00$/, '') },
         ]);
         setThinnerNameInput(null);
         setThinnerPriceInput("");
@@ -349,7 +349,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
     const ThinnerHandler = (e) => {
       setThinnerQtyInput(document.getElementById('soloThinnerQty').value);
       setThinnerPriceInput(document.getElementById('soloThinnerPrice').value);
-      setThinnerPreviewAmount(parseFloat(document.getElementById('soloThinnerPrice').value * document.getElementById('soloThinnerQty').value).toFixed(2));
+      setThinnerPreviewAmount(parseFloat(document.getElementById('soloThinnerPrice').value * document.getElementById('soloThinnerQty').value).toFixed(2).replace(/\.00$/, ''));
     }
   // ------------------------------------------------------------------------------------------------------------
   
@@ -368,7 +368,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
       if (filmNameInput !== null ) {
         setFilmNewRow([
           ...newFilmRow, 
-          { id:newFilmRow.length + 1, name:filmNameInput.id, width:filmWidthInput, thickness:filmThicknessInput, length:filmLengthInput, density:filmDensityInput ,price:filmPriceInput, qty:filmQtyInput, amount:filmPriceInput*filmQtyInput },
+          { id:newFilmRow.length + 1, name:filmNameInput.id, width:filmWidthInput, thickness:filmThicknessInput, length:filmLengthInput, density:filmDensityInput ,price:filmPriceInput, qty:filmQtyInput, amount:(filmPriceInput*filmQtyInput).toFixed(2).replace(/\.00$/, '') },
         ]);
         setFilmNameInput(null);
         setFilmWidthInput("");
@@ -388,10 +388,10 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
         setFilmThicknessInput(document.getElementById('soloFilmThickness').value);
         setFilmLengthInput(document.getElementById('soloFilmLength').value);
         setFilmDensityInput(document.getElementById('soloFilmDensity').value);
-        setFilmQtyInput((Number(document.getElementById('soloFilmWidth').value) * Number(document.getElementById('soloFilmThickness').value) * Number(document.getElementById('soloFilmLength').value) * Number(document.getElementById('soloFilmDensity').value) ).toFixed(2));
+        setFilmQtyInput((Number(document.getElementById('soloFilmWidth').value) * Number(document.getElementById('soloFilmThickness').value) * Number(document.getElementById('soloFilmLength').value) * Number(document.getElementById('soloFilmDensity').value) ).toFixed(2).replace(/\.00$/, ''));
         setFilmPriceInput(document.getElementById('soloFilmPrice').value);
         setFilmPreviewAmount(document.getElementById('soloFilmPrice').value)
-        setFilmPreviewAmount(parseFloat(document.getElementById('soloFilmPrice').value * document.getElementById('soloFilmQty').value).toFixed(2));
+        setFilmPreviewAmount(parseFloat(document.getElementById('soloFilmPrice').value * document.getElementById('soloFilmQty').value).toFixed(2).replace(/\.00$/, ''));
     }
   // ------------------------------------------------------------------------------------------------------------
   
@@ -411,7 +411,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
     if (resinNameInput !== null ) {
       setResinNewRow([
         ...newResinRow, 
-        { id:newResinRow.length + 1, name:resinNameInput.id, width:resinWidthInput, thickness:resinThicknessInput, length:resinLengthInput, density:resinDensityInput ,price:resinPriceInput, qty:resinQtyInput, amount:resinPriceInput*resinQtyInput },
+        { id:newResinRow.length + 1, name:resinNameInput.id, width:resinWidthInput, thickness:resinThicknessInput, length:resinLengthInput, density:resinDensityInput ,price:resinPriceInput, qty:resinQtyInput, amount:(resinPriceInput*resinQtyInput).toFixed(2).replace(/\.00$/, '') },
       ]);
       setResinNameInput(null);
       setResinWidthInput("");
@@ -431,9 +431,9 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
       setResinThicknessInput(document.getElementById('soloResinThickness').value);
       setResinLengthInput(document.getElementById('soloResinLength').value);
       setResinDensityInput(document.getElementById('soloResinDensity').value);
-      setResinQtyInput((Number(document.getElementById('soloResinWidth').value) * Number(document.getElementById('soloResinThickness').value) * Number(document.getElementById('soloResinLength').value) * Number(document.getElementById('soloResinDensity').value)).toFixed(2));
+      setResinQtyInput((Number(document.getElementById('soloResinWidth').value) * Number(document.getElementById('soloResinThickness').value) * Number(document.getElementById('soloResinLength').value) * Number(document.getElementById('soloResinDensity').value)).toFixed(2).replace(/\.00$/, ''));
       setResinPriceInput(document.getElementById('soloResinPrice').value);
-      setResinPreviewAmount(parseFloat(document.getElementById('soloResinPrice').value * document.getElementById('soloResinQty').value).toFixed(2));
+      setResinPreviewAmount(parseFloat(document.getElementById('soloResinPrice').value * document.getElementById('soloResinQty').value).toFixed(2).replace(/\.00$/, ''));
   }
 // ------------------------------------------------------------------------------------------------------------
 
@@ -473,7 +473,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
             <TextField id="soloInkQty" value={inkQtyInput} onChange={(e) => setInkQtyInput(e.target.value)} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
             <TextField id="soloInkPrice" value={inkPriceInput} onChange={InkRollPriceHandler} size="small" color="primary" label="Unit Price"/>            
             <span id="soloInkAmount" style={{ padding: 10, fontWeight: 5000 }}>${inkPreviewAmount}</span>
-            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
             <Icon onClick={newInkHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
           </a>
         </Stack>
@@ -505,7 +505,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
             <TextField id="soloGlueQty" value={glueQtyInput} onChange={GlueHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
             <TextField id="soloGluePrice" value={gluePriceInput} onChange={GlueHandler} size="small" color="primary" label="Unit Price"/>
             <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${gluePreviewAmount}</span>
-            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
             <Icon onClick={newGlueHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
           </a>
         </Stack>
@@ -537,7 +537,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
             <TextField id="soloThinnerQty" value={thinnerQtyInput} onChange={ThinnerHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
             <TextField id="soloThinnerPrice" value={thinnerPriceInput} onChange={ThinnerHandler} size="small" color="primary" label="Unit Price"/>
             <span id="soloThinnerAmount" style={{ padding: 10, fontWeight: 5000 }}>${thinnerPreviewAmount}</span>
-            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
             <Icon onClick={newThinnerHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
           </a>
         </Stack>
@@ -573,7 +573,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
             <TextField id="soloFilmQty" value={filmQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
             <TextField id="soloFilmPrice" value={filmPriceInput} onChange={FilmHandler} size="small" color="primary" label="Unit Price"/>
             <span id="soloFilmAmount" style={{ padding: 10, fontWeight: 5000 }}>${filmPreviewAmount}</span>
-            <a href='#' style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
+            <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
             <Icon onClick={newFilmHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
           </a>
         </Stack>
@@ -626,7 +626,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
               <span id="soloResinAmount">${resinPreviewAmount}</span>
             </Grid>
             <Grid item xs={12} sm={6} md={1}>
-              <a href='#' style={{backgroundColor:"transparent", padding:0, color: '#139487'}} className='icon-button'>
+              <a  href="#/" style={{backgroundColor:"transparent", padding:0, color: '#139487'}} className='icon-button'>
                 <Icon onClick={newResinHandler} sx={{ fontSize: 40 }}>add_circle</Icon> 
               </a>
             </Grid>

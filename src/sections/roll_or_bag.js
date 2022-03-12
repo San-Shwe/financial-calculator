@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '@mui/system';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
@@ -90,9 +90,9 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
     setRollUp(document.getElementById('rollup').value)
     setRollMeter(document.getElementById('rollmeter').value)
     setMeterPerRoll(document.getElementById('rollmr').value)
-    setRollQty(parseFloat((Number(document.getElementById('rollmeter').value) / Number(document.getElementById('rollmr').value) * Number(document.getElementById('rollup').value))).toFixed(2));
+    setRollQty(parseFloat(Number(document.getElementById('rollmeter').value) / Number(document.getElementById('rollmr').value) * Number(document.getElementById('rollup').value)).toFixed(2).replace(/\.00$/, ''));
   }
-
+  
   // For Bag Form
   const [meterOrPcs, setMeterOrPcs] = React.useState('');
   const [cuttinglength, setCuttingLength] = React.useState('');
@@ -100,9 +100,9 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
 
   const ChooseHandler = (e) => {
     if (e.target.value === 'pcs') {
-      setBagQty(parseFloat((Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('cuttinglength').value) * Number(document.getElementById('bagup').value))).toFixed(2));  //ok
+      setBagQty(parseFloat(Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('cuttinglength').value) * Number(document.getElementById('bagup').value)).toFixed(2).replace(/\.00$/, '')); 
     }else{
-      setBagQty(parseFloat((Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('bagup').value) * Number(document.getElementById('cuttinglength').value))).toFixed(2));
+      setBagQty(parseFloat(Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('bagup').value) * Number(document.getElementById('cuttinglength').value)).toFixed(2).replace(/\.00$/, ''));
     }
   }
 
@@ -110,8 +110,8 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
       setBagUp(document.getElementById('bagup').value)
       setMeterOrPcs(document.getElementById('meterOrpcs').value)
       setCuttingLength(document.getElementById('cuttinglength').value)
-      setBagQty(parseFloat(( 30 / 10 ) * 1).toFixed(2));
-    }
+      setBagQty(parseFloat(Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('cuttinglength').value) * Number(document.getElementById('bagup').value)).toFixed(2)); 
+  }
 
   return (
     <TabsUnstyled defaultValue={0}>
@@ -144,8 +144,8 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
             sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
           >
             <TextField id="bagup" value={bagUp} onChange={BagFormHandler} size="small" color="secondary" label="Up" variant="outlined" />
-            <TextField id="meterOrpcs" value={meterOrPcs} onChange={BagFormHandler} size="small" color="secondary" label="Meter Or Pcs" variant="outlined" />
-            <TextField id="cuttinglength" value={cuttinglength} onChange={BagFormHandler} size="small" color="secondary" label="Cutting Length" variant="outlined" />
+            <TextField id="meterOrpcs" value={meterOrPcs}  onChange={BagFormHandler} size="small" color="secondary" label="Meter Or Pcs" variant="outlined" />
+            <TextField id="cuttinglength" value={cuttinglength}  onChange={BagFormHandler} size="small" color="secondary" label="Cutting Length" variant="outlined" />
             <Divider color="primary" orientation="vertical" flexItem />
             <span style={{ padding: 10, fontWeight:"Bold" }}>{bagQty}</span>
               <RadioGroup

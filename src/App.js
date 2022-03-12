@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'; //, createTheme, ThemeProvider 
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import CalculateIcon from '@mui/icons-material/CalculateRounded';
@@ -11,18 +11,18 @@ import SaveIcon from '@mui/icons-material/SaveRounded';
 import Button from '@mui/material/Button';
 
 // IMPORT COMPONENTS
-import {NavBar, NavItem} from './Layout/navigation'
-import TopBanner from './sections/topBanner'
+import {NavBar, NavItem} from './Layout/navigation';
+import TopBanner from './sections/topBanner';
 import MajorSection from './sections/major_section';
-import RollOrBagSection from './sections/roll_or_bag'
-import Raws from './sections/raw'
-import OtherMaterials from './sections/other_material'
-import DirectIndirectCost from './sections/directIndirect_cost'
-import FinalResult from './sections/final_Result'
+import RollOrBagSection from './sections/roll_or_bag';
+import Raws from './sections/raw';
+import OtherMaterials from './sections/other_material';
+import DirectIndirectCost from './sections/directIndirect_cost';
+import FinalResult from './sections/final_Result';
+import twoDecimalPlacesIfCents from './Modules/global_module.mjs';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#282c34' : '#fff',
-    // backgroundColor= '#282c34'  
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -34,10 +34,10 @@ const Item = styled(Paper)(({ theme }) => ({
 //         mode: 'light',
 //     }, 
 // });
-const App = () => {
 
+const App = () => {
     // for major section 
-    const [porductName, setProductName] = React.useState("");
+    const [productName, setProductName] = React.useState("");
     const [structure, setStructure] = React.useState([]);
     const [productSize, setProductSize] = React.useState("");
     
@@ -76,57 +76,98 @@ const App = () => {
     const [subTotal , setSubTotal] = useState(0);
     const [grandTotal , setGrandTotal] = useState(0);
 
-    // Use Effects
+    // Save Raw to Local
+    // const saveRawsToLocal = () => {
+    //     localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
+    //     localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
+    //     localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
+    //     localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
+    //     localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
+    // };
+
+    // Run Once when app start
+    useEffect(() => {
+        if(localStorage.getItem("newInkRow") === null){
+            localStorage.setItem('newInkRow', JSON.stringify([]))
+        }else{
+            setInkNewRow(JSON.parse(localStorage.getItem('newInkRow')));
+        }
+
+        // get Glue Items from local storage
+        if(localStorage.getItem("newGlueRow") === null){
+            localStorage.setItem('newGlueRow', JSON.stringify([]))
+        }else{
+            setGlueNewRow(JSON.parse(localStorage.getItem('newGlueRow')));
+        }
+
+        if(localStorage.getItem("newThinnerRow") === null){
+            localStorage.setItem('newThinnerRow', JSON.stringify([]))
+        }else{
+            setThinnerNewRow(JSON.parse(localStorage.getItem('newThinnerRow')));
+        }
+
+        if(localStorage.getItem("newResinRow") === null){
+            localStorage.setItem('newResinRow', JSON.stringify([]))
+        }else{
+            setResinNewRow(JSON.parse(localStorage.getItem('newResinRow')));
+        }
+
+        if(localStorage.getItem("newFilmRow") === null){
+            localStorage.setItem('newFilmRow', JSON.stringify([]))
+        }else{
+            setFilmNewRow(JSON.parse(localStorage.getItem('newFilmRow')));
+        }
+
+    }, []);
+    
+    // Use Effects For Sum of Raw 
     useEffect(() => {
         let total = 0;
         newInkRow.forEach(element => {
-        total += element.amount 
+        total += Number(element.amount) 
         });
 
         newGlueRow.forEach(element => {
-        total += element.amount
+        total += Number(element.amount)
         });
 
         newThinnerRow.forEach(element => {
-        total += element.amount 
+        total += Number(element.amount) 
         });
 
         newFilmRow.forEach(element => {
-        total += element.amount
+        total += Number(element.amount)
         });
 
         newResinRow.forEach(element => {
-        total += element.amount
+        total += Number(element.amount)
         });
 
-        setRawTotal(total);
-
-        saveLocal(); // save to local
+        setRawTotal(twoDecimalPlacesIfCents(total));
+        // saveRawsToLocal(); // save to local
+        localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
+        localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
+        localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
+        localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
+        localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
 
     }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, newResinRow ]);
 
+    // useEffect hook for sum of other materials
     useEffect(() => {
-        let total = (Number(core3Amount) + Number(core6Amount) + Number(TSAmount) + Number(PVCGlueAmount) + Number(PETGGlueAmount) + Number(SSDSTAmount) + Number(LHAmount) + Number(CBAmount) + Number(SSRibbonAmount) + Number(ZipperAmount)).toFixed(2);
-        setOtherMaterialsTotal(total);
-        setTotal(Number(rawTotal) + Number(OtherMaterialsTotal) + Number(directCost) + Number(inDirectCost))
-    }, [core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount ]);
+        let total = Number(core3Amount) + Number(core6Amount) + Number(TSAmount) + Number(PVCGlueAmount) + Number(PETGGlueAmount) + Number(SSDSTAmount) + Number(LHAmount) + Number(CBAmount) + Number(SSRibbonAmount) + Number(ZipperAmount) + Number(directCost) + Number(inDirectCost) ;
+        setOtherMaterialsTotal(twoDecimalPlacesIfCents(total)); // convert to 2 decimal and set to total
+        setTotal(Number(rawTotal) + Number(OtherMaterialsTotal) + Number(directCost) + Number(inDirectCost));
+
+        localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
+        localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
+        localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
+        localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
+        localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
+
+    }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, rawTotal, newResinRow, OtherMaterialsTotal, subTotal, grandTotal, core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount, directCost, inDirectCost ]);
     
-    useEffect(() => {
-        getLocal();
-    }, []);
-    
-    // Save to Local
-    const saveLocal = () => {
-        localStorage.setItem('rollQty', JSON.stringify(rollQty))
-    }
-    const getLocal = () => {
-        if(localStorage.getItem("rollQty") === null){
-            localStorage.setItem('rollQty', JSON.stringify([]))
-        }else{
-            const local_rollQty = JSON.parse(localStorage.getItem('rollQty'));
-            setRollQty(local_rollQty);
-        }
-    }
+
     return (
         // <ThemeProvider theme={darkTheme}>
             <React.Fragment>
@@ -138,7 +179,7 @@ const App = () => {
                                 <Item><TopBanner /></Item>
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}> 
-                                <Item><MajorSection porductName={porductName} setProductName={setProductName} 
+                                <Item><MajorSection productName={productName} setProductName={setProductName} 
                                 structure={structure} setStructure={setStructure} 
                                 productSize={productSize} setProductSize={setProductSize} 
                                 /></Item>
@@ -188,6 +229,7 @@ const App = () => {
                             <Grid item xs={12} md={6}>
                                 <Item>
                                     <FinalResult 
+                                        rollQty = {rollQty}
                                         directCost={directCost}
                                         inDirectCost={inDirectCost} 
 

@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 
-const MajorSection = ({porductName, setProductName, structure, setStructure, productSize, setProductSize}) => {
-    const porductNameHandler = (e) => {
+const MajorSection = ({productName, setProductName, structure, setStructure, productSize, setProductSize}) => {
+    const productNameHandler = (e) => {
         setProductName(e.target.value);
     }
 
@@ -18,7 +18,7 @@ const MajorSection = ({porductName, setProductName, structure, setStructure, pro
 
     return (
         <Stack spacing={1}>        
-            <TextField placeholder={porductName} onChange={porductNameHandler} id="outlined-basic" size="small"  label="Product Name" variant="outlined" />
+            <TextField placeholder={productName} onChange={productNameHandler} id="outlined-basic" size="small"  label="Product Name" variant="outlined" />
             <Autocomplete
                 id="combo-box-demo"
                 size="small"
