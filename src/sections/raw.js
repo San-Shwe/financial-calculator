@@ -448,7 +448,7 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
       </TabsList>
       <TabPanel value={0}> 
         <InkInputs newInkRow={newInkRow} setInkNewRow={setInkNewRow} />
-        <Divider color="primary" /><br />
+        <Divider color="grey" /><br />
         <Stack
             direction="row"
             alignItems="center"
@@ -468,19 +468,19 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
                 setInkNameInput(newValue);
               }}
 
-              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+              renderInput={(params) => <TextField color="secondary" {...params} label="Structure" />}
             />
             <TextField id="soloInkQty" value={inkQtyInput} onChange={(e) => setInkQtyInput(e.target.value)} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
-            <TextField id="soloInkPrice" value={inkPriceInput} onChange={InkRollPriceHandler} size="small" color="primary" label="Unit Price"/>            
+            <TextField id="soloInkPrice" value={inkPriceInput} onChange={InkRollPriceHandler} size="small" color="secondary" label="Unit Price"/>            
             <span id="soloInkAmount" style={{ padding: 10, fontWeight: 5000 }}>${inkPreviewAmount}</span>
             <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
-            <Icon onClick={newInkHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+            <Icon onClick={newInkHandler} sx={{ fontSize: 40, color:"secondary" }}>add_circle</Icon> 
           </a>
         </Stack>
       </TabPanel>
       <TabPanel value={1}>
         <GlueInputs newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow} />
-        <Divider color="primary" /><br />
+        <Divider color="grey" /><br />
         <Stack
             direction="row"
             alignItems="center"
@@ -500,19 +500,19 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
                 setGlueNameInput(newValue);
               }}
 
-              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+              renderInput={(params) => <TextField color="secondary" {...params} label="Structure" />}
             />
             <TextField id="soloGlueQty" value={glueQtyInput} onChange={GlueHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
-            <TextField id="soloGluePrice" value={gluePriceInput} onChange={GlueHandler} size="small" color="primary" label="Unit Price"/>
+            <TextField id="soloGluePrice" value={gluePriceInput} onChange={GlueHandler} size="small" color="secondary" label="Unit Price"/>
             <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${gluePreviewAmount}</span>
             <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
-            <Icon onClick={newGlueHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+            <Icon onClick={newGlueHandler} sx={{ fontSize: 40, color:"secondary" }}>add_circle</Icon> 
           </a>
         </Stack>
       </TabPanel>
       <TabPanel value={2}>
         <ThinnerInputs newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow} />
-        <Divider color="primary" /><br />
+        <Divider color="grey" /><br />
         <Stack
             direction="row"
             alignItems="center"
@@ -532,19 +532,19 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
                 setThinnerNameInput(newValue);
               }}
 
-              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+              renderInput={(params) => <TextField color="secondary" {...params} label="Structure" />}
             />
             <TextField id="soloThinnerQty" value={thinnerQtyInput} onChange={ThinnerHandler} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
-            <TextField id="soloThinnerPrice" value={thinnerPriceInput} onChange={ThinnerHandler} size="small" color="primary" label="Unit Price"/>
+            <TextField id="soloThinnerPrice" value={thinnerPriceInput} onChange={ThinnerHandler} size="small" color="secondary" label="Unit Price"/>
             <span id="soloThinnerAmount" style={{ padding: 10, fontWeight: 5000 }}>${thinnerPreviewAmount}</span>
             <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
-            <Icon onClick={newThinnerHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+            <Icon onClick={newThinnerHandler} sx={{ fontSize: 40, color:"secondary" }}>add_circle</Icon> 
           </a>
         </Stack>
       </TabPanel>
       <TabPanel value={3}>
         <FilmInputs newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow} />
-        <Divider color="primary" /><br />
+        <Divider color="grey" /><br />
         <Stack
             direction="row"
             alignItems="center"
@@ -558,29 +558,28 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
               options={Structures}
               getOptionLabel={(option) => option.label}
               sx={{ width: 250 }}
-
               value={filmNameInput}
               onChange={(event, newValue) => {
                 setFilmNameInput(newValue);
               }}
 
-              renderInput={(params) => <TextField color="primary" {...params} label="Structure" />}
+              renderInput={(params) => <TextField color="secondary" {...params} label="Structure" />}
             />
-            <TextField id="soloFilmWidth" value={filmWidthInput} onChange={FilmHandler} size="small" color="primary" label="Width"/>
-            <TextField id="soloFilmThickness" value={filmThicknessInput} onChange={FilmHandler} size="small" color="primary" label="Thickness"/>
-            <TextField id="soloFilmLength" value={filmLengthInput} onChange={FilmHandler} size="small" color="primary" label="Length"/>
-            <TextField id="soloFilmDensity" value={filmDensityInput} onChange={FilmHandler} size="small" color="primary" label="Density"/>
-            <TextField id="soloFilmQty" value={filmQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
-            <TextField id="soloFilmPrice" value={filmPriceInput} onChange={FilmHandler} size="small" color="primary" label="Unit Price"/>
+            <TextField id="soloFilmWidth" value={filmWidthInput} onChange={FilmHandler} size="small" color="secondary" label="Width"/>
+            <TextField id="soloFilmThickness" value={filmThicknessInput} onChange={FilmHandler} size="small" color="secondary" label="Thickness"/>
+            <TextField id="soloFilmLength" value={filmLengthInput} onChange={FilmHandler} size="small" color="secondary" label="Length"/>
+            <TextField id="soloFilmDensity" value={filmDensityInput} onChange={FilmHandler} size="small" color="secondary" label="Density"/>
+            <TextField id="soloFilmQty" disabled value={filmQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
+            <TextField id="soloFilmPrice" value={filmPriceInput} onChange={FilmHandler} size="small" color="secondary" label="Unit Price"/>
             <span id="soloFilmAmount" style={{ padding: 10, fontWeight: 5000 }}>${filmPreviewAmount}</span>
             <a  href="#/" style={{backgroundColor:"transparent", color: '#139487'}} className='icon-button'>
-            <Icon onClick={newFilmHandler} sx={{ fontSize: 40, color:"primary" }}>add_circle</Icon> 
+            <Icon onClick={newFilmHandler} sx={{ fontSize: 40 }}>add_circle</Icon> 
           </a>
         </Stack>
       </TabPanel>
       <TabPanel value={4}>
         <ResinInputs newResinRow={newResinRow} setResinNewRow={setResinNewRow} />
-        <Divider color="primary" /><br />
+        <Divider color="grey" /><br />
         <Stack
             direction="row"
             alignItems="center"
@@ -592,7 +591,6 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
             <Grid item xs={6} sm={6} md={4}>
               <Autocomplete
                 size="small"
-                // maxWidth="lg"
                 options={Structures}
                 getOptionLabel={(option) => option.label}
                 // sx={{ width: 250 }}
@@ -601,26 +599,26 @@ export default function UnstyledTabsCustomized({newInkRow, setInkNewRow, newGlue
                 onChange={(event, newValue) => {
                   setResinNameInput(newValue);
                 }}
-                renderInput={(params) => <TextField color="primary" sx={{ width: 250 }} {...params} label="Structure" />}
+                renderInput={(params) => <TextField color="secondary" sx={{ width: 250 }} {...params} label="Structure" />}
               />
             </Grid>
             <Grid item xs={6} sm={6} md={1}>
-              <TextField id="soloResinWidth" value={resinWidthInput} onChange={ResinHandler} size="small" color="primary" label="Width"/>
+              <TextField id="soloResinWidth" value={resinWidthInput} onChange={ResinHandler} size="small" color="secondary" label="Width"/>
             </Grid>
             <Grid item xs={6} sm={6} md={1}>
-              <TextField id="soloResinThickness" value={resinThicknessInput} onChange={ResinHandler} size="small" color="primary" label="Thickness"/>
+              <TextField id="soloResinThickness" value={resinThicknessInput} onChange={ResinHandler} size="small" color="secondary" label="Thickness"/>
             </Grid>
             <Grid item xs={6} sm={6} md={1}>
-              <TextField id="soloResinLength" value={resinLengthInput} onChange={ResinHandler} size="small" color="primary" label="Length"/>
+              <TextField id="soloResinLength" value={resinLengthInput} onChange={ResinHandler} size="small" color="secondary" label="Length"/>
             </Grid>
             <Grid item xs={6} sm={6} md={1}>
-              <TextField id="soloResinDensity" value={resinDensityInput} onChange={ResinHandler} onInput={(e)=> document.getElementById('soloResinDensity').value=e.target.value} size="small" color="primary" label="Density"/>
+              <TextField id="soloResinDensity" value={resinDensityInput} onChange={ResinHandler} onInput={(e)=> document.getElementById('soloResinDensity').value=e.target.value} size="small" color="secondary" label="Density"/>
             </Grid>
             <Grid item xs={12} sm={6} md={1}>
               <TextField id="soloResinQty" value={resinQtyInput} size="small" color="secondary" label="Qty (Kg)" variant="outlined" />
             </Grid>
             <Grid item xs={12} sm={6} md={1}>
-              <TextField id="soloResinPrice" value={resinPriceInput} onChange={ResinHandler} size="small" color="primary" label="Unit Price"/>
+              <TextField id="soloResinPrice" value={resinPriceInput} onChange={ResinHandler} size="small" color="secondary" label="Unit Price"/>
             </Grid>
             <Grid item xs={12} sm={6} md={1} style={{ margin: 'auto' }} >
               <span id="soloResinAmount">${resinPreviewAmount}</span>

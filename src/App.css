@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #388fe6;
+  background-color: transparent;
 }
 
 /* ===========================Start CSS for Final Result============================= */
@@ -8,8 +8,8 @@
   list-style: none;
   margin: 10px 0;
   padding: 10px;
-  background: #eee;
-  font-weight: bold;
+  background: #242526;
+  /* font-weight: bold; */
   display: flex;
   justify-content: space-between;
 }
@@ -19,13 +19,13 @@
 }
 
 .grand_total {
-  font-weight: 700;
-  color: brown;
+  font-weight: bolder;
+  color: rgb(197, 31, 31);
 }
 
 .per_unit {
   font-weight: 300;
-  color: rgb(30, 146, 26);
+  color: rgb(45, 223, 39);
 }
 
 /* ===========================End CSS for Final Result============================= */

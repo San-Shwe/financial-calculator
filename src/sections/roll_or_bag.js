@@ -79,12 +79,7 @@ const TabsList = styled(TabsListUnstyled)`
   align-content: space-between;
 `;
 
-export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, setBagQty}) {
-
-  // For Roll Form 
-  const [meterPerRoll, setMeterPerRoll] = React.useState('');
-  const [rollUp, setRollUp] = React.useState('');
-  const [rollMeter, setRollMeter] = React.useState('');
+export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, setBagQty, meterPerRoll, setMeterPerRoll, rollUp, setRollUp, rollMeter, setRollMeter, meterOrPcs, setMeterOrPcs, cuttinglength, setCuttingLength, bagUp, setBagUp, isMeter, setIsMeter}) {
 
   const JRollHandler = (e) => {
     setRollUp(document.getElementById('rollup').value)
@@ -93,18 +88,15 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
     setRollQty(parseFloat(Number(document.getElementById('rollmeter').value) / Number(document.getElementById('rollmr').value) * Number(document.getElementById('rollup').value)).toFixed(2).replace(/\.00$/, ''));
   }
   
-  // For Bag Form
-  const [meterOrPcs, setMeterOrPcs] = React.useState('');
-  const [cuttinglength, setCuttingLength] = React.useState('');
-  const [bagUp, setBagUp] = React.useState('');
-
-  const ChooseHandler = (e) => {
-    if (e.target.value === 'pcs') {
-      setBagQty(parseFloat(Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('cuttinglength').value) * Number(document.getElementById('bagup').value)).toFixed(2).replace(/\.00$/, '')); 
-    }else{
-      setBagQty(parseFloat(Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('bagup').value) * Number(document.getElementById('cuttinglength').value)).toFixed(2).replace(/\.00$/, ''));
+    const ChooseHandler = (e) => {
+      if (e.target.value === 'pcs') {
+        setBagQty(parseFloat(Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('cuttinglength').value) * Number(document.getElementById('bagup').value)).toFixed(2).replace(/\.00$/, '')); 
+        setIsMeter(false)
+      }else{
+        setBagQty(parseFloat(Number(document.getElementById('meterOrpcs').value) / Number(document.getElementById('bagup').value) * Number(document.getElementById('cuttinglength').value)).toFixed(2).replace(/\.00$/, ''));
+        setIsMeter(true)
+      }
     }
-  }
 
   const BagFormHandler = (e) => {
       setBagUp(document.getElementById('bagup').value)
@@ -151,7 +143,8 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 row
-                defaultValue="pcs"
+                // defaultValue= {(isMeter === true) ? "meter" : "pcs"}
+                value={(isMeter === true) ? "meter" : "pcs"}
                 name="radio-buttons-group"
                 size='lg'
                 direction='horizontal'

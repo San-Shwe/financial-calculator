@@ -8,6 +8,8 @@ import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
 import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 
+import twoDecimalPlacesIfCents from '../Modules/global_module.mjs';
+
 const blue = {
   50: '#E8E8E8', // tab background when focus
   100: '#D82148',
@@ -134,13 +136,13 @@ export default function OtherMaterials
     setCore3Size(document.getElementById('core3size').value)
     setCore3Length(rollQty * document.getElementById('core3size').value)
     setCore3Price(document.getElementById('core3price').value)
-    setCore3Amount(parseFloat(document.getElementById('core3length').value * document.getElementById('core3price').value).toFixed(2).replace(/\.00$/, ''))
+    setCore3Amount(twoDecimalPlacesIfCents(document.getElementById('core3length').value * document.getElementById('core3price').value))
   }
   const Core6Handler = (e) => {
     setCore6Size(document.getElementById('core6size').value)
     setCore6Length(rollQty * document.getElementById('core6size').value)
     setCore6Price(document.getElementById('core6price').value)
-    setCore6Amount(parseFloat(document.getElementById('core6length').value * document.getElementById('core6price').value).toFixed(2).replace(/\.00$/, ''))
+    setCore6Amount(twoDecimalPlacesIfCents(document.getElementById('core6length').value * document.getElementById('core6price').value))
   }
 
   // Handlers for TS(Double Side Tape) Tab
@@ -148,18 +150,18 @@ export default function OtherMaterials
     setTSMeter(document.getElementById('ts_meter').value);
     setTSUp(document.getElementById('ts_up').value);
     setTSDST(document.getElementById('ts_dst').value);
-    setTSRoll(parseFloat((document.getElementById('ts_meter').value * document.getElementById('ts_up').value)/document.getElementById('ts_dst').value).toFixed(2).replace(/\.00$/, ''));
+    setTSRoll(twoDecimalPlacesIfCents((document.getElementById('ts_meter').value * document.getElementById('ts_up').value)/document.getElementById('ts_dst').value));
     setTSPrice(document.getElementById('ts_price').value);
-    setTSAmount(parseFloat(document.getElementById('ts_roll').value * document.getElementById('ts_price').value).toFixed(2).replace(/\.00$/, ''));
+    setTSAmount(twoDecimalPlacesIfCents(document.getElementById('ts_roll').value * document.getElementById('ts_price').value));
   }
 
   // Handlers for T.C.S(Glue) Tab
   const TCSGluePVCHandler = (e) => {
     setPVCGlueMeter(document.getElementById('pvcGlue_meter').value);
     setPVCGlueUp(document.getElementById('pvcGlue_up').value);
-    setPVCGlueQty(parseFloat((document.getElementById('pvcGlue_meter').value * document.getElementById('pvcGlue_up').value)/ 3000).toFixed(2).replace(/\.00$/, ''));
+    setPVCGlueQty(twoDecimalPlacesIfCents((document.getElementById('pvcGlue_meter').value * document.getElementById('pvcGlue_up').value)/ 3000));
     setPVCGluePrice(document.getElementById('pvcGlue_price').value);
-    setPVCGlueAmount(parseFloat(PVCGlueQty * document.getElementById('pvcGlue_price').value).toFixed(2).replace(/\.00$/, ''));
+    setPVCGlueAmount(twoDecimalPlacesIfCents(PVCGlueQty * document.getElementById('pvcGlue_price').value));
   }
   const TCSGluePETGHandler = (e) => {
     setPETGGlueMeter(document.getElementById('petgGlue_meter').value);
@@ -181,21 +183,21 @@ export default function OtherMaterials
     const SSLHHandler = (e) => {  // Side Seal >> Loop Handle Handler
       setLHPcs(document.getElementById('sslh_pcs').value);
       setLHPrice(document.getElementById('sslh_price').value);
-      setLHAmount((document.getElementById('sslh_pcs').value * document.getElementById('sslh_price').value) .replace(/\.00$/, ''));
+      setLHAmount(twoDecimalPlacesIfCents(document.getElementById('sslh_pcs').value * document.getElementById('sslh_price').value));
     }
     const SSCBHandler = (e) => { // Side Seal >> Card Board Handler
       setCBPcs(document.getElementById('sscb_pcs').value);
       setCBPrice(document.getElementById('sscb_price').value);
-      setCBAmount((document.getElementById('sscb_pcs').value * document.getElementById('sscb_price').value).replace(/\.00$/, ''));
+      setCBAmount(twoDecimalPlacesIfCents(document.getElementById('sscb_pcs').value * document.getElementById('sscb_price').value));
     }
     
     const SSRibbonHandler = (e) => { // Side Seal >> Double Side Tape Handler
       setSSRibbonMeter(document.getElementById('ssdRibbon_meter').value);
       setSSRibbonUp(document.getElementById('ssdRibbon_up').value);
       setSSRibbonDST(document.getElementById('ssdRibbon_dst').value);
-      setSSRibbonRoll(parseFloat((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value).toFixed(2).replace(/\.00$/, ''));
+      setSSRibbonRoll(twoDecimalPlacesIfCents((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value));
       setSSRibbonPrice(document.getElementById('ssdRibbon_price').value);
-      setSSRibbonAmount((document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value).toFixed(2).replace(/\.00$/, ''));
+      setSSRibbonAmount(twoDecimalPlacesIfCents(document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value));
     }
 
     // Handlers for Zipper Tab
@@ -203,9 +205,9 @@ export default function OtherMaterials
       setZipperMeter(document.getElementById('ssdRibbon_meter').value);
       setZipperUp(document.getElementById('ssdRibbon_up').value);
       setZipperDST(document.getElementById('ssdRibbon_dst').value);
-      setZipperRoll(parseFloat((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value).toFixed(2).replace(/\.00$/, ''));
+      setZipperRoll(twoDecimalPlacesIfCents((document.getElementById('ssdRibbon_meter').value * document.getElementById('ssdRibbon_up').value)/document.getElementById('ssdRibbon_dst').value));
       setZipperPrice(document.getElementById('ssdRibbon_price').value);
-      setZipperAmount((document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value).toFixed(2).replace(/\.00$/, ''));
+      setZipperAmount(twoDecimalPlacesIfCents(document.getElementById('ssdRibbon_roll').value * document.getElementById('ssdRibbon_price').value));
     }
 
   return (
@@ -228,9 +230,9 @@ export default function OtherMaterials
             {/* <span style={{ padding: 5, fontWeight: 5000 }}>&nbsp;</span> */}
             <span>Paper Core 3"</span>
             <TextField value={rollQty} size="small" color="secondary" label="Roll Qty" variant="outlined" />
-            <TextField value={core3Size} id="core3size" onChange={Core3Handler} size="small" color="primary" label="Size"/>
-            <TextField value={core3Length} id="core3length" onChange={Core3Handler} size="small" color="primary" label="Length"/>
-            <TextField value={core3Price} id="core3price" onChange={Core3Handler} size="small" color="primary" label="Price"/>
+            <TextField value={core3Size} id="core3size" onChange={Core3Handler} size="small" color="secondary" label="Size"/>
+            <TextField value={core3Length} id="core3length" onChange={Core3Handler} size="small" color="secondary" label="Length"/>
+            <TextField value={core3Price} id="core3price" onChange={Core3Handler} size="small" color="secondary" label="Price"/>
             <span style={{ padding: 10, fontWeight: 5000 }}>${core3Amount}</span>
           </Stack>
           <Stack
@@ -242,9 +244,9 @@ export default function OtherMaterials
           >
             <span>Paper Core 6"</span>
             <TextField value={rollQty} size="small" color="secondary" label="Roll Qty" variant="outlined" />
-            <TextField value={core6Size} id="core6size" onChange={Core6Handler} size="small" color="primary" label="Size"/>
-            <TextField value={core6Length} id="core6length" onChange={Core6Handler} size="small" color="primary" label="Length"/>
-            <TextField value={core6Price} id="core6price" onChange={Core6Handler} size="small" color="primary" label="Price"/>
+            <TextField value={core6Size} id="core6size" onChange={Core6Handler} size="small" color="secondary" label="Size"/>
+            <TextField value={core6Length} id="core6length" onChange={Core6Handler} size="small" color="secondary" label="Length"/>
+            <TextField value={core6Price} id="core6price" onChange={Core6Handler} size="small" color="secondary" label="Price"/>
             <span style={{ padding: 10, fontWeight: 5000 }}>${core6Amount}</span>
           </Stack>
       </TabPanel>
@@ -258,9 +260,9 @@ export default function OtherMaterials
           >
             <TextField value={TSMeter} id="ts_meter" onChange={TSDSTHandler} size="small" color="secondary" label="Meter" variant="outlined" />
             <TextField value={TSUp} id="ts_up" onChange={TSDSTHandler} size="small" color="secondary" label="Up" variant="outlined" />
-            <TextField value={TSDST} id="ts_dst" onChange={TSDSTHandler} size="small" color="primary" label="D.S.Tape"/>
-            <TextField value={TSRoll} id="ts_roll" onChange={TSDSTHandler} size="small" color="primary" label="Roll"/>
-            <TextField value={TSPrice} id="ts_price" onChange={TSDSTHandler} size="small" color="primary" label="Price"/>
+            <TextField value={TSDST} id="ts_dst" onChange={TSDSTHandler} size="small" color="secondary" label="D.S.Tape"/>
+            <TextField value={TSRoll} id="ts_roll" onChange={TSDSTHandler} size="small" color="secondary" label="Roll"/>
+            <TextField value={TSPrice} id="ts_price" onChange={TSDSTHandler} size="small" color="secondary" label="Price"/>
             <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${TSAmount}</span>
           </Stack>
       </TabPanel>
@@ -275,8 +277,8 @@ export default function OtherMaterials
           <span>Paper Core 3"</span>
           <TextField value={PVCGlueMeter} id="pvcGlue_meter" onChange={TCSGluePVCHandler} size="small" color="secondary" label="Meter" variant="outlined" />
           <TextField value={PVCGlueUp} id="pvcGlue_up" onChange={TCSGluePVCHandler} size="small" color="secondary" label="Up" variant="outlined" />
-          <TextField value={PVCGlueQty} id="pvcGlue_qty" onChange={TCSGluePVCHandler} size="small" color="primary" label="Qty"/>
-          <TextField value={PVCGluePrice} id="pvcGlue_price" onChange={TCSGluePVCHandler} size="small" color="primary" label="Price"/>
+          <TextField value={PVCGlueQty} id="pvcGlue_qty" onChange={TCSGluePVCHandler} size="small" color="secondary" label="Qty"/>
+          <TextField value={PVCGluePrice} id="pvcGlue_price" onChange={TCSGluePVCHandler} size="small" color="secondary" label="Price"/>
           <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${PVCGlueAmount}</span>
         </Stack>
         <Stack
@@ -289,8 +291,8 @@ export default function OtherMaterials
           <span>Paper Core 3"</span>
           <TextField value={PETGGlueMeter} id="petgGlue_meter" onChange={TCSGluePETGHandler} size="small" color="secondary" label="Meter" variant="outlined" />
           <TextField value={PETGGlueUp} id="petgGlue_up" onChange={TCSGluePETGHandler} size="small" color="secondary" label="Up" variant="outlined" />
-          <TextField value={PETGGlueQty} id="petgGlue_qty" onChange={TCSGluePETGHandler} size="small" color="primary" label="Qty"/>
-          <TextField value={PETGGluePrice} id="petgGlue_price" onChange={TCSGluePETGHandler} size="small" color="primary" label="Price"/>
+          <TextField value={PETGGlueQty} id="petgGlue_qty" onChange={TCSGluePETGHandler} size="small" color="secondary" label="Qty"/>
+          <TextField value={PETGGluePrice} id="petgGlue_price" onChange={TCSGluePETGHandler} size="small" color="secondary" label="Price"/>
           <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${PETGGlueAmount}</span>
         </Stack>
       </TabPanel>
@@ -305,9 +307,9 @@ export default function OtherMaterials
           <span>Double Side Tape</span>
           <TextField value={SSDSTMeter} id="ssdst_meter" onChange={SSDSTHandler} size="small" color="secondary" label="Meter" variant="outlined" />
           <TextField value={SSDSTUp} id="ssdst_up" onChange={SSDSTHandler} size="small" color="secondary" label="Up" variant="outlined" />
-          <TextField value={SSDSTDST} id="ssdst_dst" onChange={SSDSTHandler} size="small" color="primary" label="D.S.Tape"/>
-          <TextField value={SSDSTRoll} id="ssdst_roll" onChange={SSDSTHandler} size="small" color="primary" label="Roll"/>
-          <TextField value={SSDSTPrice} id="ssdst_price" onChange={SSDSTHandler} size="small" color="primary" label="Price"/>
+          <TextField value={SSDSTDST} id="ssdst_dst" onChange={SSDSTHandler} size="small" color="secondary" label="D.S.Tape"/>
+          <TextField value={SSDSTRoll} id="ssdst_roll" onChange={SSDSTHandler} size="small" color="secondary" label="Roll"/>
+          <TextField value={SSDSTPrice} id="ssdst_price" onChange={SSDSTHandler} size="small" color="secondary" label="Price"/>
           <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${SSDSTAmount}</span>
         </Stack>
         <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={0.5} sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }} >
@@ -326,9 +328,9 @@ export default function OtherMaterials
           <span>Double Side Tape</span>
           <TextField value={SSRibbonMeter} id="ssdRibbon_meter" onChange={SSRibbonHandler} size="small" color="secondary" label="Meter" variant="outlined" />
           <TextField value={SSRibbonUp} id="ssdRibbon_up" onChange={SSRibbonHandler} size="small" color="secondary" label="Up" variant="outlined" />
-          <TextField value={SSRibbonDST} id="ssdRibbon_dst" onChange={SSRibbonHandler} size="small" color="primary" label="D.S.Tape"/>
-          <TextField value={SSRibbonRoll} id="ssdRibbon_roll" onChange={SSRibbonHandler} size="small" color="primary" label="Roll"/>
-          <TextField value={SSRibbonPrice} id="ssdRibbon_price" onChange={SSRibbonHandler} size="small" color="primary" label="Price"/>
+          <TextField value={SSRibbonDST} id="ssdRibbon_dst" onChange={SSRibbonHandler} size="small" color="secondary" label="D.S.Tape"/>
+          <TextField value={SSRibbonRoll} id="ssdRibbon_roll" onChange={SSRibbonHandler} size="small" color="secondary" label="Roll"/>
+          <TextField value={SSRibbonPrice} id="ssdRibbon_price" onChange={SSRibbonHandler} size="small" color="secondary" label="Price"/>
           <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${SSRibbonAmount}</span>
         </Stack>
       </TabPanel>
@@ -336,9 +338,9 @@ export default function OtherMaterials
       <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={0.5} sx={{ px: 0.5, py: 0.5, bgcolor: 'background.default' }}>
           <TextField value={ZipperMeter} id="ssdRibbon_meter" onChange={ZipperHandler} size="small" color="secondary" label="Meter" variant="outlined" />
           <TextField value={ZipperUp} id="ssdRibbon_up" onChange={ZipperHandler} size="small" color="secondary" label="Up" variant="outlined" />
-          <TextField value={ZipperDST} id="ssdRibbon_dst" onChange={ZipperHandler} size="small" color="primary" label="D.S.Tape"/>
-          <TextField value={ZipperRoll} id="ssdRibbon_roll" onChange={ZipperHandler} size="small" color="primary" label="Roll"/>
-          <TextField value={ZipperPrice} id="ssdRibbon_price" onChange={ZipperHandler} size="small" color="primary" label="Price"/>
+          <TextField value={ZipperDST} id="ssdRibbon_dst" onChange={ZipperHandler} size="small" color="secondary" label="D.S.Tape"/>
+          <TextField value={ZipperRoll} id="ssdRibbon_roll" onChange={ZipperHandler} size="small" color="secondary" label="Roll"/>
+          <TextField value={ZipperPrice} id="ssdRibbon_price" onChange={ZipperHandler} size="small" color="secondary" label="Price"/>
           <span id="soloGlueAmount" style={{ padding: 10, fontWeight: 5000 }}>${ZipperAmount}</span>
           </Stack>
       </TabPanel>
@@ -347,12 +349,12 @@ export default function OtherMaterials
 }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const Structures = [
-  { id:1, label: 'The Shawshank Redemption', year: 1994 },
-  { id:2, label: 'The Godfather', year: 1972 },
-  { id:3, label: 'The Godfather: Part II', year: 1974 },
-  { id:4, label: 'The Dark Knight', year: 2008 },
-  { id:5, label: '12 Angry Men', year: 1957 },
-  { id:6, label: "Schindler's List", year: 1993 },
-  { id:7, label: 'Pulp Fiction', year: 1994 },
-];
+// const Structures = [
+//   { id:1, label: 'The Shawshank Redemption', year: 1994 },
+//   { id:2, label: 'The Godfather', year: 1972 },
+//   { id:3, label: 'The Godfather: Part II', year: 1974 },
+//   { id:4, label: 'The Dark Knight', year: 2008 },
+//   { id:5, label: '12 Angry Men', year: 1957 },
+//   { id:6, label: "Schindler's List", year: 1993 },
+//   { id:7, label: 'Pulp Fiction', year: 1994 },
+// ];

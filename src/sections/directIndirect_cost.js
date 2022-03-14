@@ -8,10 +8,10 @@ import Divider from '@mui/material/Divider';
 export default function DirectIndirectCost({directCost, setDirectCost, inDirectCost, setIndirectCost}) {
   return (
     <Stack direction="row" spacing={2} sx={{maxWidth: '100%', width: '100%'}}>            
-          <TextField id="direct_cost" onChange={e=>setDirectCost(e.target.value)} size="small"  label="Indirect Cost" variant="outlined" />
+          <TextField id="direct_cost" onChange={e=>setDirectCost(e.target.value)} size="small"  label="Indirect Cost" />
           <Typography style={{ padding: 10, borderRadius: 10, fontWeight: 5000 }}>${directCost}</Typography>
           <Divider orientation="horizontal" flexItem />
-          <TextField id="indirect_cost" onChange={e=>setIndirectCost(e.target.value)} size="small" label="Direct Cost" variant="outlined" />
+          <TextField id="indirect_cost" onChange={e=>setIndirectCost(e.target.value)} size="small" label="Direct Cost" />
           <Typography style={{ padding: 10, borderRadius: 10, fontWeight: 5000 }}>${inDirectCost}</Typography>
       </Stack>
   );
