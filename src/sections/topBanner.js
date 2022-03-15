@@ -17,7 +17,8 @@ export default class TopBanner extends React.Component {
                         </Typography>
                     </Stack>
                     <Button>
-                        <img alt="Remy Sharp" height ={39} width={170} src='https://www.myitshwewah.com/uploads/6/0/3/6/60366863/full-logo-horizontal_2.png' />
+                        <img alt="Remy Sharp" height ={39} width={170} src='..\img\msw-grey-background-logo.png' /> 
+                        {/* https://www.myitshwewah.com/uploads/6/0/3/6/60366863/full-logo-horizontal_2.png */}
                     </Button>
                 </Box>
                 {/* <Divider />
