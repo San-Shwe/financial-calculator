@@ -1,38 +1,32 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography'
-// import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
+// import Stack from '@mui/material/Stack'
 import '@fontsource/roboto/300.css';
+import msw_logo from "../img/msw-transparent-logo.png";
+import Grid from '@mui/material/Grid';
+
+import '../App.css';
 
 export default class TopBanner extends React.Component {
     render(){
         return (
             <div>
-                <Box sx={{ p: 2, display: 'flex' }}>
-                    <Stack spacing={0.5}>
-                        <Typography variant="body2" color="text.secondary">
-                        {/* <LocationOn sx={{color:'primary'}} /> Scranton, PA */}
-                        </Typography>
-                    </Stack>
-                    <Button>
-                        <img alt="Remy Sharp" height ={39} width={170} src='..\img\msw-grey-background-logo.png' /> 
-                        {/* https://www.myitshwewah.com/uploads/6/0/3/6/60366863/full-logo-horizontal_2.png */}
-                    </Button>
+                <Box sx={{ width: '100%' }}>
+                    <Grid container spacing={2}>
+                        <Grid item md={4} sm={4} xs={12} textAlign='left'>
+                            <Button fullWidth variant="contained" sx={{background:'linear-gradient(to right, #757F9A 0%, #D7DDE8  51%, #757F9A  100%)'}}>
+                                <img alt="msw_logo" height ={39} width={170} src={msw_logo} /> 
+                                {/* https://www.myitshwewah.com/uploads/6/0/3/6/60366863/full-logo-horizontal_2.png */}
+                            </Button>
+                        </Grid>
+                        <Grid item md={8} ms={8} xs={12} textAlign='left'>
+                            <Typography  className="title" sx={{marginLeft:0}} variant="h5">FINANCIAL CALCULATOR</Typography>
+                        </Grid>
+                    </Grid> 
                 </Box>
-                {/* <Divider />
-                <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
-                >
-                    <Chip>Active account</Chip>
-                    <Switch />
-                </Stack> */}
             </div>
         );
     }
 }
-

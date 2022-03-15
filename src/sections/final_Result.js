@@ -71,7 +71,7 @@ export default function FinalResult({ rollQty, rawTotal, OtherMaterialsTotal, to
           </li>
           <li className='cost'>
             <span className="cost_lable per_unit">Per Unit: </span>
-            <span className="cost_amount">${twoDecimalPlacesIfCents((subTotal + total)/rollQty)}</span>
+            <span className="cost_amount" id="perunit">${twoDecimalPlacesIfCents((subTotal + total)/rollQty)}</span>
           </li>
           <br /><br /><br /><br /><br />
         </ul>

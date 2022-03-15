@@ -7,9 +7,14 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import CalculateIcon from '@mui/icons-material/CalculateRounded';
 import ClearAllIcon from '@mui/icons-material/ClearAllRounded';
+import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
 import SaveIcon from '@mui/icons-material/SaveRounded';
 import Button from '@mui/material/Button';
 import { cyan, orange } from '@mui/material/colors'
+import About from './about'
+// import Main from './main'
+
+import './App.css';
 
 // IMPORT COMPONENTS
 import {NavBar, NavItem} from './Layout/navigation';
@@ -21,6 +26,13 @@ import OtherMaterials from './sections/other_material';
 import DirectIndirectCost from './sections/directIndirect_cost';
 import FinalResult from './sections/final_Result';
 import twoDecimalPlacesIfCents from './Modules/global_module.mjs';
+
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link,
+} from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#282c34' : '#fff',
@@ -42,37 +54,126 @@ const darkTheme = createTheme({
     }, 
 });
 
+
+
+const Main = ({productName, setProductName, structure ,setStructure ,productSize, setProductSize}) => {
+        
+    return (
+        <Container maxWidth="lg">
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={12}>
+                        <Item  className="btn-grad"><TopBanner/></Item>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4}> 
+                        <Item><MajorSection productName={productName} setProductName={setProductName} 
+                        structure={structure} setStructure={setStructure} 
+                        productSize={productSize} setProductSize={setProductSize} 
+                        />
+                        </Item>
+                    </Grid>
+                    {/* <Grid item xs={12} sm={6} md={8}>
+                        <Item><RollOrBagSection
+                            meterPerRoll={meterPerRoll} setMeterPerRoll={setMeterPerRoll}
+                            rollUp={rollUp} setRollUp={setRollUp}
+                            rollMeter={rollMeter} setRollMeter={setRollMeter}
+                            rollQty={rollQty} setRollQty={setRollQty}
+
+                            meterOrPcs={meterOrPcs} setMeterOrPcs={setMeterOrPcs}
+                            cuttinglength={cuttinglength} setCuttingLength={setCuttingLength}
+                            bagUp={bagUp} setBagUp={setBagUp}
+                            bagQty={bagQty} setBagQty={setBagQty}
+                            isMeter={isMeter} setIsMeter={setIsMeter}
+                        /></Item>
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Item>
+                            <Raws 
+                                newInkRow={newInkRow} setInkNewRow={setInkNewRow}
+                                newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
+                                newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
+                                newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
+                                newResinRow={newResinRow} setResinNewRow={setResinNewRow}
+                            />
+                        </Item>
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Item>
+                            <OtherMaterials 
+                                rollQty={rollQty}
+                                core3Amount={core3Amount} setCore3Amount={setCore3Amount}
+                                core6Amount={core6Amount} setCore6Amount={setCore6Amount}
+                                TSAmount={TSAmount} setTSAmount={setTSAmount}
+                                PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
+                                PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
+                                SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
+                                LHAmount={LHAmount} setLHAmount={setLHAmount}
+                                CBAmount={CBAmount} setCBAmount={setCBAmount}
+                                SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
+                                ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
+                            />
+                        </Item>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Item>
+                            <DirectIndirectCost 
+                                directCost={directCost} setDirectCost={setDirectCost}
+                                inDirectCost={inDirectCost} setIndirectCost={setIndirectCost}
+                            />
+                        </Item>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Item>
+                            <FinalResult 
+                                rollQty = {rollQty}
+                                directCost={directCost}
+                                inDirectCost={inDirectCost} 
+
+                                rawTotal={rawTotal} setRawTotal={setRawTotal}
+                                OtherMaterialsTotal={OtherMaterialsTotal} setOtherMaterialsTotal={setOtherMaterialsTotal}
+
+                                total={total} setTotal={setTotal}
+                                subTotal={subTotal} setSubTotal={setSubTotal}
+                                grandTotal={grandTotal} setGrandTotal={setGrandTotal}
+                            />
+                        </Item>
+                    </Grid> */}
+                </Grid>
+            </Box>
+        </Container>
+    );
+}
+
 const App = () => {
-    // 
 
 
     // for major section 
-        const [productName, setProductName] = React.useState("");
-        const [structure, setStructure] = React.useState(0);         // actually structure is saved id not name
-        const [productSize, setProductSize] = React.useState("");
-    
-    // for roll or bag section 
-        // For Roll Form 
-        const [meterPerRoll, setMeterPerRoll] = React.useState('');
-        const [rollUp, setRollUp] = React.useState('');
-        const [rollMeter, setRollMeter] = React.useState('');
-        const [rollQty, setRollQty] = React.useState(0);
+    const [productName, setProductName] = React.useState("");
+    const [structure, setStructure] = React.useState(0);         // actually structure is saved id not name
+    const [productSize, setProductSize] = React.useState("");
 
-        // For Bag Form
-        const [meterOrPcs, setMeterOrPcs] = React.useState('');
-        const [cuttinglength, setCuttingLength] = React.useState('');
-        const [bagUp, setBagUp] = React.useState('');
-        const [bagQty, setBagQty] = useState(0);
-        const [isMeter, setIsMeter] = useState(true);
+// for roll or bag section 
+    // For Roll Form 
+    const [meterPerRoll, setMeterPerRoll] = React.useState('');
+    const [rollUp, setRollUp] = React.useState('');
+    const [rollMeter, setRollMeter] = React.useState('');
+    const [rollQty, setRollQty] = React.useState(0);
 
-    // variables for raw section 
-        const [newInkRow, setInkNewRow] = useState([]);
-        const [newGlueRow, setGlueNewRow] = useState([]);
-        const [newThinnerRow, setThinnerNewRow] = useState([]);
-        const [newFilmRow, setFilmNewRow] = useState([]);
-        const [newResinRow, setResinNewRow] = useState([]);
+    // For Bag Form
+    const [meterOrPcs, setMeterOrPcs] = React.useState('');
+    const [cuttinglength, setCuttingLength] = React.useState('');
+    const [bagUp, setBagUp] = React.useState('');
+    const [bagQty, setBagQty] = useState(0);
+    const [isMeter, setIsMeter] = useState(true);
 
-    // variables for other materials section 
+// variables for raw section 
+    const [newInkRow, setInkNewRow] = useState([]);
+    const [newGlueRow, setGlueNewRow] = useState([]);
+    const [newThinnerRow, setThinnerNewRow] = useState([]);
+    const [newFilmRow, setFilmNewRow] = useState([]);
+    const [newResinRow, setResinNewRow] = useState([]);
+
+// variables for other materials section 
     let [core3Amount, setCore3Amount] = useState(0);
     let [core6Amount, setCore6Amount] = useState(0);
     let [TSAmount, setTSAmount] = useState(0);
@@ -83,26 +184,26 @@ const App = () => {
     let [CBAmount, setCBAmount]  = useState(0);
     let [SSRibbonAmount, setSSRibbonAmount] = useState(0);
     let [ZipperAmount, setZipperAmount] = useState(0);
-    
-    // variables for DirectCost and IndirectCost
+
+// variables for DirectCost and IndirectCost
     let [directCost, setDirectCost] = useState(0);
     let [inDirectCost, setIndirectCost] = useState(0);
 
-    // Final Calculation
+// Final Calculation
     const [rawTotal, setRawTotal] = useState(0);
     const [OtherMaterialsTotal, setOtherMaterialsTotal] = useState(0);
     const [total, setTotal] = useState(0);
     const [subTotal , setSubTotal] = useState(0);
     const [grandTotal , setGrandTotal] = useState(0);
 
-    // Save Raw to Local
-    // const saveRawsToLocal = () => {
-    //     localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
-    //     localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
-    //     localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
-    //     localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
-    //     localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
-    // };
+// Save Raw to Local
+// const saveRawsToLocal = () => {
+//     localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
+//     localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
+//     localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
+//     localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
+//     localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
+// };
 
     const clearHandler = () => {
         localStorage.clear();
@@ -237,199 +338,117 @@ const App = () => {
             }
 
         // bind data for Ink >> Raw
-        if(localStorage.getItem("newInkRow") === null){
-            localStorage.setItem('newInkRow', JSON.stringify([]));
-        }else{
-            setInkNewRow(JSON.parse(localStorage.getItem('newInkRow')));
-        }
+            if(localStorage.getItem("newInkRow") === null){
+                localStorage.setItem('newInkRow', JSON.stringify([]));
+            }else{
+                setInkNewRow(JSON.parse(localStorage.getItem('newInkRow')));
+            }
 
         // get Glue Items from local storage
-        if(localStorage.getItem("newGlueRow") === null){
-            localStorage.setItem('newGlueRow', JSON.stringify([]));
-        }else{
-            setGlueNewRow(JSON.parse(localStorage.getItem('newGlueRow')));
-        }
+            if(localStorage.getItem("newGlueRow") === null){
+                localStorage.setItem('newGlueRow', JSON.stringify([]));
+            }else{
+                setGlueNewRow(JSON.parse(localStorage.getItem('newGlueRow')));
+            }
 
-        if(localStorage.getItem("newThinnerRow") === null){
-            localStorage.setItem('newThinnerRow', JSON.stringify([]))
-        }else{
-            setThinnerNewRow(JSON.parse(localStorage.getItem('newThinnerRow')));
-        }
+            if(localStorage.getItem("newThinnerRow") === null){
+                localStorage.setItem('newThinnerRow', JSON.stringify([]))
+            }else{
+                setThinnerNewRow(JSON.parse(localStorage.getItem('newThinnerRow')));
+            }
 
-        if(localStorage.getItem("newResinRow") === null){
-            localStorage.setItem('newResinRow', JSON.stringify([]))
-        }else{
-            setResinNewRow(JSON.parse(localStorage.getItem('newResinRow')));
-        }
+            if(localStorage.getItem("newResinRow") === null){
+                localStorage.setItem('newResinRow', JSON.stringify([]))
+            }else{
+                setResinNewRow(JSON.parse(localStorage.getItem('newResinRow')));
+            }
 
-        if(localStorage.getItem("newFilmRow") === null){
-            localStorage.setItem('newFilmRow', JSON.stringify([]))
-        }else{
-            setFilmNewRow(JSON.parse(localStorage.getItem('newFilmRow')));
-        }
+            if(localStorage.getItem("newFilmRow") === null){
+                localStorage.setItem('newFilmRow', JSON.stringify([]))
+            }else{
+                setFilmNewRow(JSON.parse(localStorage.getItem('newFilmRow')));
+            }
 
-    }, []);
+        }, []);
     
     // Use Effects For Sum of Raw 
-    useEffect(() => {
-        let total = 0;
-        newInkRow.forEach(element => {
-        total += Number(element.amount) 
-        });
+        useEffect(() => {
+            let total = 0;
+            newInkRow.forEach(element => {
+            total += Number(element.amount) 
+            });
 
-        newGlueRow.forEach(element => {
-        total += Number(element.amount)
-        });
+            newGlueRow.forEach(element => {
+            total += Number(element.amount)
+            });
 
-        newThinnerRow.forEach(element => {
-        total += Number(element.amount) 
-        });
+            newThinnerRow.forEach(element => {
+            total += Number(element.amount) 
+            });
 
-        newFilmRow.forEach(element => {
-        total += Number(element.amount)
-        });
+            newFilmRow.forEach(element => {
+            total += Number(element.amount)
+            });
 
-        newResinRow.forEach(element => {
-        total += Number(element.amount)
-        });
+            newResinRow.forEach(element => {
+            total += Number(element.amount)
+            });
 
-        setRawTotal(twoDecimalPlacesIfCents(total));
-        // saveRawsToLocal(); // save to local
-        localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
-        localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
-        localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
-        localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
-        localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
+            setRawTotal(twoDecimalPlacesIfCents(total));
+            // saveRawsToLocal(); // save to local
+            localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
+            localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
+            localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
+            localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
+            localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
 
-    }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, newResinRow ]);
+        }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, newResinRow ]);
 
     // useEffect hook for sum of other materials
-    useEffect(() => {
-        let total = Number(core3Amount) + Number(core6Amount) + Number(TSAmount) + Number(PVCGlueAmount) + Number(PETGGlueAmount) + Number(SSDSTAmount) + Number(LHAmount) + Number(CBAmount) + Number(SSRibbonAmount) + Number(ZipperAmount) + Number(directCost) + Number(inDirectCost) ;
-        setOtherMaterialsTotal(twoDecimalPlacesIfCents(total)); // convert to 2 decimal and set to total
-        setTotal(Number(rawTotal) + Number(OtherMaterialsTotal) + Number(directCost) + Number(inDirectCost));
+        useEffect(() => {
+            let total = Number(core3Amount) + Number(core6Amount) + Number(TSAmount) + Number(PVCGlueAmount) + Number(PETGGlueAmount) + Number(SSDSTAmount) + Number(LHAmount) + Number(CBAmount) + Number(SSRibbonAmount) + Number(ZipperAmount) + Number(directCost) + Number(inDirectCost) ;
+            setOtherMaterialsTotal(twoDecimalPlacesIfCents(total)); // convert to 2 decimal and set to total
+            setTotal(Number(rawTotal) + Number(OtherMaterialsTotal) + Number(directCost) + Number(inDirectCost));
 
-        localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
-        localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
-        localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
-        localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
-        localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
+            localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
+            localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
+            localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
+            localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
+            localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
 
-    }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, rawTotal, newResinRow, OtherMaterialsTotal, subTotal, grandTotal, core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount, directCost, inDirectCost ]);
+        }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, rawTotal, newResinRow, OtherMaterialsTotal, subTotal, grandTotal, core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount, directCost, inDirectCost ]);
     
     // const MyContext = React.createContext();
 
     return (
-            // <MyContext.Provider name="Hello React">
+            <Router>
                 <ThemeProvider theme={darkTheme}>
-                <React.Fragment>
-                    <CssBaseline />
-                    <Container maxWidth="lg">
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} md={12}>
-                                    <Item><TopBanner /></Item>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}> 
-                                    <Item><MajorSection productName={productName} setProductName={setProductName} 
-                                    structure={structure} setStructure={setStructure} 
-                                    productSize={productSize} setProductSize={setProductSize} 
-                                    /></Item>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={8}>
-                                    <Item><RollOrBagSection
-                                        meterPerRoll={meterPerRoll} setMeterPerRoll={setMeterPerRoll}
-                                        rollUp={rollUp} setRollUp={setRollUp}
-                                        rollMeter={rollMeter} setRollMeter={setRollMeter}
-                                        rollQty={rollQty} setRollQty={setRollQty}
-
-                                        meterOrPcs={meterOrPcs} setMeterOrPcs={setMeterOrPcs}
-                                        cuttinglength={cuttinglength} setCuttingLength={setCuttingLength}
-                                        bagUp={bagUp} setBagUp={setBagUp}
-                                        bagQty={bagQty} setBagQty={setBagQty}
-                                        isMeter={isMeter} setIsMeter={setIsMeter}
-                                    /></Item>
-                                </Grid>
-                                <Grid item xs={12} md={12}>
-                                    <Item>
-                                        <Raws 
-                                            newInkRow={newInkRow} setInkNewRow={setInkNewRow}
-                                            newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
-                                            newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
-                                            newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
-                                            newResinRow={newResinRow} setResinNewRow={setResinNewRow}
-                                        />
-                                    </Item>
-                                </Grid>
-                                <Grid item xs={12} md={12}>
-                                    <Item>
-                                        <OtherMaterials 
-                                            rollQty={rollQty}
-                                            core3Amount={core3Amount} setCore3Amount={setCore3Amount}
-                                            core6Amount={core6Amount} setCore6Amount={setCore6Amount}
-                                            TSAmount={TSAmount} setTSAmount={setTSAmount}
-                                            PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
-                                            PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
-                                            SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
-                                            LHAmount={LHAmount} setLHAmount={setLHAmount}
-                                            CBAmount={CBAmount} setCBAmount={setCBAmount}
-                                            SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
-                                            ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
-                                        />
-                                    </Item>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Item>
-                                        <DirectIndirectCost 
-                                            directCost={directCost} setDirectCost={setDirectCost}
-                                            inDirectCost={inDirectCost} setIndirectCost={setIndirectCost}
-                                        />
-                                    </Item>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Item>
-                                        <FinalResult 
-                                            rollQty = {rollQty}
-                                            directCost={directCost}
-                                            inDirectCost={inDirectCost} 
-
-                                            rawTotal={rawTotal} setRawTotal={setRawTotal}
-                                            OtherMaterialsTotal={OtherMaterialsTotal} setOtherMaterialsTotal={setOtherMaterialsTotal}
-
-                                            total={total} setTotal={setTotal}
-                                            subTotal={subTotal} setSubTotal={setSubTotal}
-                                            grandTotal={grandTotal} setGrandTotal={setGrandTotal}
-                                        />
-                                    </Item>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Container>
-                    <NavBar>
-                        <NavItem icon="😊">
-                            <Button className='icon-button' onClick={saveHandler} color="secondary" endIcon={<SaveIcon />} variant="contained">Save</Button>
-                        </NavItem>
-                        <NavItem icon="😊">
-                            <Button className='icon-button'  color="success" endIcon={<CalculateIcon />} variant="contained">Calculate</Button>
-                        </NavItem>
-                        <NavItem icon="😊">
-                            <Button className='icon-button' onClick={clearHandler} color="warning" endIcon={<ClearAllIcon />} variant="contained">Clear</Button>
-                        </NavItem>
-                    </NavBar>
-                </React.Fragment>
-        </ThemeProvider>
-            // </MyContext.Provider>
+                    <React.Fragment>
+                        <CssBaseline />
+                        <Routes>
+                            {/* <Route exact path='/register' element={<Register/>}/>
+                            <Route exact path='/login' element={<Login/>}/> */}
+                            <Route path='/' exact element={<Main structure={structure} setStructure={setStructure} 
+                        productSize={productSize} setProductSize={setProductSize} productName={productName} setProductName={setProductName} key="editor1" />} />
+                            <Route path='/about' exact element={<About key="editor2" />} />
+                        </Routes>
+                        <NavBar>
+                            <NavItem icon="😊">
+                                <Button className='icon-button' onClick={saveHandler} color="secondary" endIcon={<SaveIcon />} variant="contained">Save</Button>
+                            </NavItem>
+                            <NavItem icon="😊">
+                                <Button className='icon-button'  href="#perunit" color="success" endIcon={<CalculateIcon />} variant="contained">Calculate</Button>
+                            </NavItem>
+                            <NavItem icon="😊">
+                                <Button className='icon-button' onClick={clearHandler} color="warning" endIcon={<ClearAllIcon />} variant="contained">Clear</Button>
+                            </NavItem>
+                            <NavItem icon="😊">
+                                <Link to="/about"><FolderSpecialIcon onClick={e=>console.log("click")} sx={{ fontSize: 40 }}/></Link>
+                            </NavItem>
+                        </NavBar>
+                    </React.Fragment>
+                </ThemeProvider>
+            </Router>    
     )
 }
-  
-// const Structures = [
-//     { id:1, label: 'The Shawshank Redemption', year: 1994 },
-//     { id:2, label: 'The Godfather', year: 1972 },
-//     { id:3, label: 'The Godfather: Part II', year: 1974 },
-//     { id:4, label: 'The Dark Knight', year: 2008 },
-//     { id:5, label: '12 Angry Men', year: 1957 },
-//     { id:6, label: "Schindler's List", year: 1993 },
-//     { id:7, label: 'Pulp Fiction', year: 1994 },
-// ];
-
 export default App;

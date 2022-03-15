@@ -3,6 +3,60 @@
   background-color: transparent;
 }
 
+/* For Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* =================================================== css for top banner  ===================================================*/
+/* Tablet:768px. */ 
+/* textAlign='left' */
+@media (min-width: 768px) { 
+  .title {
+    /* font-size: 26px;  */
+    background: -webkit-linear-gradient(rgb(255, 235, 53), rgb(226, 171, 171));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+   }
+ }
+ 
+ /* Mobile :320px. */
+ @media (max-width: 767px) {
+  .title {
+    background: -webkit-linear-gradient(rgb(255, 235, 53), rgb(226, 171, 171));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* font-size: xx-small;
+    color: #41f71c; */
+   }
+ }
+
+
+/* =================================================== css for top banner  ===================================================*/
+
+
+/* ===========================Start CSS for Final Result============================= */
+
+.btn-grad {background-image: linear-gradient(to right, #16222A 0%, #3A6073  51%, #16222A  100%)}
+.btn-grad {
+   /* margin: 10px; */
+   /* padding: 15px 45px; */
+   text-align: center;
+   /* text-transform: uppercase; */
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+ }
+
+
+
+/* ====================================================================================== */
+
+
+
 /* ===========================Start CSS for Final Result============================= */
 .cost {
   list-style: none;
