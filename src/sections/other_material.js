@@ -76,8 +76,7 @@ const TabsList = styled(TabsListUnstyled)`
   align-content: space-between;
 `;
 
-export default function OtherMaterials
-({rollQty, core3Amount, setCore3Amount, core6Amount, setCore6Amount, TSAmount, setTSAmount, PVCGlueAmount, setPVCGlueAmount, PETGGlueAmount, setPETGGlueAmount, SSDSTAmount, setSSDSTAmount, LHAmount, setLHAmount, CBAmount, setCBAmount, SSRibbonAmount, setSSRibbonAmount,  ZipperAmount, setZipperAmount}) {
+export default function OtherMaterials ({rollQty, core3Amount, setCore3Amount, core6Amount, setCore6Amount, TSAmount, setTSAmount, PVCGlueAmount, setPVCGlueAmount, PETGGlueAmount, setPETGGlueAmount, SSDSTAmount, setSSDSTAmount, LHAmount, setLHAmount, CBAmount, setCBAmount, SSRibbonAmount, setSSRibbonAmount,  ZipperAmount, setZipperAmount}) {
 
   // States for OTHER MATERIALS ------------------------------------------------------------------------------------------------------------------------
   // states for Roll From Tab

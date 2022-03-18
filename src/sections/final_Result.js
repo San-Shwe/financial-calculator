@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import '../App.css';
 
 import twoDecimalPlacesIfCents from '../Modules/global_module.mjs';
 
-export default function FinalResult({ rollQty, rawTotal, OtherMaterialsTotal, total, subTotal, grandTotal, setSubTotal, setGrandTotal, directCost, inDirectCost}) {
-
-  const [wastagePercentValue, setWastagePercentValue] = useState(0);
-  const [promotionPercentValue, setPromotionPercentValue] = useState(0);
+export default function FinalResult({ rollQty, rawTotal, OtherMaterialsTotal, total, subTotal, grandTotal, setSubTotal, setGrandTotal, directCost, inDirectCost, wastagePercentValue, setWastagePercentValue, promotionPercentValue, setPromotionPercentValue}) {
 
   const wastageHandler = (e) => {
     setWastagePercentValue(e.target.value)
@@ -34,11 +31,11 @@ export default function FinalResult({ rollQty, rawTotal, OtherMaterialsTotal, to
             <span className="cost_amount">${rawTotal} </span>
           </li>
           <li className='cost'>
-            <span className="cost_lable" >OtherMaterials : </span>
+            <span className="cost_lable" >Other Materials : </span>
             <span className="cost_amount">${OtherMaterialsTotal}</span>
           </li>
           <li className='cost'>
-            <span className="cost_lable">DirectCost : </span>
+            <span className="cost_lable">Direct Cost : </span>
             <span className="cost_amount">${directCost}</span>
           </li>
           <li className='cost'>

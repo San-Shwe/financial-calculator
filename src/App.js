@@ -1,10 +1,10 @@
 import React, {useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { styled, createTheme, ThemeProvider  } from '@mui/material/styles'; //, 
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+// import Box from '@mui/material/Box';
+// import Container from '@mui/material/Container';
+// import Paper from '@mui/material/Paper';
+// import Grid from '@mui/material/Grid';
+import { createTheme, ThemeProvider  } from '@mui/material/styles'; //, 
 import CalculateIcon from '@mui/icons-material/CalculateRounded';
 import ClearAllIcon from '@mui/icons-material/ClearAllRounded';
 import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
@@ -12,19 +12,13 @@ import SaveIcon from '@mui/icons-material/SaveRounded';
 import Button from '@mui/material/Button';
 import { cyan, orange } from '@mui/material/colors'
 import About from './about'
-// import Main from './main'
+import Main from './main'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import './App.css';
 
 // IMPORT COMPONENTS
 import {NavBar, NavItem} from './Layout/navigation';
-import TopBanner from './sections/topBanner';
-import MajorSection from './sections/major_section';
-import RollOrBagSection from './sections/roll_or_bag';
-import Raws from './sections/raw';
-import OtherMaterials from './sections/other_material';
-import DirectIndirectCost from './sections/directIndirect_cost';
-import FinalResult from './sections/final_Result';
 import twoDecimalPlacesIfCents from './Modules/global_module.mjs';
 
 import {
@@ -33,14 +27,6 @@ import {
     Route,
     Link,
 } from "react-router-dom";
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#282c34' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
 
 const darkTheme = createTheme({
     palette: {
@@ -55,98 +41,7 @@ const darkTheme = createTheme({
 });
 
 
-
-const Main = ({productName, setProductName, structure ,setStructure ,productSize, setProductSize}) => {
-        
-    return (
-        <Container maxWidth="lg">
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={12}>
-                        <Item  className="btn-grad"><TopBanner/></Item>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}> 
-                        <Item><MajorSection productName={productName} setProductName={setProductName} 
-                        structure={structure} setStructure={setStructure} 
-                        productSize={productSize} setProductSize={setProductSize} 
-                        />
-                        </Item>
-                    </Grid>
-                    {/* <Grid item xs={12} sm={6} md={8}>
-                        <Item><RollOrBagSection
-                            meterPerRoll={meterPerRoll} setMeterPerRoll={setMeterPerRoll}
-                            rollUp={rollUp} setRollUp={setRollUp}
-                            rollMeter={rollMeter} setRollMeter={setRollMeter}
-                            rollQty={rollQty} setRollQty={setRollQty}
-
-                            meterOrPcs={meterOrPcs} setMeterOrPcs={setMeterOrPcs}
-                            cuttinglength={cuttinglength} setCuttingLength={setCuttingLength}
-                            bagUp={bagUp} setBagUp={setBagUp}
-                            bagQty={bagQty} setBagQty={setBagQty}
-                            isMeter={isMeter} setIsMeter={setIsMeter}
-                        /></Item>
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Item>
-                            <Raws 
-                                newInkRow={newInkRow} setInkNewRow={setInkNewRow}
-                                newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
-                                newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
-                                newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
-                                newResinRow={newResinRow} setResinNewRow={setResinNewRow}
-                            />
-                        </Item>
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Item>
-                            <OtherMaterials 
-                                rollQty={rollQty}
-                                core3Amount={core3Amount} setCore3Amount={setCore3Amount}
-                                core6Amount={core6Amount} setCore6Amount={setCore6Amount}
-                                TSAmount={TSAmount} setTSAmount={setTSAmount}
-                                PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
-                                PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
-                                SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
-                                LHAmount={LHAmount} setLHAmount={setLHAmount}
-                                CBAmount={CBAmount} setCBAmount={setCBAmount}
-                                SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
-                                ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
-                            />
-                        </Item>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Item>
-                            <DirectIndirectCost 
-                                directCost={directCost} setDirectCost={setDirectCost}
-                                inDirectCost={inDirectCost} setIndirectCost={setIndirectCost}
-                            />
-                        </Item>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Item>
-                            <FinalResult 
-                                rollQty = {rollQty}
-                                directCost={directCost}
-                                inDirectCost={inDirectCost} 
-
-                                rawTotal={rawTotal} setRawTotal={setRawTotal}
-                                OtherMaterialsTotal={OtherMaterialsTotal} setOtherMaterialsTotal={setOtherMaterialsTotal}
-
-                                total={total} setTotal={setTotal}
-                                subTotal={subTotal} setSubTotal={setSubTotal}
-                                grandTotal={grandTotal} setGrandTotal={setGrandTotal}
-                            />
-                        </Item>
-                    </Grid> */}
-                </Grid>
-            </Box>
-        </Container>
-    );
-}
-
 const App = () => {
-
-
     // for major section 
     const [productName, setProductName] = React.useState("");
     const [structure, setStructure] = React.useState(0);         // actually structure is saved id not name
@@ -190,6 +85,9 @@ const App = () => {
     let [inDirectCost, setIndirectCost] = useState(0);
 
 // Final Calculation
+    const [wastagePercentValue, setWastagePercentValue] = useState(0);
+    const [promotionPercentValue, setPromotionPercentValue] = useState(0);
+
     const [rawTotal, setRawTotal] = useState(0);
     const [OtherMaterialsTotal, setOtherMaterialsTotal] = useState(0);
     const [total, setTotal] = useState(0);
@@ -205,6 +103,9 @@ const App = () => {
 //     localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
 // };
 
+    const [viewSaved, setViewSaved] = useState(true);
+    
+    // Clear All data from local storage and current text box
     const clearHandler = () => {
         localStorage.clear();
 
@@ -238,11 +139,17 @@ const App = () => {
         console.log("Clear ");
     }
 
+    // Save All data to Local Storage
     const saveHandler = () => {
-        localStorage.setItem('order', JSON.stringify([...JSON.parse(localStorage.getItem('order')), {"name":productName, "structure_id":structure, "product_size":productSize, "RollFrom":{"rollUp":rollUp, "rollMeter":rollMeter,
-        "meterPerRoll":meterPerRoll,"rollQty":rollQty}, "BagForm":{"meterOrPcs":meterOrPcs, "cuttinglength":cuttinglength, "bagUp":bagUp, "bagQty":bagQty, "isMeter":isMeter },  "ink":newInkRow, "glue":newGlueRow, "resin":newResinRow, "thinner":newThinnerRow, "film":newFilmRow }]));
+        const lenObj = JSON.stringify(localStorage.getItem('order'));
+        const len = lenObj.length;
+        console.log("JSON obj length: ",len);
 
-    // variables for raw section 
+        localStorage.setItem('order', JSON.stringify([...JSON.parse(localStorage.getItem('order')), {"id":localStorage.getItem('order').length, "name":productName, "structure_id":structure, "product_size":productSize, "RollFrom":{"rollUp":rollUp, "rollMeter":rollMeter,
+        "meterPerRoll":meterPerRoll,"rollQty":rollQty}, "BagForm":{"meterOrPcs":meterOrPcs, "cuttinglength":cuttinglength, "bagUp":bagUp, "bagQty":bagQty, "isMeter":isMeter }, "type": rollQty === null ? "Bag" : "Roll", "date":Date() ,"ink":newInkRow, "glue":newGlueRow, "resin":newResinRow, "thinner":newThinnerRow, "film":newFilmRow }]));
+        // "id":, 
+        console.log(localStorage.getItem('order').length);
+        // variables for raw section 
         localStorage.setItem('productName', JSON.stringify(productName));
         localStorage.setItem('structure', JSON.stringify(structure));
         localStorage.setItem('productSize', JSON.stringify(productSize));
@@ -258,6 +165,39 @@ const App = () => {
         localStorage.setItem('bagQty', JSON.stringify(bagQty));
 
         localStorage.setItem('isMeter', JSON.stringify(isMeter));
+
+        // save Raws To Local(); // save to local
+        localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
+        localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
+        localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
+        localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
+        localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
+
+        // save Other Materials to Local();
+        localStorage.setItem('core3Amount', JSON.stringify(core3Amount));
+        localStorage.setItem('core6Amount', JSON.stringify(core6Amount));
+        localStorage.setItem('TSAmount', JSON.stringify(TSAmount));
+        localStorage.setItem('PVCGlueAmount', JSON.stringify(PVCGlueAmount));
+        localStorage.setItem('PETGGlueAmount', JSON.stringify(PETGGlueAmount));
+        localStorage.setItem('SSDSTAmount', JSON.stringify(SSDSTAmount));
+        localStorage.setItem('LHAmount', JSON.stringify(LHAmount));
+        localStorage.setItem('CBAmount', JSON.stringify(PETGGlueAmount));
+        localStorage.setItem('SSRibbonAmount', JSON.stringify(SSRibbonAmount));
+        localStorage.setItem('ZipperAmount', JSON.stringify(ZipperAmount));
+
+        // save Direct Cost and Incirect Cost to Local
+        localStorage.setItem('directCost', JSON.stringify(directCost));
+        localStorage.setItem('inDirectCost', JSON.stringify(inDirectCost));
+
+        // Save Final Calculation
+        localStorage.setItem('wastagePercentValue', JSON.stringify(wastagePercentValue));
+        localStorage.setItem('promotionPercentValue', JSON.stringify(promotionPercentValue));
+
+        // const [rawTotal, setRawTotal] = useState(0);
+        // const [OtherMaterialsTotal, setOtherMaterialsTotal] = useState(0);
+        // const [total, setTotal] = useState(0);
+        // const [subTotal , setSubTotal] = useState(0);
+        // const [grandTotal , setGrandTotal] = useState(0);
     }
 
     // Run Once when app start
@@ -288,8 +228,8 @@ const App = () => {
                 setProductSize(JSON.parse(localStorage.getItem('productSize')));
             }
 
-        // bind >> roll from 
-            // bind data for roll form 
+    // bind >> roll from 
+        // bind data for roll form 
             if(localStorage.getItem("meterPerRoll") === null){
                 localStorage.setItem('meterPerRoll', JSON.stringify(""));
             }else{
@@ -310,7 +250,7 @@ const App = () => {
             }else{
                 setRollQty(JSON.parse(localStorage.getItem('rollQty')));
             }
-            // bind data for bag form 
+        // bind data for bag form 
             if(localStorage.getItem("meterOrPcs") === null){
                 localStorage.setItem('meterOrPcs', JSON.stringify(0));
             }else{
@@ -337,14 +277,13 @@ const App = () => {
                 setIsMeter(JSON.parse(localStorage.getItem('isMeter')));
             }
 
-        // bind data for Ink >> Raw
+        // bind data for Raw
             if(localStorage.getItem("newInkRow") === null){
                 localStorage.setItem('newInkRow', JSON.stringify([]));
             }else{
                 setInkNewRow(JSON.parse(localStorage.getItem('newInkRow')));
             }
 
-        // get Glue Items from local storage
             if(localStorage.getItem("newGlueRow") === null){
                 localStorage.setItem('newGlueRow', JSON.stringify([]));
             }else{
@@ -369,6 +308,41 @@ const App = () => {
                 setFilmNewRow(JSON.parse(localStorage.getItem('newFilmRow')));
             }
 
+            // bind data for Other Materials 
+            // core3Amount={core3Amount} setCore3Amount={setCore3Amount}
+            // core6Amount={core6Amount} setCore6Amount={setCore6Amount}
+            // TSAmount={TSAmount} setTSAmount={setTSAmount}
+            // PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
+            // PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
+            // SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
+            // LHAmount={LHAmount} setLHAmount={setLHAmount}
+            // CBAmount={CBAmount} setCBAmount={setCBAmount}
+            // SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
+            // ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
+
+            // bind data for DirectCost Indirect Cost
+            if(localStorage.getItem("directCost") === null){
+                localStorage.setItem('directCost', JSON.stringify(0))
+            }else{
+                setDirectCost(JSON.parse(localStorage.getItem('directCost')));
+            }
+            if(localStorage.getItem("inDirectCost") === null){
+                localStorage.setItem('inDirectCost', JSON.stringify(0))
+            }else{
+                setIndirectCost(JSON.parse(localStorage.getItem('inDirectCost')));
+            }
+
+          // bind data for Fial Calculation 
+            if(localStorage.getItem("wastagePercentValue") === null){
+                localStorage.setItem('wastagePercentValue', JSON.stringify(0))
+            }else{
+                setWastagePercentValue(JSON.parse(localStorage.getItem('wastagePercentValue')));
+            }
+            if(localStorage.getItem("promotionPercentValue") === null){
+                localStorage.setItem('promotionPercentValue', JSON.stringify(0))
+            }else{
+                setPromotionPercentValue(JSON.parse(localStorage.getItem('promotionPercentValue')));
+            }
         }, []);
     
     // Use Effects For Sum of Raw 
@@ -395,28 +369,15 @@ const App = () => {
             });
 
             setRawTotal(twoDecimalPlacesIfCents(total));
-            // saveRawsToLocal(); // save to local
-            localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
-            localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
-            localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
-            localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
-            localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
-
+            
         }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, newResinRow ]);
 
     // useEffect hook for sum of other materials
         useEffect(() => {
-            let total = Number(core3Amount) + Number(core6Amount) + Number(TSAmount) + Number(PVCGlueAmount) + Number(PETGGlueAmount) + Number(SSDSTAmount) + Number(LHAmount) + Number(CBAmount) + Number(SSRibbonAmount) + Number(ZipperAmount) + Number(directCost) + Number(inDirectCost) ;
+            let total = Number(core3Amount) + Number(core6Amount) + Number(TSAmount) + Number(PVCGlueAmount) + Number(PETGGlueAmount) + Number(SSDSTAmount) + Number(LHAmount) + Number(CBAmount) + Number(SSRibbonAmount) + Number(ZipperAmount) ;
             setOtherMaterialsTotal(twoDecimalPlacesIfCents(total)); // convert to 2 decimal and set to total
             setTotal(Number(rawTotal) + Number(OtherMaterialsTotal) + Number(directCost) + Number(inDirectCost));
-
-            localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
-            localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
-            localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
-            localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
-            localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
-
-        }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, rawTotal, newResinRow, OtherMaterialsTotal, subTotal, grandTotal, core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount, directCost, inDirectCost ]);
+        }, [newInkRow, newGlueRow, newThinnerRow, newFilmRow, newResinRow, rawTotal, OtherMaterialsTotal, subTotal, grandTotal, core3Amount, core6Amount, TSAmount, PVCGlueAmount, PETGGlueAmount ,SSDSTAmount, LHAmount, CBAmount, SSRibbonAmount, ZipperAmount, directCost, inDirectCost ]);
     
     // const MyContext = React.createContext();
 
@@ -426,24 +387,71 @@ const App = () => {
                     <React.Fragment>
                         <CssBaseline />
                         <Routes>
-                            {/* <Route exact path='/register' element={<Register/>}/>
-                            <Route exact path='/login' element={<Login/>}/> */}
                             <Route path='/' exact element={<Main structure={structure} setStructure={setStructure} 
-                        productSize={productSize} setProductSize={setProductSize} productName={productName} setProductName={setProductName} key="editor1" />} />
+                            productSize={productSize} setProductSize={setProductSize} productName={productName} setProductName={setProductName}
+                            meterPerRoll={meterPerRoll} setMeterPerRoll={setMeterPerRoll}
+                            rollUp={rollUp} setRollUp={setRollUp}
+                            rollMeter={rollMeter} setRollMeter={setRollMeter}
+                            rollQty={rollQty} setRollQty={setRollQty}
+
+                            meterOrPcs={meterOrPcs} setMeterOrPcs={setMeterOrPcs}
+                            cuttinglength={cuttinglength} setCuttingLength={setCuttingLength}
+                            bagUp={bagUp} setBagUp={setBagUp}
+                            bagQty={bagQty} setBagQty={setBagQty}
+                            isMeter={isMeter} setIsMeter={setIsMeter}
+
+                            newInkRow={newInkRow} setInkNewRow={setInkNewRow}
+                            newGlueRow={newGlueRow} setGlueNewRow={setGlueNewRow}
+                            newThinnerRow={newThinnerRow} setThinnerNewRow={setThinnerNewRow}
+                            newFilmRow={newFilmRow} setFilmNewRow={setFilmNewRow}
+                            newResinRow={newResinRow} setResinNewRow={setResinNewRow}
+
+                            // rollQty={rollQty}
+                            core3Amount={core3Amount} setCore3Amount={setCore3Amount}
+                            core6Amount={core6Amount} setCore6Amount={setCore6Amount}
+                            TSAmount={TSAmount} setTSAmount={setTSAmount}
+                            PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
+                            PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
+                            SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
+                            LHAmount={LHAmount} setLHAmount={setLHAmount}
+                            CBAmount={CBAmount} setCBAmount={setCBAmount}
+                            SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
+                            ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
+
+                            directCost={directCost} setDirectCost={setDirectCost}
+                            inDirectCost={inDirectCost} setIndirectCost={setIndirectCost}
+
+                            rawTotal={rawTotal} setRawTotal={setRawTotal}
+                            OtherMaterialsTotal={OtherMaterialsTotal} setOtherMaterialsTotal={setOtherMaterialsTotal}
+                            total={total} setTotal={setTotal}
+                            subTotal={subTotal} setSubTotal={setSubTotal}
+                            grandTotal={grandTotal} setGrandTotal={setGrandTotal}
+                            
+                            wastagePercentValue={wastagePercentValue} setWastagePercentValue={setWastagePercentValue}
+                            promotionPercentValue={promotionPercentValue} setPromotionPercentValue={setPromotionPercentValue}
+                            
+                            />} />
                             <Route path='/about' exact element={<About key="editor2" />} />
                         </Routes>
                         <NavBar>
-                            <NavItem icon="😊">
+                            <NavItem>
                                 <Button className='icon-button' onClick={saveHandler} color="secondary" endIcon={<SaveIcon />} variant="contained">Save</Button>
                             </NavItem>
-                            <NavItem icon="😊">
+                            <NavItem>
                                 <Button className='icon-button'  href="#perunit" color="success" endIcon={<CalculateIcon />} variant="contained">Calculate</Button>
                             </NavItem>
-                            <NavItem icon="😊">
+                            <NavItem>
                                 <Button className='icon-button' onClick={clearHandler} color="warning" endIcon={<ClearAllIcon />} variant="contained">Clear</Button>
                             </NavItem>
-                            <NavItem icon="😊">
-                                <Link to="/about"><FolderSpecialIcon onClick={e=>console.log("click")} sx={{ fontSize: 40 }}/></Link>
+                            <NavItem>
+                            {/* {viewSaved ? <FolderSpecialIcon  sx={{ fontSize: 40 }}/> : <ArrowBackIcon  sx={{ fontSize: 40 }}/>} */}
+                                <span onClick={e=>setViewSaved(!viewSaved)}>
+                                    {viewSaved ?
+                                    <Link to="/about"  id="savedPageNav"><FolderSpecialIcon  sx={{ fontSize: 40 }}/></Link>
+                                    :
+                                    <Link to="/"  id="savedPageNav"><ArrowBackIcon  sx={{ fontSize: 40 }}/></Link>
+                                    }
+                                </span>
                             </NavItem>
                         </NavBar>
                     </React.Fragment>
