@@ -23,6 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 const Main = ({productName, setProductName, structure ,setStructure ,productSize, setProductSize, 
+    type, setType,
     meterPerRoll, setMeterPerRoll, rollUp, setRollUp, rollMeter, setRollMeter, rollQty, setRollQty, 
     meterOrPcs, setMeterOrPcs, cuttinglength, setCuttingLength, bagUp, setBagUp, bagQty, setBagQty, isMeter, setIsMeter,
     newInkRow, setInkNewRow, newGlueRow, setGlueNewRow, newThinnerRow, setThinnerNewRow, newFilmRow, setFilmNewRow, newResinRow, setResinNewRow,
@@ -48,6 +49,7 @@ const Main = ({productName, setProductName, structure ,setStructure ,productSize
                     </Grid>
                     <Grid item xs={12} sm={6} md={8}>
                         <Item><RollOrBagSection
+                            type={type} setType={setType}
                             meterPerRoll={meterPerRoll} setMeterPerRoll={setMeterPerRoll}
                             rollUp={rollUp} setRollUp={setRollUp}
                             rollMeter={rollMeter} setRollMeter={setRollMeter}

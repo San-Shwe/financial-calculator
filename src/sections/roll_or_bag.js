@@ -79,8 +79,7 @@ const TabsList = styled(TabsListUnstyled)`
   align-content: space-between;
 `;
 
-export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, setBagQty, meterPerRoll, setMeterPerRoll, rollUp, setRollUp, rollMeter, setRollMeter, meterOrPcs, setMeterOrPcs, cuttinglength, setCuttingLength, bagUp, setBagUp, isMeter, setIsMeter}) {
-
+export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, setBagQty, meterPerRoll, setMeterPerRoll, rollUp, setRollUp, rollMeter, setRollMeter, meterOrPcs, setMeterOrPcs, cuttinglength, setCuttingLength, bagUp, setBagUp, isMeter, setIsMeter, type, setType}) {
   const JRollHandler = (e) => {
     setRollUp(document.getElementById('rollup').value)
     setRollMeter(document.getElementById('rollmeter').value)
@@ -106,13 +105,14 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
   }
 
   return (
-    <TabsUnstyled defaultValue={0}>
-      <TabsList>
-        <Tab>Roll Form</Tab>
-        <Tab>Bag Form</Tab>
-        <Tab>Kg Form</Tab>
+    
+    <TabsUnstyled defaultValue={1} >
+      <TabsList >
+        <Tab onClick={e=>setType("Roll")}>Roll Form</Tab>
+        <Tab onClick={e=>setType("Bag")}>Bag Form</Tab>
+        <Tab onClick={e=>setType("Kg")}>Kg Form</Tab>
       </TabsList>
-      <TabPanel value={0}>
+      <TabPanel  value={0}>
         <Stack
           direction="row"
           alignItems="center"
@@ -127,7 +127,7 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
           <span style={{ padding: 10, fontWeight:"Bold" }}>{rollQty}<small>JRolls</small></span>
         </Stack>
       </TabPanel>
-      <TabPanel value={1}>
+      <TabPanel onClick={e=>setType("Bag")} value={1}>
         <Stack
             direction="row"
             alignItems="center"
@@ -155,7 +155,7 @@ export default function UnstyledTabsCustomized({rollQty, setRollQty, bagQty, set
               </RadioGroup>
           </Stack>
       </TabPanel>
-      <TabPanel value={2}>currently unavailable</TabPanel>
+      <TabPanel onClick={e=>setType("Kg")} value={2}>currently unavailable</TabPanel>
     </TabsUnstyled>
   );
 }

@@ -68,7 +68,16 @@ const columns = [
 //     createData('Brazil', 'BR', 210147125, 8515767),
 // ];
 
-export default function StickyHeadTable() {
+export default function SavedTable({productName, setProductName, structure ,setStructure ,productSize, setProductSize, 
+    meterPerRoll, setMeterPerRoll, rollUp, setRollUp, rollMeter, setRollMeter, rollQty, setRollQty, 
+    meterOrPcs, setMeterOrPcs, cuttinglength, setCuttingLength, bagUp, setBagUp, bagQty, setBagQty, isMeter, setIsMeter,
+    newInkRow, setInkNewRow, newGlueRow, setGlueNewRow, newThinnerRow, setThinnerNewRow, newFilmRow, setFilmNewRow, newResinRow, setResinNewRow,
+    core3Amount, setCore3Amount, core6Amount, setCore6Amount, TSAmount, setTSAmount, PVCGlueAmount, setPVCGlueAmount, PETGGlueAmount, setPETGGlueAmount, SSDSTAmount, setSSDSTAmount, LHAmount, setLHAmount, CBAmount, setCBAmount, SSRibbonAmount, setSSRibbonAmount, ZipperAmount, setZipperAmount,       
+    directCost, setDirectCost, inDirectCost, setIndirectCost, 
+    rawTotal, setRawTotal, OtherMaterialsTotal, setOtherMaterialsTotal, total, setTotal, subTotal, setSubTotal, grandTotal, setGrandTotal, 
+    wastagePercentValue, setWastagePercentValue, promotionPercentValue, setPromotionPercentValue, 
+    viewSaved, setViewSaved,
+    }) {
 
     const [rows, setRows] = useState([]);
         
@@ -93,6 +102,41 @@ export default function StickyHeadTable() {
         setPage(0);
     };
 
+    const viewSavedRecord = (value) => {
+        let array = [rows.filter(row => row.id === value)];
+        setProductName(array[0][0].name);
+        setStructure(array[0][0].structure_id);
+        setProductSize(array[0][0].product_size);
+        setMeterPerRoll(array[0][0]["RollForm"].meterPerRoll);
+        setRollUp(array[0][0]["RollForm"].rollUp);
+        setRollMeter(array[0][0]["RollForm"].rollMeter);
+        setRollQty(array[0][0]["RollForm"].rollQty);
+
+        setMeterOrPcs(array[0][0]["BagForm"].meterOrPcs);
+        setCuttingLength(array[0][0]["BagForm"].cuttinglength);
+        setBagUp(array[0][0]["BagForm"].bagUp);
+        setBagQty(array[0][0]["BagForm"].bagQty);
+        setIsMeter(array[0][0]["BagForm"].isMeter);
+
+        setInkNewRow(array[0][0].ink);
+        setGlueNewRow(array[0][0].glue);
+        setThinnerNewRow(array[0][0].thinner);
+        setFilmNewRow(array[0][0].film);
+        setResinNewRow(array[0][0].resin);
+
+        console.log(array[0][0]["RollForm"].meterPerRoll);
+
+        // back to main 
+        window.history.back();
+        // change icon of saved and back
+        setViewSaved(!viewSaved)
+    }
+
+    const deleteSavedRecord = (id) => {
+        setRows(rows.filter(rec => rec.id !== id));
+        localStorage.setItem('order', JSON.stringify(rows.filter(rec => rec.id !== id))); 
+        console.log(id);
+    }
     return (
         <Container maxWidth="lg">
             <Box sx={{ flexGrow: 1 }}>
@@ -137,18 +181,17 @@ export default function StickyHeadTable() {
                                 <TableCell component="td" scope="row">
                                     {row.type}
                                 </TableCell>
-                                <TableCell component="td" scope="row">
+                                <TableCell component="td" scope="row" align="right">
                                     {row.date}
                                 </TableCell>
                                 <TableCell component="td" scope="row" align="right">
                                     {row.product_size}
                                 </TableCell>
                                 <TableCell component="td" scope="row">
-                                    <ImportContactsIcon onClick={e=>console.log("view")} color="primary" />
+                                        <ImportContactsIcon cursor="pointer" onClick={e=>viewSavedRecord(row.id)} color="primary" />
                                 </TableCell>
                                 <TableCell component="td" scope="row">
-                                    <BackspaceIcon onClick={e=>(setRows(rows.filter(rec => rec.id !== row.id)))} color="warning"/>
-                                    {/* localStorage.setItem('order', JSON.stringify(rows.filter(rec => rec.id !== row.id)));  */}
+                                    <BackspaceIcon cursor="pointer"  onClick={e=>deleteSavedRecord(row.id)} color="warning"/>
                                 </TableCell>
                             </TableRow>
                             );
