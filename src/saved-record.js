@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
@@ -11,6 +11,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+
 const columns = [
   { id: "id", label: "ID", minWidth: 20 },
   { id: "name", label: "Name", minWidth: 170 },
@@ -38,124 +39,156 @@ const columns = [
     id: "view",
     label: "View",
     minWidth: 70,
-    align: "center",
+    align: "right",
     format: (value) => value.toFixed(2),
   },
   {
     id: "delete",
     label: "Delete",
     minWidth: 70,
-    align: "center",
+    align: "right",
     format: (value) => value.toFixed(2),
   },
 ];
 
-export default function StickyHeadTable({
+export default function SavedTable({
+  rows,
+  setRows,
+  productName,
   setProductName,
+  structure,
   setStructure,
+  productSize,
   setProductSize,
+  meterPerRoll,
+  setMeterPerRoll,
+  rollUp,
+  setRollUp,
+  rollMeter,
+  setRollMeter,
+  rollQty,
   setRollQty,
+  meterOrPcs,
+  setMeterOrPcs,
+  cuttinglength,
+  setCuttingLength,
+  bagUp,
+  setBagUp,
+  bagQty,
   setBagQty,
+  isMeter,
+  setIsMeter,
+  newInkRow,
   setInkNewRow,
+  newGlueRow,
   setGlueNewRow,
+  newThinnerRow,
   setThinnerNewRow,
+  newFilmRow,
   setFilmNewRow,
+  newResinRow,
   setResinNewRow,
+  core3Amount,
   setCore3Amount,
+  core6Amount,
   setCore6Amount,
+  TSAmount,
   setTSAmount,
+  PVCGlueAmount,
   setPVCGlueAmount,
+  PETGGlueAmount,
   setPETGGlueAmount,
+  SSDSTAmount,
   setSSDSTAmount,
+  LHAmount,
   setLHAmount,
+  CBAmount,
   setCBAmount,
+  SSRibbonAmount,
   setSSRibbonAmount,
+  ZipperAmount,
   setZipperAmount,
+  directCost,
   setDirectCost,
+  inDirectCost,
   setIndirectCost,
+  rawTotal,
   setRawTotal,
+  OtherMaterialsTotal,
   setOtherMaterialsTotal,
+  total,
   setTotal,
+  subTotal,
   setSubTotal,
+  grandTotal,
   setGrandTotal,
+  wastagePercentValue,
   setWastagePercentValue,
+  promotionPercentValue,
   setPromotionPercentValue,
-  setViewSaved,
   viewSaved,
+  setViewSaved,
 }) {
-  const [rows, setRows] = useState([]);
-
   // bind Order data on load
   useEffect(() => {
-    if (localStorage.getItem("order") === null) {
-      localStorage.setItem("order", JSON.stringify([]));
-    } else {
-      setRows(JSON.parse(localStorage.getItem("order")));
-    }
-  }, []);
+    //   if(localStorage.getItem("order") === null){
+    //       localStorage.setItem('order', JSON.stringify([]));
+    //   }else{
+    //       setRows(JSON.parse(localStorage.getItem('order')));
+    //   }
+    console.log(rows);
+  }, [rows]);
 
-  // mui pagination --------------------------------------
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(event.target.value);
     setPage(0);
   };
-  // ----------------------------------
 
-  //   view record when click book icon
-  const viewRecordHandler = (id) => {
-    let array = rows.filter((rec) => rec.id === id);
-    setProductName(array[0].name);
-    setStructure(array[0].structure_id);
-    setProductSize(array[0].product_size);
+  const viewSavedRecord = (value) => {
+    let array = [rows.filter((row) => row.id === value)];
+    setProductName(array[0][0].name);
+    setStructure(array[0][0].structure_id);
+    setProductSize(array[0][0].product_size);
+    setMeterPerRoll(array[0][0]["RollForm"].meterPerRoll);
+    setRollUp(array[0][0]["RollForm"].rollUp);
+    setRollMeter(array[0][0]["RollForm"].rollMeter);
+    setRollQty(array[0][0]["RollForm"].rollQty);
 
-    setRollQty(array[0]["RollForm"].rollQty);
-    setBagQty(array[0]["BagForm"].bagQty);
+    setMeterOrPcs(array[0][0]["BagForm"].meterOrPcs);
+    setCuttingLength(array[0][0]["BagForm"].cuttinglength);
+    setBagUp(array[0][0]["BagForm"].bagUp);
+    setBagQty(array[0][0]["BagForm"].bagQty);
+    setIsMeter(array[0][0]["BagForm"].isMeter);
 
-    setInkNewRow(array[0]["raws"].ink);
-    setGlueNewRow(array[0]["raws"].glue);
-    setThinnerNewRow(array[0]["raws"].thinner);
-    setFilmNewRow(array[0]["raws"].film);
-    setResinNewRow(array[0]["raws"].resin);
+    setInkNewRow(array[0][0].ink);
+    setGlueNewRow(array[0][0].glue);
+    setThinnerNewRow(array[0][0].thinner);
+    setFilmNewRow(array[0][0].film);
+    setResinNewRow(array[0][0].resin);
 
-    // assign to other materials
-    setCore3Amount(array[0]["otherMaterials"]["RollForm"].core3Amount);
-    setCore6Amount(array[0]["otherMaterials"]["RollForm"].core6Amount);
-    setTSAmount(array[0]["otherMaterials"]["TSDST"].TSAmount);
-    setPVCGlueAmount(array[0]["otherMaterials"]["TCS"].PVCGlueAmount);
-    setPETGGlueAmount(array[0]["otherMaterials"]["TCS"].PETGGlueAmount);
-    setSSDSTAmount(array[0]["otherMaterials"]["SS"].SSDSTAmount);
-    setLHAmount(array[0]["otherMaterials"]["SS"].LHAmount);
-    setCBAmount(array[0]["otherMaterials"]["SS"].CBAmount);
-    setSSRibbonAmount(array[0]["otherMaterials"]["SS"].SSRibbonAmount);
-    setZipperAmount(array[0]["otherMaterials"]["FourSSZipper"].ZipperAmount);
+    console.log(array[0][0]["RollForm"].meterPerRoll);
 
-    setDirectCost(array[0].directCost);
-    setIndirectCost(array[0].indirectCost);
-
-    setWastagePercentValue(array[0].wastagePercentValue);
-    setPromotionPercentValue(array[0].promotionPercentValue);
-    setRawTotal(array[0].rawTotal);
-    setOtherMaterialsTotal(array[0].OtherMaterialsTotal);
-    setTotal(array[0].total);
-    setSubTotal(array[0].subTotal);
-    setGrandTotal(array[0].grandTotal);
-
+    // back to main
     window.history.back();
+
+    // change icon of saved and back
     setViewSaved(!viewSaved);
   };
 
-  //   remove record fomm local storage and rows
-  const removeRecordHandler = (id) => {
+  const deleteSavedRecord = (id) => {
     setRows(rows.filter((rec) => rec.id !== id));
     localStorage.setItem(
       "order",
       JSON.stringify(rows.filter((rec) => rec.id !== id))
     );
+    console.log(id);
   };
 
   return (
@@ -189,8 +222,7 @@ export default function StickyHeadTable({
                         key={row.id}
                       >
                         <TableCell component="td" scope="row">
-                          {/* sum +1 for id number */}
-                          {rows.findIndex((obj) => obj.id === row.id) + 1}
+                          {row.id}
                         </TableCell>
                         <TableCell component="td" scope="row">
                           {row.name}
@@ -204,15 +236,17 @@ export default function StickyHeadTable({
                         <TableCell component="td" scope="row" align="right">
                           {row.product_size}
                         </TableCell>
-                        <TableCell component="td" scope="row" align="center">
+                        <TableCell component="td" scope="row">
                           <ImportContactsIcon
-                            onClick={(e) => viewRecordHandler(row.id)}
+                            cursor="pointer"
+                            onClick={(e) => viewSavedRecord(row.id)}
                             color="primary"
                           />
                         </TableCell>
-                        <TableCell component="td" scope="row" align="center">
+                        <TableCell component="td" scope="row">
                           <BackspaceIcon
-                            onClick={(e) => removeRecordHandler(row.id)}
+                            cursor="pointer"
+                            onClick={(e) => deleteSavedRecord(row.id)}
                             color="warning"
                           />
                         </TableCell>
