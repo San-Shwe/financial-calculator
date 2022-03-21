@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { styled } from "@mui/system";
 import TabsUnstyled from "@mui/base/TabsUnstyled";
 import TabsListUnstyled from "@mui/base/TabsListUnstyled";
@@ -100,40 +100,6 @@ export default function UnstyledTabsCustomized({
   type,
   setType,
 }) {
-  const [tabValue, setTabValue] = useState(0);
-
-  useEffect(
-    (e) => {
-      // document
-      //   .getElementById("rollBagTab")
-      //   .setAttribute("value", type === "Roll" ? 0 : 1);
-
-      switch (type) {
-        case "Roll":
-          setTabValue(0);
-          break;
-        case "Bag":
-          setTabValue(1);
-          break;
-        case "Kg":
-          setTabValue(2);
-          break;
-        default:
-        // code block
-      }
-      console.log(
-        document.getElementById("rollBagTab").getAttribute("value"),
-        type,
-        tabValue
-      );
-    },
-    [type]
-  );
-
-  const tabChangeHandler = (e, val) => {
-    setTabValue(val);
-  };
-
   const JRollHandler = (e) => {
     setRollUp(document.getElementById("rollup").value);
     setRollMeter(document.getElementById("rollmeter").value);
@@ -189,8 +155,7 @@ export default function UnstyledTabsCustomized({
   };
 
   return (
-    <TabsUnstyled id="rollBagTab" value={tabValue} onChange={tabChangeHandler}>
-      {/* value={type === "Roll" ? 0 : 1} */}
+    <TabsUnstyled value={type === "Roll" ? 0 : 1}>
       <TabsList>
         <Tab onClick={(e) => setType("Roll")}>Roll Form</Tab>
         <Tab onClick={(e) => setType("Bag")}>Bag Form</Tab>

@@ -11,14 +11,6 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
-
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button";
-
 const columns = [
   { id: "id", label: "ID", minWidth: 20 },
   { id: "name", label: "Name", minWidth: 170 },
@@ -90,7 +82,6 @@ export default function StickyHeadTable({
   setPromotionPercentValue,
   setViewSaved,
   viewSaved,
-  setType,
 }) {
   const [rows, setRows] = useState([]);
 
@@ -106,7 +97,6 @@ export default function StickyHeadTable({
   // mui pagination --------------------------------------
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -123,9 +113,8 @@ export default function StickyHeadTable({
     setStructure(array[0].structure_id);
     setProductSize(array[0].product_size);
 
-    setRollQty(array[0]["RollForm"].rollQty); // left 4
-
-    setBagQty(array[0]["BagForm"].bagQty); // left 4
+    setRollQty(array[0]["RollForm"].rollQty);
+    setBagQty(array[0]["BagForm"].bagQty);
 
     setInkNewRow(array[0]["raws"].ink);
     setGlueNewRow(array[0]["raws"].glue);
@@ -146,7 +135,7 @@ export default function StickyHeadTable({
     setZipperAmount(array[0]["otherMaterials"]["FourSSZipper"].ZipperAmount);
 
     setDirectCost(array[0].directCost);
-    setIndirectCost(array[0].inDirectCost);
+    setIndirectCost(array[0].indirectCost);
 
     setWastagePercentValue(array[0].wastagePercentValue);
     setPromotionPercentValue(array[0].promotionPercentValue);
@@ -155,7 +144,6 @@ export default function StickyHeadTable({
     setTotal(array[0].total);
     setSubTotal(array[0].subTotal);
     setGrandTotal(array[0].grandTotal);
-    setType(array[0].type);
 
     window.history.back();
     setViewSaved(!viewSaved);
@@ -163,54 +151,10 @@ export default function StickyHeadTable({
 
   //   remove record fomm local storage and rows
   const removeRecordHandler = (id) => {
-    // if (window.confirm("Press a button!")) {
-
-    setDeleteId(id);
-    setOpen(true);
-    // } else {
-    // window.alert("sometext");
-    // }
-  };
-
-  const DeleteConfirm = () => {
-    setRows(rows.filter((rec) => rec.id !== deleteId));
+    setRows(rows.filter((rec) => rec.id !== id));
     localStorage.setItem(
       "order",
-      JSON.stringify(rows.filter((rec) => rec.id !== deleteId))
-    );
-  };
-  //
-  const [open, setOpen] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
-  const AlertDialog = ({ open, setOpen }) => {
-    const handleConfirm = () => {
-      setOpen(false);
-      DeleteConfirm();
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    return (
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Confirm Box"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure to Delete?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleConfirm} autoFocus>
-            Yes, I'm sure
-          </Button>
-        </DialogActions>
-      </Dialog>
+      JSON.stringify(rows.filter((rec) => rec.id !== id))
     );
   };
 
@@ -264,14 +208,12 @@ export default function StickyHeadTable({
                           <ImportContactsIcon
                             onClick={(e) => viewRecordHandler(row.id)}
                             color="primary"
-                            cursor="pointer"
                           />
                         </TableCell>
                         <TableCell component="td" scope="row" align="center">
                           <BackspaceIcon
                             onClick={(e) => removeRecordHandler(row.id)}
                             color="warning"
-                            cursor="pointer"
                           />
                         </TableCell>
                       </TableRow>
@@ -291,7 +233,6 @@ export default function StickyHeadTable({
           />
         </Paper>
       </Box>
-      <AlertDialog open={open} setOpen={setOpen} />
     </Container>
   );
 }
