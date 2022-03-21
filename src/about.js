@@ -158,7 +158,6 @@ export default function StickyHeadTable({
     setType(array[0].type);
 
     window.history.back();
-
     setViewSaved(!viewSaved);
   };
 

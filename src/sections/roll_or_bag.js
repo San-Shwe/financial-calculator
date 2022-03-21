@@ -196,7 +196,7 @@ export default function UnstyledTabsCustomized({
         <Tab onClick={(e) => setType("Bag")}>Bag Form</Tab>
         <Tab onClick={(e) => setType("Kg")}>Kg Form</Tab>
       </TabsList>
-      <TabPanel value={0}>
+      <TabPanel  value={0}>
         <Stack
           direction="row"
           alignItems="center"
@@ -238,7 +238,7 @@ export default function UnstyledTabsCustomized({
           </span>
         </Stack>
       </TabPanel>
-      <TabPanel value={1}>
+      <TabPanel onClick={e=>setType("Bag")} value={1}>
         <Stack
           direction="row"
           alignItems="center"
@@ -314,7 +314,7 @@ export default function UnstyledTabsCustomized({
           </RadioGroup>
         </Stack>
       </TabPanel>
-      <TabPanel value={2}>currently unavailable</TabPanel>
+      <TabPanel onClick={e=>setType("Kg")} value={2}>currently unavailable</TabPanel>
     </TabsUnstyled>
   );
 }
