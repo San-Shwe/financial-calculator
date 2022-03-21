@@ -62,6 +62,58 @@ const App = () => {
   const [newFilmRow, setFilmNewRow] = useState([]);
   const [newResinRow, setResinNewRow] = useState([]);
 
+  // States for OTHER MATERIALS ------------------------------------------------------------------------------------------------------------------------
+  // states for Roll From Tab
+  let [core3Length, setCore3Length] = useState(0); // papercore3"
+  let [core3Size, setCore3Size] = useState(0);
+  let [core3Price, setCore3Price] = useState(0);
+  let [core6Length, setCore6Length] = useState(0); // papercore6"
+  let [core6Size, setCore6Size] = useState(0);
+  let [core6Price, setCore6Price] = useState(0);
+
+  // states for T.S(Double Side Tape) Tab
+  let [TSMeter, setTSMeter] = useState(0);
+  let [TSUp, setTSUp] = useState(0);
+  let [TSDST, setTSDST] = useState(0);
+  let [TSRoll, setTSRoll] = useState(0);
+  let [TSPrice, setTSPrice] = useState(0);
+
+  // ---------- states for T.S(Double Side Tape) Tab
+  let [PVCGlueMeter, setPVCGlueMeter] = useState(0); // PVC Glue
+  let [PVCGlueUp, setPVCGlueUp] = useState(0);
+  let [PVCGlueQty, setPVCGlueQty] = useState(0);
+  let [PVCGluePrice, setPVCGluePrice] = useState(0);
+  let [PETGGlueMeter, setPETGGlueMeter] = useState(0); // PETG Glue
+  let [PETGGlueUp, setPETGGlueUp] = useState(0);
+  let [PETGGlueQty, setPETGGlueQty] = useState(0);
+  let [PETGGluePrice, setPETGGluePrice] = useState(0);
+
+  // ---------- states for Side Seal Tab
+  let [SSDSTMeter, setSSDSTMeter] = useState(0);
+  let [SSDSTUp, setSSDSTUp] = useState(0);
+  let [SSDSTDST, setSSDSTDST] = useState(0);
+  let [SSDSTRoll, setSSDSTRoll] = useState(0);
+  let [SSDSTPrice, setSSDSTPrice] = useState(0);
+
+  let [LHPcs, setLHPcs] = useState(0);
+  let [LHPrice, setLHPrice] = useState(0);
+
+  let [CBPcs, setCBPcs] = useState(0);
+  let [CBPrice, setCBPrice] = useState(0);
+
+  let [SSRibbonMeter, setSSRibbonMeter] = useState(0);
+  let [SSRibbonUp, setSSRibbonUp] = useState(0);
+  let [SSRibbonDST, setSSRibbonDST] = useState(0);
+  let [SSRibbonRoll, setSSRibbonRoll] = useState(0);
+  let [SSRibbonPrice, setSSRibbonPrice] = useState(0);
+
+  // ---------- states for 4.S.S(Zipper) Tab
+  let [ZipperMeter, setZipperMeter] = useState(0);
+  let [ZipperUp, setZipperUp] = useState(0);
+  let [ZipperDST, setZipperDST] = useState(0);
+  let [ZipperRoll, setZipperRoll] = useState(0);
+  let [ZipperPrice, setZipperPrice] = useState(0);
+
   // variables for other materials section
   let [core3Amount, setCore3Amount] = useState(0);
   let [core6Amount, setCore6Amount] = useState(0);
@@ -73,6 +125,7 @@ const App = () => {
   let [CBAmount, setCBAmount] = useState(0);
   let [SSRibbonAmount, setSSRibbonAmount] = useState(0);
   let [ZipperAmount, setZipperAmount] = useState(0);
+  // -----------------------------------------------------END states for other material-------------------------------------------------------------------------
 
   // variables for DirectCost and IndirectCost
   let [directCost, setDirectCost] = useState(0);
@@ -81,21 +134,11 @@ const App = () => {
   // Final Calculation
   const [wastagePercentValue, setWastagePercentValue] = useState(0);
   const [promotionPercentValue, setPromotionPercentValue] = useState(0);
-
   const [rawTotal, setRawTotal] = useState(0);
   const [OtherMaterialsTotal, setOtherMaterialsTotal] = useState(0);
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
-
-  // Save Raw to Local
-  // const saveRawsToLocal = () => {
-  //     localStorage.setItem('newInkRow', JSON.stringify(newInkRow));
-  //     localStorage.setItem('newGlueRow', JSON.stringify(newGlueRow));
-  //     localStorage.setItem('newThinnerRow', JSON.stringify(newThinnerRow));
-  //     localStorage.setItem('newFilmRow', JSON.stringify(newFilmRow));
-  //     localStorage.setItem('newResinRow', JSON.stringify(newResinRow));
-  // };
 
   const [viewSaved, setViewSaved] = useState(true);
 
@@ -538,6 +581,82 @@ const App = () => {
                   newResinRow={newResinRow}
                   setResinNewRow={setResinNewRow}
                   // rollQty={rollQty}
+                  core3Length={core3Length}
+                  setCore3Length={setCore3Length}
+                  core3Size={core3Size}
+                  setCore3Size={setCore3Size}
+                  core3Price={core3Price}
+                  setCore3Price={setCore3Price}
+                  core6Length={core6Length}
+                  setCore6Length={setCore6Length}
+                  core6Size={core6Size}
+                  setCore6Size={setCore6Size}
+                  core6Price={core6Price}
+                  setCore6Price={setCore6Price}
+                  TSMeter={TSMeter}
+                  setTSMeter={setTSMeter}
+                  TSUp={TSUp}
+                  setTSUp={setTSUp}
+                  TSDST={TSDST}
+                  setTSDST={setTSDST}
+                  TSRoll={TSRoll}
+                  setTSRoll={setTSRoll}
+                  TSPrice={TSPrice}
+                  setTSPrice={setTSPrice}
+                  PVCGlueMeter={PVCGlueMeter}
+                  setPVCGlueMeter={setPVCGlueMeter}
+                  PVCGlueUp={PVCGlueUp}
+                  setPVCGlueUp={setPVCGlueUp}
+                  PVCGlueQty={PVCGlueQty}
+                  setPVCGlueQty={setPVCGlueQty}
+                  PVCGluePrice={PVCGluePrice}
+                  setPVCGluePrice={setPVCGluePrice}
+                  PETGGlueMeter={PETGGlueMeter}
+                  setPETGGlueMeter={setPETGGlueMeter}
+                  PETGGlueUp={PETGGlueUp}
+                  setPETGGlueUp={setPETGGlueUp}
+                  PETGGlueQty={PETGGlueQty}
+                  setPETGGlueQty={setPETGGlueQty}
+                  PETGGluePrice={PETGGluePrice}
+                  setPETGGluePrice={setPETGGluePrice}
+                  SSDSTMeter={SSDSTMeter}
+                  setSSDSTMeter={setSSDSTMeter}
+                  SSDSTUp={SSDSTUp}
+                  setSSDSTUp={setSSDSTUp}
+                  SSDSTDST={SSDSTDST}
+                  setSSDSTDST={setSSDSTDST}
+                  SSDSTRoll={SSDSTRoll}
+                  setSSDSTRoll={setSSDSTRoll}
+                  SSDSTPrice={SSDSTPrice}
+                  setSSDSTPrice={setSSDSTPrice}
+                  LHPcs={LHPcs}
+                  setLHPcs={setLHPcs}
+                  LHPrice={LHPrice}
+                  setLHPrice={setLHPrice}
+                  CBPcs={CBPcs}
+                  setCBPcs={setCBPcs}
+                  CBPrice={CBPrice}
+                  setCBPrice={setCBPrice}
+                  SSRibbonMeter={SSRibbonMeter}
+                  setSSRibbonMeter={setSSRibbonMeter}
+                  SSRibbonUp={SSRibbonUp}
+                  setSSRibbonUp={setSSRibbonUp}
+                  SSRibbonDST={SSRibbonDST}
+                  setSSRibbonDST={setSSRibbonDST}
+                  SSRibbonRoll={SSRibbonRoll}
+                  setSSRibbonRoll={setSSRibbonRoll}
+                  SSRibbonPrice={SSRibbonPrice}
+                  setSSRibbonPrice={setSSRibbonPrice}
+                  ZipperMeter={ZipperMeter}
+                  setZipperMeter={setZipperMeter}
+                  ZipperUp={ZipperUp}
+                  setZipperUp={setZipperUp}
+                  ZipperDST={ZipperDST}
+                  setZipperDST={setZipperDST}
+                  ZipperRoll={ZipperRoll}
+                  setZipperRoll={setZipperRoll}
+                  ZipperPrice={ZipperPrice}
+                  setZipperPrice={setZipperPrice}
                   core3Amount={core3Amount}
                   setCore3Amount={setCore3Amount}
                   core6Amount={core6Amount}
