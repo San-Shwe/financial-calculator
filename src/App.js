@@ -18,9 +18,6 @@ import { NavBar, NavItem } from "./Layout/navigation";
 import twoDecimalPlacesIfCents from "./Modules/global_module.mjs";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import { type } from "@testing-library/user-event/dist/type";
-// import { TableRows } from "@mui/icons-material";
-
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
@@ -624,7 +621,6 @@ const App = () => {
                   setPromotionPercentValue={setPromotionPercentValue}
                   viewSaved={viewSaved}
                   setViewSaved={setViewSaved}
-                  setType={setType}
                 />
               }
             />

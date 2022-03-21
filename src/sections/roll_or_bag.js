@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/system";
 import TabsUnstyled from "@mui/base/TabsUnstyled";
 import TabsListUnstyled from "@mui/base/TabsListUnstyled";
@@ -100,6 +100,31 @@ export default function UnstyledTabsCustomized({
   type,
   setType,
 }) {
+  // state for tab
+  const [tabValue, setTabValue] = useState(1);
+
+  const tabValueHandler = (e, val) => {
+    setTabValue(val);
+    console.log(val);
+  };
+
+  useEffect(() => {
+    switch (type) {
+      case "Roll":
+        setTabValue(0);
+        break;
+      case "Bag":
+        setTabValue(1);
+        break;
+      case "Kg":
+        setTabValue(2);
+        break;
+      default:
+        setTabValue(2);
+        break;
+    }
+  }, [type]);
+
   const JRollHandler = (e) => {
     setRollUp(document.getElementById("rollup").value);
     setRollMeter(document.getElementById("rollmeter").value);
@@ -155,13 +180,13 @@ export default function UnstyledTabsCustomized({
   };
 
   return (
-    <TabsUnstyled value={type === "Roll" ? 0 : 1}>
+    <TabsUnstyled value={tabValue} onChnage={tabValueHandler}>
       <TabsList>
         <Tab onClick={(e) => setType("Roll")}>Roll Form</Tab>
         <Tab onClick={(e) => setType("Bag")}>Bag Form</Tab>
         <Tab onClick={(e) => setType("Kg")}>Kg Form</Tab>
       </TabsList>
-      <TabPanel  value={0}>
+      <TabPanel value={0}>
         <Stack
           direction="row"
           alignItems="center"
@@ -203,7 +228,7 @@ export default function UnstyledTabsCustomized({
           </span>
         </Stack>
       </TabPanel>
-      <TabPanel onClick={e=>setType("Bag")} value={1}>
+      <TabPanel onClick={(e) => setType("Bag")} value={1}>
         <Stack
           direction="row"
           alignItems="center"
@@ -279,7 +304,9 @@ export default function UnstyledTabsCustomized({
           </RadioGroup>
         </Stack>
       </TabPanel>
-      <TabPanel onClick={e=>setType("Kg")} value={2}>currently unavailable</TabPanel>
+      <TabPanel onClick={(e) => setType("Kg")} value={2}>
+        currently unavailable
+      </TabPanel>
     </TabsUnstyled>
   );
 }

@@ -11,6 +11,14 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const columns = [
   { id: "id", label: "ID", minWidth: 20 },
   { id: "name", label: "Name", minWidth: 170 },
@@ -86,6 +94,11 @@ export default function StickyHeadTable({
 }) {
   const [rows, setRows] = useState([]);
 
+  // state for Detete ID
+  const [deleteId, setDeleteID] = useState(null);
+  // open or close Delete dialog
+  const [open, setOpen] = React.useState(false);
+
   // bind Order data on load
   useEffect(() => {
     if (localStorage.getItem("order") === null) {
@@ -153,10 +166,47 @@ export default function StickyHeadTable({
 
   //   remove record fomm local storage and rows
   const removeRecordHandler = (id) => {
-    setRows(rows.filter((rec) => rec.id !== id));
+    setDeleteID(id);
+    setOpen(true);
+  };
+
+  // remove record if it is confirm s from Dialogbox
+  const confirmDelete = (e) => {
+    setRows(rows.filter((rec) => rec.id !== deleteId));
     localStorage.setItem(
       "order",
-      JSON.stringify(rows.filter((rec) => rec.id !== id))
+      JSON.stringify(rows.filter((rec) => rec.id !== deleteId))
+    );
+    setOpen(false);
+  };
+
+  // Delete confirmation box for user
+  const AlertDialog = ({ open, setOpen }) => {
+    const handleClose = () => {
+      setOpen(false);
+    };
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Delete Record"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure to remove this record?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>No I don't</Button>
+            <Button onClick={confirmDelete} autoFocus>
+              Yes, I'm sure
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     );
   };
 
@@ -237,6 +287,7 @@ export default function StickyHeadTable({
           />
         </Paper>
       </Box>
+      <AlertDialog open={open} setOpen={setOpen} />
     </Container>
   );
 }
