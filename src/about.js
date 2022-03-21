@@ -82,6 +82,7 @@ export default function StickyHeadTable({
   setPromotionPercentValue,
   setViewSaved,
   viewSaved,
+  setType,
 }) {
   const [rows, setRows] = useState([]);
 
@@ -144,6 +145,7 @@ export default function StickyHeadTable({
     setTotal(array[0].total);
     setSubTotal(array[0].subTotal);
     setGrandTotal(array[0].grandTotal);
+    setType(array[0].type);
 
     window.history.back();
     setViewSaved(!viewSaved);
@@ -208,11 +210,13 @@ export default function StickyHeadTable({
                           <ImportContactsIcon
                             onClick={(e) => viewRecordHandler(row.id)}
                             color="primary"
+                            cursor="pointer"
                           />
                         </TableCell>
                         <TableCell component="td" scope="row" align="center">
                           <BackspaceIcon
                             onClick={(e) => removeRecordHandler(row.id)}
+                            cursor="pointer"
                             color="warning"
                           />
                         </TableCell>

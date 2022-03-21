@@ -624,6 +624,7 @@ const App = () => {
                   setPromotionPercentValue={setPromotionPercentValue}
                   viewSaved={viewSaved}
                   setViewSaved={setViewSaved}
+                  setType={setType}
                 />
               }
             />
