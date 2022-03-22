@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -60,6 +60,82 @@ const Main = ({
   setCore3Amount,
   core6Amount,
   setCore6Amount,
+  core3Length,
+  setCore3Length,
+  core3Size,
+  setCore3Size,
+  core3Price,
+  setCore3Price,
+  core6Length,
+  setCore6Length,
+  core6Size,
+  setCore6Size,
+  core6Price,
+  setCore6Price,
+  TSMeter,
+  setTSMeter,
+  TSUp,
+  setTSUp,
+  TSDST,
+  setTSDST,
+  TSRoll,
+  setTSRoll,
+  TSPrice,
+  setTSPrice,
+  PVCGlueMeter,
+  setPVCGlueMeter,
+  PVCGlueUp,
+  setPVCGlueUp,
+  PVCGlueQty,
+  setPVCGlueQty,
+  PVCGluePrice,
+  setPVCGluePrice,
+  PETGGlueMeter,
+  setPETGGlueMeter,
+  PETGGlueUp,
+  setPETGGlueUp,
+  PETGGlueQty,
+  setPETGGlueQty,
+  PETGGluePrice,
+  setPETGGluePrice,
+  SSDSTMeter,
+  setSSDSTMeter,
+  SSDSTUp,
+  setSSDSTUp,
+  SSDSTDST,
+  setSSDSTDST,
+  SSDSTRoll,
+  setSSDSTRoll,
+  SSDSTPrice,
+  setSSDSTPrice,
+  LHPcs,
+  setLHPcs,
+  LHPrice,
+  setLHPrice,
+  CBPcs,
+  setCBPcs,
+  CBPrice,
+  setCBPrice,
+  SSRibbonMeter,
+  setSSRibbonMeter,
+  SSRibbonUp,
+  setSSRibbonUp,
+  SSRibbonDST,
+  setSSRibbonDST,
+  SSRibbonRoll,
+  setSSRibbonRoll,
+  SSRibbonPrice,
+  setSSRibbonPrice,
+  ZipperMeter,
+  setZipperMeter,
+  ZipperUp,
+  setZipperUp,
+  ZipperDST,
+  setZipperDST,
+  ZipperRoll,
+  setZipperRoll,
+  ZipperPrice,
+  setZipperPrice,
   TSAmount,
   setTSAmount,
   PVCGlueAmount,
@@ -97,6 +173,8 @@ const Main = ({
   type,
   setType,
 }) => {
+  // const item = useContext(OrderContex);
+
   return (
     <Container maxWidth="lg">
       <Box sx={{ flexGrow: 1 }}>
@@ -164,6 +242,82 @@ const Main = ({
             <Item>
               <OtherMaterials
                 rollQty={rollQty}
+                core3Length={core3Length}
+                setCore3Length={setCore3Length}
+                core3Size={core3Size}
+                setCore3Size={setCore3Size}
+                core3Price={core3Price}
+                setCore3Price={setCore3Price}
+                core6Length={core6Length}
+                setCore6Length={setCore6Length}
+                core6Size={core6Size}
+                setCore6Size={setCore6Size}
+                core6Price={core6Price}
+                setCore6Price={setCore6Price}
+                TSMeter={TSMeter}
+                setTSMeter={setTSMeter}
+                TSUp={TSUp}
+                setTSUp={setTSUp}
+                TSDST={TSDST}
+                setTSDST={setTSDST}
+                TSRoll={TSRoll}
+                setTSRoll={setTSRoll}
+                TSPrice={TSPrice}
+                setTSPrice={setTSPrice}
+                PVCGlueMeter={PVCGlueMeter}
+                setPVCGlueMeter={setPVCGlueMeter}
+                PVCGlueUp={PVCGlueUp}
+                setPVCGlueUp={setPVCGlueUp}
+                PVCGlueQty={PVCGlueQty}
+                setPVCGlueQty={setPVCGlueQty}
+                PVCGluePrice={PVCGluePrice}
+                setPVCGluePrice={setPVCGluePrice}
+                PETGGlueMeter={PETGGlueMeter}
+                setPETGGlueMeter={setPETGGlueMeter}
+                PETGGlueUp={PETGGlueUp}
+                setPETGGlueUp={setPETGGlueUp}
+                PETGGlueQty={PETGGlueQty}
+                setPETGGlueQty={setPETGGlueQty}
+                PETGGluePrice={PETGGluePrice}
+                setPETGGluePrice={setPETGGluePrice}
+                SSDSTMeter={SSDSTMeter}
+                setSSDSTMeter={setSSDSTMeter}
+                SSDSTUp={SSDSTUp}
+                setSSDSTUp={setSSDSTUp}
+                SSDSTDST={SSDSTDST}
+                setSSDSTDST={setSSDSTDST}
+                SSDSTRoll={SSDSTRoll}
+                setSSDSTRoll={setSSDSTRoll}
+                SSDSTPrice={SSDSTPrice}
+                setSSDSTPrice={setSSDSTPrice}
+                LHPcs={LHPcs}
+                setLHPcs={setLHPcs}
+                LHPrice={LHPrice}
+                setLHPrice={setLHPrice}
+                CBPcs={CBPcs}
+                setCBPcs={setCBPcs}
+                CBPrice={CBPrice}
+                setCBPrice={setCBPrice}
+                SSRibbonMeter={SSRibbonMeter}
+                setSSRibbonMeter={setSSRibbonMeter}
+                SSRibbonUp={SSRibbonUp}
+                setSSRibbonUp={setSSRibbonUp}
+                SSRibbonDST={SSRibbonDST}
+                setSSRibbonDST={setSSRibbonDST}
+                SSRibbonRoll={SSRibbonRoll}
+                setSSRibbonRoll={setSSRibbonRoll}
+                SSRibbonPrice={SSRibbonPrice}
+                setSSRibbonPrice={setSSRibbonPrice}
+                ZipperMeter={ZipperMeter}
+                setZipperMeter={setZipperMeter}
+                ZipperUp={ZipperUp}
+                setZipperUp={setZipperUp}
+                ZipperDST={ZipperDST}
+                setZipperDST={setZipperDST}
+                ZipperRoll={ZipperRoll}
+                setZipperRoll={setZipperRoll}
+                ZipperPrice={ZipperPrice}
+                setZipperPrice={setZipperPrice}
                 core3Amount={core3Amount}
                 setCore3Amount={setCore3Amount}
                 core6Amount={core6Amount}
@@ -201,6 +355,7 @@ const Main = ({
             <Item>
               <FinalResult
                 rollQty={rollQty}
+                bagQty={bagQty}
                 directCost={directCost}
                 inDirectCost={inDirectCost}
                 rawTotal={rawTotal}

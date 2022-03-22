@@ -19,6 +19,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+import { Link } from "react-router-dom";
+
 const columns = [
   { id: "id", label: "ID", minWidth: 20 },
   { id: "name", label: "Name", minWidth: 170 },
@@ -149,7 +151,7 @@ export default function StickyHeadTable({
     setZipperAmount(array[0]["otherMaterials"]["FourSSZipper"].ZipperAmount);
 
     setDirectCost(array[0].directCost);
-    setIndirectCost(array[0].indirectCost);
+    setIndirectCost(array[0].inDirectCost);
 
     setWastagePercentValue(array[0].wastagePercentValue);
     setPromotionPercentValue(array[0].promotionPercentValue);
@@ -257,11 +259,16 @@ export default function StickyHeadTable({
                           {row.product_size}
                         </TableCell>
                         <TableCell component="td" scope="row" align="center">
-                          <ImportContactsIcon
+                          <Link
+                            to="/financial-calculator"
                             onClick={(e) => viewRecordHandler(row.id)}
-                            color="primary"
-                            cursor="pointer"
-                          />
+                            id="report"
+                          >
+                            <ImportContactsIcon
+                              color="primary"
+                              cursor="pointer"
+                            />
+                          </Link>
                         </TableCell>
                         <TableCell component="td" scope="row" align="center">
                           <BackspaceIcon

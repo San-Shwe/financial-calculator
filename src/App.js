@@ -10,14 +10,16 @@ import { cyan, orange } from "@mui/material/colors";
 import About from "./about";
 import Main from "./main";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import LocalPrintshopTwoToneIcon from "@mui/icons-material/LocalPrintshopTwoTone";
+import Report from "./sections/report";
 import "./App.css";
 
 // IMPORT COMPONENTS
 import { NavBar, NavItem } from "./Layout/navigation";
-import twoDecimalPlacesIfCents from "./Modules/global_module.mjs";
+import twoDecimalPlacesIfCents from "./Modules/global_module";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
@@ -88,7 +90,7 @@ const App = () => {
   // States for OTHER MATERIALS ------------------------------------------------------------------------------------------------------------------------
   // states for Roll From Tab
 
-  // let [core3Length, setCore3Length] = useState(0); // papercore3"
+  let [core3Length, setCore3Length] = useState(0); // papercore3"
   let [core3Size, setCore3Size] = useState(0);
   let [core3Price, setCore3Price] = useState(0);
   let [core6Length, setCore6Length] = useState(0); // papercore6"
@@ -146,7 +148,7 @@ const App = () => {
     // localStorage.clear();
 
     setProductName("");
-    setStructure([]);
+    setStructure(0);
     setProductSize("");
     setRollQty(0);
     setBagQty(0);
@@ -155,7 +157,47 @@ const App = () => {
     setThinnerNewRow([]);
     setFilmNewRow([]);
     setResinNewRow([]);
+
+    setCore3Length(0);
+    setCore3Size(0);
+    setCore3Price(0);
+    setCore6Length(0);
+    setCore6Size(0);
+    setCore6Price(0);
+    setTSMeter(0);
+    setTSUp(0);
+    setTSDST(0);
+    setTSRoll(0);
+    setTSPrice(0);
+    setPVCGlueMeter(0);
+    setPVCGlueUp(0);
+    setPVCGlueQty(0);
+    setPVCGluePrice(0);
+    setPETGGlueMeter(0);
+    setPETGGlueUp(0);
+    setPETGGlueQty(0);
+    setPETGGluePrice(0);
+    setSSDSTMeter(0);
+    setSSDSTUp(0);
+    setSSDSTDST(0);
+    setSSDSTRoll(0);
+    setSSDSTPrice(0);
+    setLHPcs(0);
+    setLHPrice(0);
+    setCBPcs(0);
+    setCBPrice(0);
+    setSSRibbonMeter(0);
+    setSSRibbonUp(0);
+    setSSRibbonDST(0);
+    setSSRibbonRoll(0);
+    setSSRibbonPrice(0);
+    setZipperMeter(0);
+    setZipperUp(0);
+    setZipperDST(0);
+    setZipperRoll(0);
+    setZipperPrice(0);
     setCore3Amount(0);
+
     setCore6Amount(0);
     setTSAmount(0);
     setPVCGlueAmount(0);
@@ -172,8 +214,6 @@ const App = () => {
     setTotal(0);
     setSubTotal(0);
     setGrandTotal(0);
-
-    console.log("Clear ");
   };
 
   // Save All data to Local Storage
@@ -562,8 +602,8 @@ const App = () => {
                   setMeterOrPcs={setMeterOrPcs}
                   cuttinglength={cuttinglength}
                   setCuttingLength={setCuttingLength}
-                  core3Length
-                  setCore3Length
+                  core3Length={core3Length}
+                  setCore3Length={setCore3Length}
                   core3Size={core3Size}
                   setCore3Size={setCore3Size}
                   core3Price={core3Price}
@@ -743,8 +783,24 @@ const App = () => {
                 />
               }
             />
+            <Route
+              path="/report"
+              exact
+              element={
+                <Report
+                  structure={structure}
+                  productSize={productSize}
+                  productName={productName}
+                />
+              }
+            />
           </Routes>
           <NavBar>
+            <NavItem>
+              <Link to="/report" id="report">
+                <LocalPrintshopTwoToneIcon sx={{ fontSize: 40 }} />
+              </Link>
+            </NavItem>
             <NavItem>
               <Button
                 className="icon-button"
@@ -759,7 +815,6 @@ const App = () => {
             <NavItem>
               <Button
                 className="icon-button"
-                href="#perunit"
                 color="success"
                 endIcon={<CalculateIcon />}
                 variant="contained"
@@ -779,7 +834,6 @@ const App = () => {
               </Button>
             </NavItem>
             <NavItem>
-              {/* {viewSaved ? <FolderSpecialIcon  sx={{ fontSize: 40 }}/> : <ArrowBackIcon  sx={{ fontSize: 40 }}/>} */}
               <span onClick={(e) => setViewSaved(!viewSaved)}>
                 {viewSaved ? (
                   <Link to="/saved-record" id="savedPageNav">

@@ -13,6 +13,8 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { pink } from "@mui/material/colors";
 
+import twoDecimalPlacesIfCents from "../Modules/global_module.mjs";
+
 const blue = {
   50: "#E8E8E8", // tab background when focus
   100: "#D82148",
@@ -103,18 +105,21 @@ export default function UnstyledTabsCustomized({
   // state for tab
   const [tabValue, setTabValue] = useState(1);
 
-  const tabValueHandler = (e, val) => {
-    setTabValue(val);
-    console.log(val);
-  };
-
   useEffect(() => {
     switch (type) {
       case "Roll":
         setTabValue(0);
+        setMeterOrPcs(0);
+        setCuttingLength(0);
+        setBagUp(0);
+        setBagQty(0);
         break;
       case "Bag":
         setTabValue(1);
+        setRollQty(0);
+        setMeterPerRoll(0);
+        setRollUp(0);
+        setRollMeter(0);
         break;
       case "Kg":
         setTabValue(2);
@@ -130,37 +135,31 @@ export default function UnstyledTabsCustomized({
     setRollMeter(document.getElementById("rollmeter").value);
     setMeterPerRoll(document.getElementById("rollmr").value);
     setRollQty(
-      parseFloat(
+      twoDecimalPlacesIfCents(
         (Number(document.getElementById("rollmeter").value) /
           Number(document.getElementById("rollmr").value)) *
           Number(document.getElementById("rollup").value)
       )
-        .toFixed(2)
-        .replace(/\.00$/, "")
     );
   };
 
   const ChooseHandler = (e) => {
     if (e.target.value === "pcs") {
       setBagQty(
-        parseFloat(
+        twoDecimalPlacesIfCents(
           (Number(document.getElementById("meterOrpcs").value) /
             Number(document.getElementById("cuttinglength").value)) *
             Number(document.getElementById("bagup").value)
         )
-          .toFixed(2)
-          .replace(/\.00$/, "")
       );
       setIsMeter(false);
     } else {
       setBagQty(
-        parseFloat(
+        twoDecimalPlacesIfCents(
           (Number(document.getElementById("meterOrpcs").value) /
             Number(document.getElementById("bagup").value)) *
             Number(document.getElementById("cuttinglength").value)
         )
-          .toFixed(2)
-          .replace(/\.00$/, "")
       );
       setIsMeter(true);
     }
@@ -171,16 +170,16 @@ export default function UnstyledTabsCustomized({
     setMeterOrPcs(document.getElementById("meterOrpcs").value);
     setCuttingLength(document.getElementById("cuttinglength").value);
     setBagQty(
-      parseFloat(
+      twoDecimalPlacesIfCents(
         (Number(document.getElementById("meterOrpcs").value) /
           Number(document.getElementById("cuttinglength").value)) *
           Number(document.getElementById("bagup").value)
-      ).toFixed(2)
+      )
     );
   };
 
   return (
-    <TabsUnstyled value={tabValue} onChnage={tabValueHandler}>
+    <TabsUnstyled defaultValue={tabValue} value={tabValue}>
       <TabsList>
         <Tab onClick={(e) => setType("Roll")}>Roll Form</Tab>
         <Tab onClick={(e) => setType("Bag")}>Bag Form</Tab>
