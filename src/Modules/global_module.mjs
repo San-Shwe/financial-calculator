@@ -2,4 +2,8 @@ function twoDecimalPlacesIfCents(amount) {
   return amount.toFixed(2).replace(/\.00$/, "");
 }
 
-export default twoDecimalPlacesIfCents;
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export { twoDecimalPlacesIfCents, numberWithCommas };

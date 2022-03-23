@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import "../App.css";
 
-import twoDecimalPlacesIfCents from "../Modules/global_module.mjs";
+import { twoDecimalPlacesIfCents } from "../Modules/global_module.mjs";
 
 export default function FinalResult({
   bagQty,
@@ -42,12 +42,12 @@ export default function FinalResult({
         (promotionPercentValue * (subTotal + total)) / 100
       )
     );
-    console.log(
-      "roll qty : ",
-      rollQty,
-      " bag qty : ",
-      typeof bagQty === "undefined"
-    );
+    // console.log(
+    //   "roll qty : ",
+    //   rollQty,
+    //   " bag qty : ",
+    //   typeof bagQty === "undefined"
+    // );
   }, [
     rollQty,
     rawTotal,

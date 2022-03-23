@@ -8,7 +8,7 @@ import TabPanelUnstyled from "@mui/base/TabPanelUnstyled";
 import { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
 import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
 
-import twoDecimalPlacesIfCents from "../Modules/global_module.mjs";
+import { twoDecimalPlacesIfCents } from "../Modules/global_module.mjs";
 
 const blue = {
   50: "#E8E8E8", // tab background when focus
@@ -242,19 +242,17 @@ export default function OtherMaterials({
     setPETGGlueMeter(document.getElementById("petgGlue_meter").value);
     setPETGGlueUp(document.getElementById("petgGlue_up").value);
     setPETGGlueQty(
-      parseFloat(
+      twoDecimalPlacesIfCents(
         (document.getElementById("petgGlue_meter").value *
           document.getElementById("petgGlue_up").value) /
           3000
       )
-        .toFixed(2)
-        .replace(/\.00$/, "")
     );
     setPETGGluePrice(document.getElementById("petgGlue_price").value);
     setPETGGlueAmount(
-      parseFloat(PETGGlueQty * document.getElementById("petgGlue_price").value)
-        .toFixed(2)
-        .replace(/\.00$/, "")
+      twoDecimalPlacesIfCents(
+        PETGGlueQty * document.getElementById("petgGlue_price").value
+      )
     );
   };
 
@@ -265,22 +263,18 @@ export default function OtherMaterials({
     setSSDSTUp(document.getElementById("ssdst_up").value);
     setSSDSTDST(document.getElementById("ssdst_dst").value);
     setSSDSTRoll(
-      parseFloat(
+      twoDecimalPlacesIfCents(
         (document.getElementById("ssdst_meter").value *
           document.getElementById("ssdst_up").value) /
           document.getElementById("ssdst_dst").value
       )
-        .toFixed(2)
-        .replace(/\.00$/, "")
     );
     setSSDSTPrice(document.getElementById("ssdst_price").value);
     setSSDSTAmount(
-      (
+      twoDecimalPlacesIfCents(
         document.getElementById("ssdst_roll").value *
-        document.getElementById("ssdst_price").value
+          document.getElementById("ssdst_price").value
       )
-        .toFixed(2)
-        .replace(/\.00$/, "")
     );
   };
   const SSLHHandler = (e) => {

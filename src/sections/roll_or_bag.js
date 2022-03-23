@@ -13,7 +13,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { pink } from "@mui/material/colors";
 
-import twoDecimalPlacesIfCents from "../Modules/global_module.mjs";
+import { twoDecimalPlacesIfCents } from "../Modules/global_module.mjs";
 
 const blue = {
   50: "#E8E8E8", // tab background when focus
@@ -109,17 +109,17 @@ export default function UnstyledTabsCustomized({
     switch (type) {
       case "Roll":
         setTabValue(0);
-        setMeterOrPcs(0);
-        setCuttingLength(0);
-        setBagUp(0);
+        setMeterOrPcs("");
+        setCuttingLength("");
+        setBagUp("");
         setBagQty(0);
         break;
       case "Bag":
         setTabValue(1);
         setRollQty(0);
-        setMeterPerRoll(0);
-        setRollUp(0);
-        setRollMeter(0);
+        setMeterPerRoll("");
+        setRollUp("");
+        setRollMeter("");
         break;
       case "Kg":
         setTabValue(2);
@@ -128,7 +128,17 @@ export default function UnstyledTabsCustomized({
         setTabValue(2);
         break;
     }
-  }, [type]);
+  }, [
+    type,
+    setBagQty,
+    setBagUp,
+    setCuttingLength,
+    setMeterOrPcs,
+    setMeterPerRoll,
+    setRollMeter,
+    setRollQty,
+    setRollUp,
+  ]);
 
   const JRollHandler = (e) => {
     setRollUp(document.getElementById("rollup").value);

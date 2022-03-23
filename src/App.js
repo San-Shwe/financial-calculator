@@ -11,12 +11,19 @@ import About from "./about";
 import Main from "./main";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LocalPrintshopTwoToneIcon from "@mui/icons-material/LocalPrintshopTwoTone";
+import { makeStyles, Theme } from "@material-ui/core";
+
 import Report from "./sections/report";
 import "./App.css";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 // IMPORT COMPONENTS
 import { NavBar, NavItem } from "./Layout/navigation";
-import twoDecimalPlacesIfCents from "./Modules/global_module";
+import { twoDecimalPlacesIfCents } from "./Modules/global_module";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -31,6 +38,13 @@ const darkTheme = createTheme({
     },
   },
 });
+
+const useStyles = makeStyles((theme: Theme) => ({
+  backDrop: {
+    backdropFilter: "blur(3px)",
+    backgroundColor: "rgba(0,0,30,0.4)",
+  },
+}));
 
 const App = () => {
   // for major section
@@ -143,6 +157,9 @@ const App = () => {
   // state for navigation toggle of (saved record and back)
   const [viewSaved, setViewSaved] = useState(true);
 
+  // open or close Save dialog
+  const [open, setOpen] = React.useState(false);
+
   // Clear All data from local storage and current text box
   const clearHandler = (e) => {
     // localStorage.clear();
@@ -216,6 +233,47 @@ const App = () => {
     setGrandTotal(0);
   };
 
+  // Save confirmation box for user
+  const SaveAlertDialog = ({ open, setOpen }) => {
+    const classes = useStyles();
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const handleSave = () => {
+      saveHandler();
+      setOpen(false);
+    };
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          BackdropProps={{
+            classes: {
+              root: classes.backDrop,
+            },
+          }}
+        >
+          <DialogTitle id="alert-dialog-title">{"Save Record"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Do you want to saved this record?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>No I don't</Button>
+            <Button onClick={handleSave} autoFocus>
+              Yes, I'm sure
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  };
+
   // Save All data to Local Storage
   const saveHandler = () => {
     const date = new Date();
@@ -260,23 +318,61 @@ const App = () => {
           },
           otherMaterials: {
             RollForm: {
+              core3Length: core3Length,
+              core3Size: core3Size,
+              core3Price: core3Price,
+              core6Length: core6Length,
+              core6Size: core6Size,
+              core6Price: core6Price,
               core3Amount: core3Amount,
               core6Amount: core6Amount,
             },
             TSDST: {
+              TSMeter: TSMeter,
+              TSUp: TSUp,
+              TSDST: TSDST,
+              TSRoll: TSRoll,
+              TSPrice: TSPrice,
               TSAmount: TSAmount,
             },
             TCS: {
+              PVCGlueMeter: PVCGlueMeter,
+              PVCGlueUp: PVCGlueUp,
+              PVCGlueQty: PVCGlueQty,
+              PVCGluePrice: PVCGluePrice,
+              PETGGlueMeter: PETGGlueMeter,
+              PETGGlueUp: PETGGlueUp,
+              PETGGlueQty: PETGGlueQty,
+              PETGGluePrice: PETGGluePrice,
               PVCGlueAmount: PVCGlueAmount,
               PETGGlueAmount: PETGGlueAmount,
             },
             SS: {
+              SSDSTMeter: SSDSTMeter,
+              SSDSTUp: SSDSTUp,
+              SSDSTDST: SSDSTDST,
+              SSDSTRoll: SSDSTRoll,
+              SSDSTPrice: SSDSTPrice,
+              LHPcs: LHPcs,
+              LHPrice: LHPrice,
+              CBPcs: CBPcs,
+              CBPrice: CBPrice,
+              SSRibbonMeter: SSRibbonMeter,
+              SSRibbonUp: SSRibbonUp,
+              SSRibbonDST: SSRibbonDST,
+              SSRibbonRoll: SSRibbonRoll,
+              SSRibbonPrice: SSRibbonPrice,
               SSDSTAmount: SSDSTAmount,
               LHAmount: LHAmount,
               CBAmount: CBAmount,
               SSRibbonAmount: SSRibbonAmount,
             },
             FourSSZipper: {
+              ZipperMeter: ZipperMeter,
+              ZipperUp: ZipperUp,
+              ZipperDST: ZipperDST,
+              ZipperRoll: ZipperRoll,
+              ZipperPrice: ZipperPrice,
               ZipperAmount: ZipperAmount,
             },
           },
@@ -459,45 +555,34 @@ const App = () => {
       setFilmNewRow(JSON.parse(localStorage.getItem("newFilmRow")));
     }
 
+    // get 0 if null "Function to Get from local storage"
+    function GetFromLocalStorage(local, state) {
+      if (localStorage.getItem(local) === null) {
+        localStorage.setItem(local, JSON.stringify(""));
+      } else {
+        state(JSON.parse(localStorage.getItem(local)));
+      }
+    }
+
     // bind data for Other Materials
-    // core3Amount={core3Amount} setCore3Amount={setCore3Amount}
-    // core6Amount={core6Amount} setCore6Amount={setCore6Amount}
-    // TSAmount={TSAmount} setTSAmount={setTSAmount}
-    // PVCGlueAmount={PVCGlueAmount} setPVCGlueAmount={setPVCGlueAmount}
-    // PETGGlueAmount={PETGGlueAmount} setPETGGlueAmount={setPETGGlueAmount}
-    // SSDSTAmount={SSDSTAmount} setSSDSTAmount={setSSDSTAmount}
-    // LHAmount={LHAmount} setLHAmount={setLHAmount}
-    // CBAmount={CBAmount} setCBAmount={setCBAmount}
-    // SSRibbonAmount={SSRibbonAmount} setSSRibbonAmount={setSSRibbonAmount}
-    // ZipperAmount={ZipperAmount} setZipperAmount={setZipperAmount}
+    GetFromLocalStorage("core3Amount", setCore3Amount);
+    GetFromLocalStorage("core6Amount", setCore6Amount);
+    GetFromLocalStorage("TSAmount", setTSAmount);
+    GetFromLocalStorage("PVCGlueAmount", setPVCGlueAmount);
+    GetFromLocalStorage("PETGGlueAmount", setPETGGlueAmount);
+    GetFromLocalStorage("SSDSTAmount", setSSDSTAmount);
+    GetFromLocalStorage("LHAmount", setLHAmount);
+    GetFromLocalStorage("CBAmount", setCBAmount);
+    GetFromLocalStorage("SSRibbonAmount", setSSRibbonAmount);
+    GetFromLocalStorage("ZipperAmount", setZipperAmount);
 
     // bind data for DirectCost Indirect Cost
-    if (localStorage.getItem("directCost") === null) {
-      localStorage.setItem("directCost", JSON.stringify(0));
-    } else {
-      setDirectCost(JSON.parse(localStorage.getItem("directCost")));
-    }
-    if (localStorage.getItem("inDirectCost") === null) {
-      localStorage.setItem("inDirectCost", JSON.stringify(0));
-    } else {
-      setIndirectCost(JSON.parse(localStorage.getItem("inDirectCost")));
-    }
+    GetFromLocalStorage("directCost", setDirectCost);
+    GetFromLocalStorage("inDirectCost", setIndirectCost);
 
-    // bind data for Fial Calculation
-    if (localStorage.getItem("wastagePercentValue") === null) {
-      localStorage.setItem("wastagePercentValue", JSON.stringify(0));
-    } else {
-      setWastagePercentValue(
-        JSON.parse(localStorage.getItem("wastagePercentValue"))
-      );
-    }
-    if (localStorage.getItem("promotionPercentValue") === null) {
-      localStorage.setItem("promotionPercentValue", JSON.stringify(0));
-    } else {
-      setPromotionPercentValue(
-        JSON.parse(localStorage.getItem("promotionPercentValue"))
-      );
-    }
+    // bind data for Final Calculation
+    GetFromLocalStorage("wastagePercentValue", setWastagePercentValue);
+    GetFromLocalStorage("promotionPercentValue", setPromotionPercentValue);
   }, []);
 
   // Use Effects For Sum of Raw
@@ -788,9 +873,81 @@ const App = () => {
               exact
               element={
                 <Report
+                  productName={productName}
                   structure={structure}
                   productSize={productSize}
-                  productName={productName}
+                  meterPerRoll={meterPerRoll}
+                  rollUp={rollUp}
+                  rollMeter={rollMeter}
+                  type={type}
+                  rollQty={rollQty}
+                  meterOrPcs={meterOrPcs}
+                  cuttinglength={cuttinglength}
+                  core3Length={core3Length}
+                  core3Size={core3Size}
+                  core3Price={core3Price}
+                  core6Length={core6Length}
+                  core6Size={core6Size}
+                  core6Price={core6Price}
+                  TSMeter={TSMeter}
+                  TSUp={TSUp}
+                  TSDST={TSDST}
+                  TSRoll={TSRoll}
+                  TSPrice={TSPrice}
+                  PVCGlueMeter={PVCGlueMeter}
+                  PVCGlueUp={PVCGlueUp}
+                  PVCGlueQty={PVCGlueQty}
+                  PVCGluePrice={PVCGluePrice}
+                  PETGGlueMeter={PETGGlueMeter}
+                  PETGGlueUp={PETGGlueUp}
+                  PETGGlueQty={PETGGlueQty}
+                  PETGGluePrice={PETGGluePrice}
+                  SSDSTMeter={SSDSTMeter}
+                  SSDSTUp={SSDSTUp}
+                  SSDSTDST={SSDSTDST}
+                  SSDSTRoll={SSDSTRoll}
+                  SSDSTPrice={SSDSTPrice}
+                  LHPcs={LHPcs}
+                  LHPrice={LHPrice}
+                  CBPcs={CBPcs}
+                  CBPrice={CBPrice}
+                  SSRibbonMeter={SSRibbonMeter}
+                  SSRibbonUp={SSRibbonUp}
+                  SSRibbonDST={SSRibbonDST}
+                  SSRibbonRoll={SSRibbonRoll}
+                  SSRibbonPrice={SSRibbonPrice}
+                  ZipperMeter={ZipperMeter}
+                  ZipperUp={ZipperUp}
+                  ZipperDST={ZipperDST}
+                  ZipperRoll={ZipperRoll}
+                  ZipperPrice={ZipperPrice}
+                  bagUp={bagUp}
+                  bagQty={bagQty}
+                  isMeter={isMeter}
+                  newInkRow={newInkRow}
+                  newGlueRow={newGlueRow}
+                  newThinnerRow={newThinnerRow}
+                  newFilmRow={newFilmRow}
+                  newResinRow={newResinRow}
+                  core3Amount={core3Amount}
+                  core6Amount={core6Amount}
+                  TSAmount={TSAmount}
+                  PVCGlueAmount={PVCGlueAmount}
+                  PETGGlueAmount={PETGGlueAmount}
+                  SSDSTAmount={SSDSTAmount}
+                  LHAmount={LHAmount}
+                  CBAmount={CBAmount}
+                  SSRibbonAmount={SSRibbonAmount}
+                  ZipperAmount={ZipperAmount}
+                  directCost={directCost}
+                  inDirectCost={inDirectCost}
+                  rawTotal={rawTotal}
+                  OtherMaterialsTotal={OtherMaterialsTotal}
+                  total={total}
+                  subTotal={subTotal}
+                  grandTotal={grandTotal}
+                  wastagePercentValue={wastagePercentValue}
+                  promotionPercentValue={promotionPercentValue}
                 />
               }
             />
@@ -804,7 +961,7 @@ const App = () => {
             <NavItem>
               <Button
                 className="icon-button"
-                onClick={saveHandler}
+                onClick={() => setOpen(true)}
                 color="secondary"
                 endIcon={<SaveIcon />}
                 variant="contained"
@@ -847,6 +1004,8 @@ const App = () => {
               </span>
             </NavItem>
           </NavBar>
+
+          <SaveAlertDialog open={open} setOpen={setOpen} />
         </React.Fragment>
       </ThemeProvider>
     </Router>
