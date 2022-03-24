@@ -499,7 +499,7 @@ export default function OtherMaterials({
           spacing={0.5}
           sx={{ px: 0.5, py: 0.5, bgcolor: "background.default" }}
         >
-          <span>Paper Core 3"</span>
+          <span>PVC Glue</span>
           <TextField
             value={PVCGlueMeter}
             id="pvcGlue_meter"
@@ -545,7 +545,7 @@ export default function OtherMaterials({
           spacing={0.5}
           sx={{ px: 0.5, py: 0.5, bgcolor: "background.default" }}
         >
-          <span>Paper Core 3"</span>
+          <span>PETG Glue</span>
           <TextField
             value={PETGGlueMeter}
             id="petgGlue_meter"

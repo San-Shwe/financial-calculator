@@ -42,12 +42,6 @@ export default function FinalResult({
         (promotionPercentValue * (subTotal + total)) / 100
       )
     );
-    // console.log(
-    //   "roll qty : ",
-    //   rollQty,
-    //   " bag qty : ",
-    //   typeof bagQty === "undefined"
-    // );
   }, [
     rollQty,
     rawTotal,
@@ -97,9 +91,8 @@ export default function FinalResult({
             placeholder="0.0"
           />
           <span className="cost_amount" id="wastageAmount">
-            $0000
+            $0
           </span>
-          {/* {subTotal} */}
         </li>
         <li className="cost">
           <span className="cost_lable">SubTotal : </span>

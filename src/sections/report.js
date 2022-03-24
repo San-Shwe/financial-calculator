@@ -21,13 +21,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.7)" : "#fff",
+  backgroundColor: theme.palette.mode === "dark" ? "transparent" : "#fff", //rgba(255, 255, 255, 0.7)
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "left",
   color: theme.palette.text.secondary,
 }));
+
 // ----------------------------------------------------------------------------------------------
 
 // function priceRow(qty, unit) {
@@ -52,8 +52,42 @@ const Item = styled(Paper)(({ theme }) => ({
 // const invoiceSubtotal = subtotal(rows);
 // const invoiceTaxes = TAX_RATE * invoiceSubtotal;
 // const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+
 // ------------------------------------------------------------------------------
 const date = new Date();
+
+const BindRaws = ({ raws }) => {
+  return raws.map((row) => (
+    <TableRow key={row.id}>
+      <TableCell>{Structures[row.name - 1].label}</TableCell>
+      <TableCell align="right">{row.qty}</TableCell>
+      <TableCell align="right">{row.price}</TableCell>
+      <TableCell align="right">${numberWithCommas(row.amount)}</TableCell>
+    </TableRow>
+  ));
+};
+
+const BindOtherMaterials = ({ name, qty, price, amount }) => {
+  const showOrHide = amount !== 0 ? "table-row" : "none";
+  return (
+    <TableRow style={{ display: showOrHide }}>
+      <TableCell>{name}</TableCell>
+      <TableCell align="right">{Number(qty)}</TableCell>
+      <TableCell align="right">{Number(price)}</TableCell>
+      <TableCell align="right">${numberWithCommas(amount)}</TableCell>
+    </TableRow>
+  );
+};
+
+// function totalRaws(ink, glue, resin, thinner, film) {
+//   let total = 0;
+//   ink.map((row) => (total += Number(row.amount)));
+//   glue.map((row) => (total += Number(row.amount)));
+//   resin.map((row) => (total += Number(row.amount)));
+//   thinner.map((row) => (total += Number(row.amount)));
+//   film.map((row) => (total += Number(row.amount)));
+//   return total;
+// }
 
 const ComponentToPrint = React.forwardRef((props, ref) => {
   return (
@@ -106,9 +140,13 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
             </Item>
           </Grid>
           <Grid item xs={12}>
+            <Item className="container">Hello</Item>
+          </Grid>
+
+          <Grid item xs={12}>
             <Item>
               <TableContainer component={Paper}>
-                <Table aria-label="spanning table">
+                <Table>
                   <TableHead>
                     {/* <TableRow>
                       <TableCell align="center" colSpan={3}>
@@ -124,41 +162,136 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {props.newInkRow.map((row) => (
-                      <TableRow key={row.id}>
-                        <TableCell>{Structures[row.name].label}</TableCell>
-                        <TableCell align="right">{row.qty}</TableCell>
-                        <TableCell align="right">{row.price}</TableCell>
-                        <TableCell align="right">
-                          ${numberWithCommas(row.amount)}
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    <BindRaws raws={props.newInkRow} />
+                    <BindRaws raws={props.newGlueRow} />
+                    <BindRaws raws={props.newResinRow} />
+                    <BindRaws raws={props.newThinnerRow} />
+                    <BindRaws raws={props.newFilmRow} />
+
+                    <BindOtherMaterials
+                      name="Paper Core 3''"
+                      qty={props.core3Length}
+                      price={props.core3Price}
+                      amount={props.core3Amount}
+                    />
+                    <BindOtherMaterials
+                      name="Paper Core 6''"
+                      qty={props.core6Length}
+                      price={props.core6Price}
+                      amount={props.core6Amount}
+                    />
+                    <BindOtherMaterials
+                      name="T.S ( double Side Tape)"
+                      qty={props.TSMeter}
+                      price={props.TSPrice}
+                      amount={props.TSAmount}
+                    />
+                    <BindOtherMaterials
+                      name="PVC Glue"
+                      qty={props.PVCGlueQty}
+                      price={props.PVCGluePrice}
+                      amount={props.PVCGlueAmount}
+                    />
+                    <BindOtherMaterials
+                      name="PETG Glue"
+                      qty={props.PETGGlueQty}
+                      price={props.PETGGluePrice}
+                      amount={props.PETGGlueAmount}
+                    />
+                    <BindOtherMaterials
+                      name="Double Side Tape"
+                      qty={props.SSDSTRoll}
+                      price={props.SSDSTPrice}
+                      amount={props.SSDSTAmount}
+                    />
+                    <BindOtherMaterials
+                      name="Loop Handle                      "
+                      qty={props.LHPcs}
+                      price={props.LHPrice}
+                      amount={props.LHAmount}
+                    />
+                    <BindOtherMaterials
+                      name="Card Board"
+                      qty={props.CBPcs}
+                      price={props.CBPrice}
+                      amount={props.CBAmount}
+                    />
+                    <BindOtherMaterials
+                      name="Ribbon"
+                      qty={props.SSRibbonRoll}
+                      price={props.SSRibbonPrice}
+                      amount={props.SSRibbonAmount}
+                    />
+                    <BindOtherMaterials
+                      name="4.S.S Zipper"
+                      qty={props.ZipperRoll}
+                      price={props.ZipperPrice}
+                      amount={props.ZipperAmount}
+                    />
+
                     <TableRow>
-                      <TableCell rowSpan={6} />
+                      <TableCell rowSpan={10} />
                       <TableCell colSpan={2}>RAW TOTAL : </TableCell>
-                      <TableCell align="right">0</TableCell>
+                      <TableCell align="right">{props.rawTotal}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={2}>OTHER MATERIALS : </TableCell>
-                      <TableCell align="right">0</TableCell>
+                      <TableCell align="right">
+                        {props.OtherMaterialsTotal}
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={2}>DIRECT COST : </TableCell>
-                      <TableCell align="right">0</TableCell>
+                      <TableCell align="right">{props.directCost}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={2}>INDIRECT COST : </TableCell>
                       <TableCell align="right">{props.inDirectCost}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Tax</TableCell>
-                      <TableCell align="right">0%</TableCell>
-                      <TableCell align="right">0</TableCell>
+                      <TableCell colSpan={2}>Total</TableCell>
+                      <TableCell align="right">{props.total}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Total</TableCell>
-                      <TableCell align="right">0</TableCell>
+                      <TableCell>Wastage % :</TableCell>
+                      <TableCell align="right">
+                        {props.wastagePercentValue}%
+                      </TableCell>
+                      <TableCell align="right">
+                        {twoDecimalPlacesIfCents(
+                          (props.wastagePercentValue * props.total) / 100
+                        )}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>SubTotal : </TableCell>
+                      <TableCell align="right">{props.subTotal}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Pormotion % :</TableCell>
+                      <TableCell align="right">
+                        {props.promotionPercentValue}%
+                      </TableCell>
+                      <TableCell align="right">
+                        {twoDecimalPlacesIfCents(
+                          (props.promotionPercentValue *
+                            (props.subTotal + props.total)) /
+                            100
+                        )}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>GRAND TOTAL : </TableCell>
+                      <TableCell align="right">{props.grandTotal}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>Per Unit : </TableCell>
+                      <TableCell align="right">
+                        {twoDecimalPlacesIfCents(
+                          (props.subTotal + props.total) /
+                            (props.rollQty !== 0 ? props.rollQty : props.bagQty)
+                        )}
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
