@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import ReactToPrint from "react-to-print";
 import "../css/report.css";
-
 import {
   twoDecimalPlacesIfCents,
   numberWithCommas,
@@ -20,40 +19,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles"; //,
+
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "transparent" : "#fff", //rgba(255, 255, 255, 0.7)
+  //backgroundColor: theme.palette.mode === "dark" ? "transparent" : "rgba(0, 0, 0, 0.04)", //rgba(255, 255, 255, 0.7)
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "left",
   color: theme.palette.text.secondary,
 }));
-
-// ----------------------------------------------------------------------------------------------
-
-// function priceRow(qty, unit) {
-//   return qty * unit;
-// }
-
-// function createRow(desc, qty, unit) {
-//   const price = priceRow(qty, unit);
-//   return { desc, qty, unit, price };
-// }
-
-// function subtotal(items) {
-//   return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
-// }
-
-// const rows = [
-//   createRow("Paperclips (Box)", 100, 1.15),
-//   createRow("Paper (Case)", 10, 45.99),
-//   createRow("Waste Basket", 2, 17.99),
-// ];
-
-// const invoiceSubtotal = subtotal(rows);
-// const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-// const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-
-// ------------------------------------------------------------------------------
 const date = new Date();
 
 const BindRaws = ({ raws }) => {
@@ -79,20 +59,10 @@ const BindOtherMaterials = ({ name, qty, price, amount }) => {
   );
 };
 
-// function totalRaws(ink, glue, resin, thinner, film) {
-//   let total = 0;
-//   ink.map((row) => (total += Number(row.amount)));
-//   glue.map((row) => (total += Number(row.amount)));
-//   resin.map((row) => (total += Number(row.amount)));
-//   thinner.map((row) => (total += Number(row.amount)));
-//   film.map((row) => (total += Number(row.amount)));
-//   return total;
-// }
-
 const ComponentToPrint = React.forwardRef((props, ref) => {
   return (
     <div ref={ref}>
-      <Box ref={ref} sx={{ flexGrow: 1 }}>
+      <Box ref={ref} sx={{ flexGrow: 1, backgroundColor: "#fff" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Item className="container">
@@ -118,43 +88,107 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
           <Grid item xs={6}>
             <Item className="container">
               <div className="item">
-                <strong>PRODUCT NAME</strong>
-                {props.productName}
-                <br />
-                <strong>PRODUCT SIZE</strong>
-                {props.productSize}
+                <div>
+                  <strong>PRODUCT NAME</strong>
+                  <p>{props.productName}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <strong>PRODUCT SIZE</strong>
+                  <p>{props.productSize}</p>
+                </div>
               </div>
             </Item>
           </Grid>
-
           <Grid item xs={6}>
             <Item className="container">
               <div className="item">
-                <strong>STRUCTURE</strong>
-                {Structures[props.structure].label}
-                <br />
-                <strong>TYPE</strong>
-                {props.type}
-                <br />
+                <div>
+                  <strong>STRUCTURE</strong>
+                  <p>{Structures[props.structure].label}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <strong>TYPE</strong>
+                  <p>{props.type}</p>
+                </div>
               </div>
             </Item>
           </Grid>
-          <Grid item xs={12}>
-            <Item className="container">Hello</Item>
+          <Grid
+            style={{ display: props.rollQty !== 0 ? "inline" : "none" }}
+            item
+            xs={12}
+          >
+            <Item className="container">
+              <div className="item">
+                <div>
+                  <b>Up</b>
+                  <p>{props.rollUp}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <b>Meter</b>
+                  <p>{props.rollMeter}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <b>M/R</b>
+                  <p>{props.meterPerRoll}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <b>Roll Qty</b>
+                  <p>{props.rollQty}</p>
+                </div>
+              </div>
+            </Item>
           </Grid>
-
+          <Grid
+            style={{ display: props.rollQty !== 0 ? "none" : "inline" }}
+            item
+            xs={12}
+          >
+            <Item className="container">
+              <div className="item">
+                <div>
+                  <b>{props.isMeter === true ? "Meter" : "Pcs"}</b>
+                  <p>{props.meterOrPcs}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <b>Cutting Length</b>
+                  <p>{props.cuttinglength}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <b>Up</b>
+                  <p>{props.bagUp}</p>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <b>{props.isMeter === true ? "Pcs" : "Meter"}</b>
+                  <p>{props.bagQty}</p>
+                </div>
+              </div>
+            </Item>
+          </Grid>
           <Grid item xs={12}>
             <Item>
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
-                    {/* <TableRow>
-                      <TableCell align="center" colSpan={3}>
-                        Details
-                      </TableCell>
-                      <TableCell align="right">Price</TableCell>
-                    </TableRow> */}
-                    <TableRow>
+                    <TableRow
+                      style={{ backgroundColor: "rgba(0, 0, 0, 0.04)" }}
+                    >
                       <TableCell>Desc</TableCell>
                       <TableCell align="right">Qty.</TableCell>
                       <TableCell align="right">Unit</TableCell>
@@ -205,7 +239,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                       amount={props.SSDSTAmount}
                     />
                     <BindOtherMaterials
-                      name="Loop Handle                      "
+                      name="Loop Handle"
                       qty={props.LHPcs}
                       price={props.LHPrice}
                       amount={props.LHAmount}
@@ -265,7 +299,9 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={2}>SubTotal : </TableCell>
-                      <TableCell align="right">{props.subTotal}</TableCell>
+                      <TableCell align="right">
+                        {twoDecimalPlacesIfCents(props.subTotal + props.total)}
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Pormotion % :</TableCell>
@@ -282,7 +318,11 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={2}>GRAND TOTAL : </TableCell>
-                      <TableCell align="right">{props.grandTotal}</TableCell>
+                      <TableCell align="right">
+                        {twoDecimalPlacesIfCents(
+                          props.subTotal + props.total - props.grandTotal
+                        )}
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={2}>Per Unit : </TableCell>
@@ -385,94 +425,96 @@ export default function Report({
 
   return (
     <div>
-      <ComponentToPrint
-        productName={productName}
-        structure={structure}
-        productSize={productSize}
-        meterPerRoll={meterPerRoll}
-        rollUp={rollUp}
-        rollMeter={rollMeter}
-        type={type}
-        rollQty={rollQty}
-        meterOrPcs={meterOrPcs}
-        cuttinglength={cuttinglength}
-        core3Length={core3Length}
-        core3Size={core3Size}
-        core3Price={core3Price}
-        core6Length={core6Length}
-        core6Size={core6Size}
-        core6Price={core6Price}
-        TSMeter={TSMeter}
-        TSUp={TSUp}
-        TSDST={TSDST}
-        TSRoll={TSRoll}
-        TSPrice={TSPrice}
-        PVCGlueMeter={PVCGlueMeter}
-        PVCGlueUp={PVCGlueUp}
-        PVCGlueQty={PVCGlueQty}
-        PVCGluePrice={PVCGluePrice}
-        PETGGlueMeter={PETGGlueMeter}
-        PETGGlueUp={PETGGlueUp}
-        PETGGlueQty={PETGGlueQty}
-        PETGGluePrice={PETGGluePrice}
-        SSDSTMeter={SSDSTMeter}
-        SSDSTUp={SSDSTUp}
-        SSDSTDST={SSDSTDST}
-        SSDSTRoll={SSDSTRoll}
-        SSDSTPrice={SSDSTPrice}
-        LHPcs={LHPcs}
-        LHPrice={LHPrice}
-        CBPcs={CBPcs}
-        CBPrice={CBPrice}
-        SSRibbonMeter={SSRibbonMeter}
-        SSRibbonUp={SSRibbonUp}
-        SSRibbonDST={SSRibbonDST}
-        SSRibbonRoll={SSRibbonRoll}
-        SSRibbonPrice={SSRibbonPrice}
-        ZipperMeter={ZipperMeter}
-        ZipperUp={ZipperUp}
-        ZipperDST={ZipperDST}
-        ZipperRoll={ZipperRoll}
-        ZipperPrice={ZipperPrice}
-        bagUp={bagUp}
-        bagQty={bagQty}
-        isMeter={isMeter}
-        newInkRow={newInkRow}
-        newGlueRow={newGlueRow}
-        newThinnerRow={newThinnerRow}
-        newFilmRow={newFilmRow}
-        newResinRow={newResinRow}
-        core3Amount={core3Amount}
-        core6Amount={core6Amount}
-        TSAmount={TSAmount}
-        PVCGlueAmount={PVCGlueAmount}
-        PETGGlueAmount={PETGGlueAmount}
-        SSDSTAmount={SSDSTAmount}
-        LHAmount={LHAmount}
-        CBAmount={CBAmount}
-        SSRibbonAmount={SSRibbonAmount}
-        ZipperAmount={ZipperAmount}
-        directCost={directCost}
-        inDirectCost={inDirectCost}
-        rawTotal={rawTotal}
-        OtherMaterialsTotal={OtherMaterialsTotal}
-        total={total}
-        subTotal={subTotal}
-        grandTotal={grandTotal}
-        wastagePercentValue={wastagePercentValue}
-        promotionPercentValue={promotionPercentValue}
-        ref={componentRef}
-      />
-      <ReactToPrint
-        trigger={() => <button>Print this out!</button>}
-        content={() => componentRef.current}
-      />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <ThemeProvider theme={lightTheme}>
+        <ComponentToPrint
+          productName={productName}
+          structure={structure}
+          productSize={productSize}
+          meterPerRoll={meterPerRoll}
+          rollUp={rollUp}
+          rollMeter={rollMeter}
+          type={type}
+          rollQty={rollQty}
+          meterOrPcs={meterOrPcs}
+          cuttinglength={cuttinglength}
+          core3Length={core3Length}
+          core3Size={core3Size}
+          core3Price={core3Price}
+          core6Length={core6Length}
+          core6Size={core6Size}
+          core6Price={core6Price}
+          TSMeter={TSMeter}
+          TSUp={TSUp}
+          TSDST={TSDST}
+          TSRoll={TSRoll}
+          TSPrice={TSPrice}
+          PVCGlueMeter={PVCGlueMeter}
+          PVCGlueUp={PVCGlueUp}
+          PVCGlueQty={PVCGlueQty}
+          PVCGluePrice={PVCGluePrice}
+          PETGGlueMeter={PETGGlueMeter}
+          PETGGlueUp={PETGGlueUp}
+          PETGGlueQty={PETGGlueQty}
+          PETGGluePrice={PETGGluePrice}
+          SSDSTMeter={SSDSTMeter}
+          SSDSTUp={SSDSTUp}
+          SSDSTDST={SSDSTDST}
+          SSDSTRoll={SSDSTRoll}
+          SSDSTPrice={SSDSTPrice}
+          LHPcs={LHPcs}
+          LHPrice={LHPrice}
+          CBPcs={CBPcs}
+          CBPrice={CBPrice}
+          SSRibbonMeter={SSRibbonMeter}
+          SSRibbonUp={SSRibbonUp}
+          SSRibbonDST={SSRibbonDST}
+          SSRibbonRoll={SSRibbonRoll}
+          SSRibbonPrice={SSRibbonPrice}
+          ZipperMeter={ZipperMeter}
+          ZipperUp={ZipperUp}
+          ZipperDST={ZipperDST}
+          ZipperRoll={ZipperRoll}
+          ZipperPrice={ZipperPrice}
+          bagUp={bagUp}
+          bagQty={bagQty}
+          isMeter={isMeter}
+          newInkRow={newInkRow}
+          newGlueRow={newGlueRow}
+          newThinnerRow={newThinnerRow}
+          newFilmRow={newFilmRow}
+          newResinRow={newResinRow}
+          core3Amount={core3Amount}
+          core6Amount={core6Amount}
+          TSAmount={TSAmount}
+          PVCGlueAmount={PVCGlueAmount}
+          PETGGlueAmount={PETGGlueAmount}
+          SSDSTAmount={SSDSTAmount}
+          LHAmount={LHAmount}
+          CBAmount={CBAmount}
+          SSRibbonAmount={SSRibbonAmount}
+          ZipperAmount={ZipperAmount}
+          directCost={directCost}
+          inDirectCost={inDirectCost}
+          rawTotal={rawTotal}
+          OtherMaterialsTotal={OtherMaterialsTotal}
+          total={total}
+          subTotal={subTotal}
+          grandTotal={grandTotal}
+          wastagePercentValue={wastagePercentValue}
+          promotionPercentValue={promotionPercentValue}
+          ref={componentRef}
+        />
+        <ReactToPrint
+          trigger={() => <button>Print this out!</button>}
+          content={() => componentRef.current}
+        />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </ThemeProvider>
     </div>
   );
 }
