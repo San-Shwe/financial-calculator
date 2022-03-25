@@ -14,7 +14,7 @@ html {
 @media (min-width: 768px) {
   .title {
     /* font-size: 26px;  */
-    background: -webkit-linear-gradient(rgb(255, 235, 53), rgb(226, 171, 171));
+    background: -webkit-linear-gradient(rgb(58, 57, 51), rgb(110, 104, 104));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -144,7 +144,7 @@ a {
   /* width : var(--button-size); */
   height: var(--button-size);
   border-radius: 10px;
-  background-color: #e4f12d;
+  /* background-color: #e4f12d; */
   padding: 10px;
   margin: 2px;
   display: flex;
