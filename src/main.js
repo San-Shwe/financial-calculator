@@ -180,7 +180,7 @@ const Main = ({
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
-            <Item className="btn-grad">
+            <Item className="btn-grad" sx={{ backgroundColor: "#BBBFCA" }}>
               <TopBanner />
             </Item>
           </Grid>
@@ -354,6 +354,7 @@ const Main = ({
           <Grid item xs={12} md={6}>
             <Item>
               <FinalResult
+                type={type}
                 rollQty={rollQty}
                 bagQty={bagQty}
                 directCost={directCost}

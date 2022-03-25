@@ -109,17 +109,17 @@ export default function UnstyledTabsCustomized({
     switch (type) {
       case "Roll":
         setTabValue(0);
-        setMeterOrPcs("");
-        setCuttingLength("");
-        setBagUp("");
-        setBagQty(0);
+        // setMeterOrPcs("");
+        // setCuttingLength("");
+        // setBagUp("");
+        // setBagQty(0);
         break;
       case "Bag":
         setTabValue(1);
-        setRollQty(0);
-        setMeterPerRoll("");
-        setRollUp("");
-        setRollMeter("");
+        // setRollQty(0);
+        // setMeterPerRoll("");
+        // setRollUp("");
+        // setRollMeter("");
         break;
       case "Kg":
         setTabValue(2);
@@ -189,7 +189,7 @@ export default function UnstyledTabsCustomized({
   };
 
   return (
-    <TabsUnstyled defaultValue={tabValue} value={tabValue}>
+    <TabsUnstyled value={tabValue}>
       <TabsList>
         <Tab onClick={(e) => setType("Roll")}>Roll Form</Tab>
         <Tab onClick={(e) => setType("Bag")}>Bag Form</Tab>

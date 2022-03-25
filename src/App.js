@@ -6,11 +6,11 @@ import ClearAllIcon from "@mui/icons-material/ClearAllRounded";
 import FolderSpecialIcon from "@mui/icons-material/FolderSpecial";
 import SaveIcon from "@mui/icons-material/SaveRounded";
 import Button from "@mui/material/Button";
-import { cyan, orange } from "@mui/material/colors";
+import { cyan, orange, green } from "@mui/material/colors";
 import About from "./about";
 import Main from "./main";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import LocalPrintshopTwoToneIcon from "@mui/icons-material/LocalPrintshopTwoTone";
+import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded";
 import { makeStyles, Theme } from "@material-ui/core";
 
 import Report from "./sections/report";
@@ -655,7 +655,16 @@ const App = () => {
     inDirectCost,
   ]);
 
-  // const MyContext = React.createContext();
+  const [visible, setVisible] = useState(true);
+
+  // useEffect Hook for show and hide buttons
+  useEffect(() => {
+    if (window.location.href === "http://localhost:3000/financial-calculator") {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  }, []);
 
   return (
     <Router>
@@ -954,12 +963,31 @@ const App = () => {
           </Routes>
           <NavBar>
             <NavItem>
-              <Link to="/report" id="report">
-                <LocalPrintshopTwoToneIcon sx={{ fontSize: 40 }} />
-              </Link>
+              <span onClick={(e) => setViewSaved(!viewSaved)}>
+                {viewSaved ? (
+                  <Link
+                    to="/report"
+                    id="report"
+                    onClick={(e) => setVisible(false)}
+                  >
+                    <LocalPrintshopRoundedIcon
+                      // style={{ color: green[700] }}
+                      sx={{ fontSize: 40, color: green[700] }}
+                    />
+                  </Link>
+                ) : (
+                  <Link
+                    to="/financial-calculator"
+                    onClick={(e) => setVisible(true)}
+                  >
+                    <ArrowBackIcon sx={{ fontSize: 40 }} />
+                  </Link>
+                )}
+              </span>
             </NavItem>
             <NavItem>
               <Button
+                style={{ display: visible ? "" : "none" }}
                 className="icon-button"
                 onClick={() => setOpen(true)}
                 color="secondary"
@@ -971,6 +999,7 @@ const App = () => {
             </NavItem>
             <NavItem>
               <Button
+                style={{ display: visible ? "" : "none" }}
                 className="icon-button"
                 color="success"
                 endIcon={<CalculateIcon />}
@@ -981,9 +1010,10 @@ const App = () => {
             </NavItem>
             <NavItem>
               <Button
+                style={{ display: visible ? "" : "none" }}
                 className="icon-button"
                 onClick={clearHandler}
-                color="warning"
+                color="secondary"
                 endIcon={<ClearAllIcon />}
                 variant="contained"
               >
@@ -993,11 +1023,16 @@ const App = () => {
             <NavItem>
               <span onClick={(e) => setViewSaved(!viewSaved)}>
                 {viewSaved ? (
-                  <Link to="/saved-record" id="savedPageNav">
-                    <FolderSpecialIcon sx={{ fontSize: 40 }} />
+                  <Link to="/saved-record" onClick={(e) => setVisible(false)}>
+                    <FolderSpecialIcon
+                      sx={{ fontSize: 40, color: green[500] }}
+                    />
                   </Link>
                 ) : (
-                  <Link to="/financial-calculator" id="savedPageNav">
+                  <Link
+                    to="/financial-calculator"
+                    onClick={(e) => setVisible(true)}
+                  >
                     <ArrowBackIcon sx={{ fontSize: 40 }} />
                   </Link>
                 )}

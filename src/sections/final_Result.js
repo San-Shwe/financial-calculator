@@ -5,6 +5,7 @@ import "../App.css";
 import { twoDecimalPlacesIfCents } from "../Modules/global_module.mjs";
 
 export default function FinalResult({
+  type,
   bagQty,
   rollQty,
   rawTotal,
@@ -128,7 +129,7 @@ export default function FinalResult({
           <span className="cost_amount" id="perunit">
             $
             {twoDecimalPlacesIfCents(
-              (subTotal + total) / (rollQty !== 0 ? rollQty : bagQty)
+              (subTotal + total) / (type !== "Bag" ? rollQty : bagQty)
             )}
           </span>
         </li>
