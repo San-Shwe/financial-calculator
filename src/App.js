@@ -24,7 +24,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 // IMPORT COMPONENTS
 import { NavBar, NavItem } from "./Layout/navigation";
 import { twoDecimalPlacesIfCents } from "./Modules/global_module";
-
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const darkTheme = createTheme({
@@ -659,11 +658,17 @@ const App = () => {
 
   // useEffect Hook for show and hide buttons
   useEffect(() => {
-    if (window.location.href === "http://localhost:3000/financial-calculator") {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
+    window.onpopstate = () => {
+      switch (window.location.href) {
+        case "https://san-shwe.github.io/financial-calculator/":
+        case "http://localhost:3000/financial-calculator":
+          setVisible(true);
+          break;
+        default:
+          setVisible(false);
+          break;
+      }
+    };
   }, []);
 
   return (
@@ -971,7 +976,6 @@ const App = () => {
                     onClick={(e) => setVisible(false)}
                   >
                     <LocalPrintshopRoundedIcon
-                      // style={{ color: green[700] }}
                       sx={{ fontSize: 40, color: green[700] }}
                     />
                   </Link>
