@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/financial-calculator/static/css/main.d30f7402.css",
-    "main.js": "/financial-calculator/static/js/main.841b36eb.js",
+    "main.js": "/financial-calculator/static/js/main.c500f180.js",
     "static/js/787.5c6cb5f0.chunk.js": "/financial-calculator/static/js/787.5c6cb5f0.chunk.js",
     "static/media/roboto-all-300-normal.woff": "/financial-calculator/static/media/roboto-all-300-normal.8fc5f5f22c9951113696.woff",
     "static/media/msw-transparent-logo.png": "/financial-calculator/static/media/msw-transparent-logo.3d695e1f56eb5881ad5e.png",
@@ -14,11 +14,11 @@
     "static/media/roboto-greek-ext-300-normal.woff2": "/financial-calculator/static/media/roboto-greek-ext-300-normal.04e05839d6a35e046c13.woff2",
     "index.html": "/financial-calculator/index.html",
     "main.d30f7402.css.map": "/financial-calculator/static/css/main.d30f7402.css.map",
-    "main.841b36eb.js.map": "/financial-calculator/static/js/main.841b36eb.js.map",
+    "main.c500f180.js.map": "/financial-calculator/static/js/main.c500f180.js.map",
     "787.5c6cb5f0.chunk.js.map": "/financial-calculator/static/js/787.5c6cb5f0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d30f7402.css",
-    "static/js/main.841b36eb.js"
+    "static/js/main.c500f180.js"
   ]
 }
